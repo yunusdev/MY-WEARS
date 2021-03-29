@@ -25,10 +25,7 @@ class CategoriesController extends Controller
 
     public function categoryProducts($categorySlug){
 
-        $data['categories'] = $this->categoryRepository->getCategoriesSubCategories();
-        $category = $this->categoryRepository->getCategoryBy(['slug' => $categorySlug]);
-        $data['category'] = $category;
-        $data['products'] = $this->productRepository->getCategoryProducts($category->id, ['category', 'subCategory']);
+        $data['category'] = $this->categoryRepository->getCategoryBy(['slug' => $categorySlug]);
 
         return view('shop.index')->with($data);
 
@@ -36,10 +33,7 @@ class CategoriesController extends Controller
 
     public function subCategoryProducts($subCategorySlug){
 
-        $data['categories'] = $this->categoryRepository->getCategoriesSubCategories();
-        $subCategory = $this->subCategoryRepository->getSubCategoryBy(['slug' => $subCategorySlug], ['category']);
-        $data['sub_category'] = $subCategory;
-        $data['products'] = $this->productRepository->getSubCategoryProducts($subCategory->id, ['category', 'subCategory']);
+        $data['sub_category'] = $this->subCategoryRepository->getSubCategoryBy(['slug' => $subCategorySlug], ['category']);
         return view('shop.index')->with($data);
 
     }

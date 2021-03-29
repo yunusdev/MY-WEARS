@@ -4,24 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Contracts\CategoryContract;
 use App\Contracts\ProductContract;
+use App\Contracts\SubCategoryContract;
+use App\Filters\ProductFilter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class ShopController extends Controller
 {
     //
 
-    private $productRepository, $categoryRepository;
+    private $productRepository, $categoryRepository, $subCategoryRepository;
 
-    public function __construct(ProductContract $productRepository, CategoryContract $categoryRepository)
+    public function __construct(ProductContract $productRepository, CategoryContract $categoryRepository, SubCategoryContract $subCategoryRepository)
     {
         $this->productRepository = $productRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->subCategoryRepository = $subCategoryRepository;
     }
 
     public function index(){
-        $data['products'] = $this->productRepository->getProducts();
-        return view('shop.index')->with($data);
+        return view('shop.index');
+    }
+
+    public function getProducts(Request $request){
+
+        $filters = new ProductFilter($request);
+        return $this->productRepository->filterProducts($filters, 3);
 
     }
 

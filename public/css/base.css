@@ -41,3 +41,7 @@ div.order-details h6{
 
     font-size: 15px;
 }
+
+.disabled{
+    cursor: none;
+}

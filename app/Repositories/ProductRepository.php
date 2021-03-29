@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Contracts\ProductContract;
 use App\Contracts\ProductsImageContract;
+use App\Filters\ProductFilter;
 use App\Models\Product;
 use App\Traits\UploadImage;
 use Illuminate\Support\Facades\Log;
@@ -24,13 +25,24 @@ class ProductRepository extends BaseRepository implements ProductContract
 
     public function getProducts()
     {
-        return $this->all(['*'], 'created_at', 'desc',  ['category', 'subCategory']);
+//        return $this->allPaginate(9, 'created_at', 'desc',  ['category', 'subCategory']);
+        return $this->all(['*'],'created_at', 'desc',  ['category', 'subCategory']);
     }
 
     public function getTopCategoryProducts(string $categoryId, int $num = 3)
     {
         return $this->model->where('category_id', $categoryId)->latest()->take($num)->get();
 
+    }
+
+    public function filterProducts(ProductFilter $filters, int $pagination = 9)
+    {
+        $products = $this->model
+            ->with(['category', 'subCategory'])
+            ->filter($filters)
+            ->paginate($pagination);;
+
+        return $products;
     }
 
     public function incrementProductViewCount(Product $product)

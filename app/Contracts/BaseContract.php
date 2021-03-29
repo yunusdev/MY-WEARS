@@ -32,6 +32,17 @@ interface BaseContract
     public function all($columns = array('*'), string $orderBy = 'id', string $sortBy = 'desc');
 
     /**
+     * Return all model rows
+     * @param int $numPaginated
+     * @param string $orderBy
+     * @param string $sortBy
+     * @param array $relationship
+     * @return mixed
+     */
+    public function allPaginate(int $numPaginated = 9, string $orderBy = 'created_at', string $sortBy = 'desc', array $relationship = []);
+
+
+    /**
      * @param array $columns
      * @param string $orderBy
      * @param string $sortBy

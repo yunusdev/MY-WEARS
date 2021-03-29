@@ -2,6 +2,7 @@
 
 namespace App\Contracts;
 
+use App\Filters\ProductFilter;
 use App\Models\Product;
 
 interface ProductContract
@@ -10,6 +11,8 @@ interface ProductContract
     public function getProducts();
 
     public function getTopCategoryProducts(string $categoryId, int $num = 3);
+
+    public function filterProducts(ProductFilter $filters, int $pagination = 9);
 
     public function getProductById(string $id);
 
