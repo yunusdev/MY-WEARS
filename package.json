@@ -28,6 +28,7 @@
         "algoliasearch": "^4.8.5",
         "instantsearch.css": "^7.4.5",
         "izitoast": "^1.4.0",
+        "laravel-vue-pagination": "^2.3.1",
         "luxon": "^1.26.0",
         "sweetalert": "^2.1.2",
         "vue-datetime": "^1.0.0-beta.14",

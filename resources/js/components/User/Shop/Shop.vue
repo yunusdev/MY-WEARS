@@ -9,14 +9,20 @@
                     <div class="column">
                         <div class="shop-sorting">
                             <label for="sorting">Sort by:</label>
-                            <select class="form-control" id="sorting">
-                                <option>Popularity</option>
-                                <option>Low - High Price</option>
-                                <option>High - Low Price</option>
-                                <option>Avarage Rating</option>
-                                <option>A - Z Order</option>
-                                <option>Z - A Order</option>
-                            </select><span class="text-muted">Showing:&nbsp;</span><span>1 - 12 items</span>
+                            <select @change="getProducts()" v-model="orderBy" class="form-control" id="sorting">
+                                <option value="">-- Select Sort --</option>
+                                <option value="created_at">Latest</option>
+                                <option value="views_count">Trending</option>
+                                <option value="price">Price</option>
+                            </select>
+                            <select @change="getProducts()" v-model="sortType" class="form-control" id="sortType">
+                                <option value="asc">Ascending</option>
+                                <option value="desc">Descending</option>
+                            </select>
+                            <span class="text-muted">Showing:&nbsp;</span>
+                            <span>
+                                {{productsData.from}} -  {{productsData.to}} items
+                            </span>
                         </div>
                     </div>
                     <div class="column">
@@ -24,13 +30,20 @@
                     </div>
                 </div>
                 <!-- Products Grid-->
-                <div class="isotope-grid cols-3 mb-2">
-                    <div class="gutter-sizer"></div>
-                    <div class="grid-sizer"></div>
-                    <product v-for="product, key in products" :key="product.name" :product="product"></product>
+                <div class="row mb-5">
+<!--                    <div class="gutter-sizer"></div>-->
+<!--                    <div class="grid-sizer"></div>-->
+                    <product :add_col="true" v-if="loaded" v-for="product, key in products" :key="product.name" :product="product"></product>
                 </div>
+
                 <!-- Pagination-->
+<!--                <pagination :data="productsData" @pagination-change-page="getProducts"></pagination>-->
                 <nav class="pagination">
+                    <div class="column text-left hidden-xs-down">
+                        <a class="btn btn-outline-secondary btn-sm" @click="getProducts(productsData.current_page - 1)"
+                           :class="{'disabled': productsData.current_page === 1}">
+                            <i class="icon-arrow-left"></i> Prev&nbsp;</a>
+                    </div>
                     <div class="column">
                         <ul class="pages">
                             <li class="active"><a href="#">1</a></li>
@@ -41,7 +54,11 @@
                             <li><a href="#">12</a></li>
                         </ul>
                     </div>
-                    <div class="column text-right hidden-xs-down"><a class="btn btn-outline-secondary btn-sm" href="#">Next&nbsp;<i class="icon-arrow-right"></i></a></div>
+                    <div class="column text-right hidden-xs-down">
+                        <a class="btn btn-outline-secondary btn-sm" :class="{'disabled': productsData.current_page === productsData.last_page}"
+                           @click="getProducts(productsData.current_page + 1)">Next&nbsp;<i class="icon-arrow-right"></i>
+                        </a>
+                    </div>
                 </nav>
             </div>
             <!-- Sidebar          -->
@@ -65,68 +82,24 @@
                     <!-- Widget Price Range-->
                     <section class="widget widget-categories">
                         <h3 class="widget-title">Price Range</h3>
-                        <form class="price-range-slider" method="post" data-start-min="250" data-start-max="650" data-min="0" data-max="1000" data-step="1">
+                        <form class="price-range-slider" method="post" data-start-min="500" data-start-max="1000" data-min="500" data-max="20000" data-step="1">
                             <div class="ui-range-slider"></div>
                             <footer class="ui-range-slider-footer">
                                 <div class="column">
-                                    <button class="btn btn-outline-primary btn-sm" type="submit">Filter</button>
+                                    <button @click="filterPrice" class="btn btn-outline-primary btn-sm" type="button">Filter</button>
                                 </div>
                                 <div class="column">
                                     <div class="ui-range-values">
-                                        <div class="ui-range-value-min">$<span></span>
-                                            <input type="hidden">
+                                        <div class="ui-range-value-min">N<span></span>
+                                            <input id="min" type="hidden">
                                         </div>&nbsp;-&nbsp;
-                                        <div class="ui-range-value-max">$<span></span>
-                                            <input type="hidden">
+                                        <div class="ui-range-value-max">N<span></span>
+                                            <input id="max" type="hidden">
                                         </div>
                                     </div>
                                 </div>
                             </footer>
                         </form>
-                    </section>
-                    <!-- Widget Brand Filter-->
-                    <section class="widget">
-                        <h3 class="widget-title">Filter by Brand</h3>
-                        <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" id="adidas">
-                            <label class="custom-control-label" for="adidas">Adidas&nbsp;<span class="text-muted">(254)</span></label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" id="bilabong">
-                            <label class="custom-control-label" for="bilabong">Bilabong&nbsp;<span class="text-muted">(39)</span></label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" id="klein">
-                            <label class="custom-control-label" for="klein">Calvin Klein&nbsp;<span class="text-muted">(128)</span></label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" id="nike">
-                            <label class="custom-control-label" for="nike">Nike&nbsp;<span class="text-muted">(310)</span></label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" id="bahama">
-                            <label class="custom-control-label" for="bahama">Tommy Bahama&nbsp;<span class="text-muted">(42)</span></label>
-                        </div>
-                    </section>
-                    <!-- Widget Size Filter-->
-                    <section class="widget">
-                        <h3 class="widget-title">Filter by Size</h3>
-                        <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" id="xl">
-                            <label class="custom-control-label" for="xl">XL&nbsp;<span class="text-muted">(208)</span></label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" id="l">
-                            <label class="custom-control-label" for="l">L&nbsp;<span class="text-muted">(311)</span></label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" id="m">
-                            <label class="custom-control-label" for="m">M&nbsp;<span class="text-muted">(485)</span></label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" id="s">
-                            <label class="custom-control-label" for="s">S&nbsp;<span class="text-muted">(213)</span></label>
-                        </div>
                     </section>
                     <!-- Promo Banner-->
                     <section class="promo-box" style="background-image: url(img/banners/02.jpg);">
@@ -145,28 +118,36 @@
 
 <script>
 import Product from "./Product";
+import pagination from 'laravel-vue-pagination'
 import {mapMutations, mapActions, mapGetters} from 'vuex'
 export default {
     name: "Shop",
 
-    components: {Product},
+    components: {Product, pagination},
 
-    props: ['raw_products', 'raw_categories', 'raw_sub_category', 'raw_category'],
+    props: ['raw_sub_category', 'raw_category'],
 
     data(){
 
         return {
-            products: JSON.parse(this.raw_products),
-            // categories: JSON.parse(this.raw_categories),
             category: this.raw_category ? JSON.parse(this.raw_category): null,
-            sub_category: this.raw_sub_category ? JSON.parse(this.raw_sub_category) : null
+            sub_category: this.raw_sub_category ? JSON.parse(this.raw_sub_category) : null,
+            productsData: {},
+            priceRange: {
+              min: null,
+              max: null,
+            },
+            loaded: false,
+            orderBy: '',
+            sortType: 'desc',
+            products: []
         }
 
     },
 
     async mounted() {
 
-        // await this.getUserCartItems()
+        await this.getProducts()
         await this.getCategories({})
 
     },
@@ -187,7 +168,49 @@ export default {
             // getUserCartItems: 'cart/getUserCartItems',
             getCategories: 'shop/getCategories'
 
-        })
+        }),
+
+        filterPrice(){
+
+            this.priceRange.min = $("#min").val() || 500
+            this.priceRange.max = $("#max").val() || 1000
+
+            this.getProducts(null, true)
+
+        },
+
+        getProducts(page, price = false) {
+            if (typeof page === 'undefined' || !page) {
+                page = 1;
+            }
+            let query = '';
+            if (!price){
+                if(this.category){
+                    query += `&category=${this.category.id}`
+                }
+                if(this.sub_category){
+                    query += `&subCategory=${this.sub_category.id}`
+                }
+                if(this.orderBy && this.sortType){
+                    if(this.sortType === 'desc'){
+                        query += `&orderByDesc=${this.orderBy}`
+                    }else{
+                        query += `&orderByAsc=${this.orderBy}`
+                    }
+                }
+            }else{
+                query += `&minPrice=${this.priceRange.min}&maxPrice=${this.priceRange.max}`
+            }
+
+            this.$http.get(`/shop/products?page=${page}${query}`)
+                .then(response => {
+                    this.productsData = response.data;
+                    this.products = response.data.data;
+                    this.loaded = true
+                }).catch(err => {
+                // console.log(err)
+            });
+        }
 
     }
 

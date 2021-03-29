@@ -57,6 +57,18 @@ class BaseRepository implements BaseContract
     }
 
     /**
+     * @param string $orderBy
+     * @param string $sortBy
+     * @param array $relationship
+     * @param int $numPaginated
+     * @return mixed
+     */
+    public function allPaginate(int $numPaginated = 9, string $orderBy = 'created_at', string $sortBy = 'desc', array $relationship = [])
+    {
+        return $this->model->orderBy($orderBy, $sortBy)->with($relationship)->paginate($numPaginated);
+    }
+
+    /**
      * @param array $columns
      * @param string $orderBy
      * @param string $sortBy

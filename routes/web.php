@@ -26,6 +26,10 @@ Route::group(['prefix' => 'shop'], function (){
         [App\Http\Controllers\ShopController::class, 'index']
     )->name('shop');
 
+    Route::get('/products',
+        [App\Http\Controllers\ShopController::class, 'getProducts']
+    );
+
      Route::get('/categories',
          [App\Http\Controllers\ShopController::class, 'getCategories']
      );
