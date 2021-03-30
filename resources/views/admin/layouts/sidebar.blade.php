@@ -27,6 +27,7 @@
             <li class="{{isActiveUrl('/admin/categories')}}"><a class="nav-link" href="{{route('categories.index')}}"><i class="fas fa-user"></i> <span>Categories</span></a></li>
             <li class="{{isActiveUrl('/admin/sub-categories')}}"><a class="nav-link" href="{{route('sub-categories.getAll',)}}"><i class="fas fa-user"></i> <span>Sub Categories</span></a></li>
             <li class="{{isActiveUrl('/admin/products')}}"><a class="nav-link" href="{{route('products.index')}}"><i class="fas fa-user"></i> <span>Products</span></a></li>
+            <li class="{{isActiveUrl('/admin/orders')}}"><a class="nav-link" href="{{route('orders.index')}}"><i class="fas fa-shopping-cart"></i> <span>Orders</span></a></li>
             <li class="{{isActiveUrl('/admin/coupons')}}"><a class="nav-link" href="{{route('coupons.index')}}"><i class="fas fa-gift"></i> <span>Coupons</span></a></li>
 
 

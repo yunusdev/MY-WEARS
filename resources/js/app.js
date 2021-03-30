@@ -51,6 +51,12 @@ Vue.component('view-product', require('./components/Admin/ViewProduct.vue').defa
 Vue.component('coupons', require('./components/Admin/Coupons.vue').default);
 Vue.component('store-coupon', require('./components/Admin/StoreCoupon.vue').default);
 
+
+Vue.component('orders', require('./components/Admin/Orders.vue').default);
+Vue.component('view-order', require('./components/Admin/ViewOrder.vue').default);
+
+
+
 Vue.component('nav-bar', require('./components/User/Layout/Navbar.vue').default);
 Vue.component('shop', require('./components/User/Shop/Shop.vue').default);
 Vue.component('product-view', require('./components/User/Shop/ProductView.vue').default);

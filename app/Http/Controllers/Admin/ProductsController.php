@@ -28,7 +28,6 @@ class ProductsController extends Controller
 
     public function index(){
 
-        $data['products'] = $this->productRepository->getProducts();
         $data['title'] = 'Products';
         return view('admin.products.index')->with($data);
 

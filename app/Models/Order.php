@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\Filterable;
 use App\Traits\uuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 //use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    use HasFactory, uuids;
+    use HasFactory, uuids, Filterable;
 
     protected $appends = ['formatted_date'];
 

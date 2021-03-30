@@ -2,7 +2,7 @@
 
 
 @section('title')
-{{$title}}
+Orders
 @endsection
 
 @section('styles')
@@ -12,7 +12,7 @@
 @section('content')
 
     <div class="section-header">
-        <h1>{{$title}}</h1>
+        <h1>Orders</h1>
     </div>
 
     <div class="section-body" style="">
@@ -23,7 +23,7 @@
 
                 <div class="card" style="padding: 20px">
 
-                    <products></products>
+                    <orders></orders>
 
                 </div>
 

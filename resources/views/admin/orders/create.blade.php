@@ -2,7 +2,7 @@
 
 
 @section('title')
-{{$title}}
+    Create Product
 @endsection
 
 @section('styles')
@@ -12,7 +12,10 @@
 @section('content')
 
     <div class="section-header">
-        <h1>{{$title}}</h1>
+        <div class="section-header-back">
+            <a href="{{route('products.index')}}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
+        </div>
+        <h1>Create Product</h1>
     </div>
 
     <div class="section-body" style="">
@@ -23,7 +26,7 @@
 
                 <div class="card" style="padding: 20px">
 
-                    <products></products>
+                    <store-product raw_categories = "{{$categories}}"></store-product>
 
                 </div>
 
@@ -37,5 +40,6 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('js/mdb.js') }}"></script>
 
 @endsection

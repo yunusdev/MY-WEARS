@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Contracts\OrderContract;
+use App\Filters\OrderFilter;
 use App\Models\Order;
 use App\Utils\RandomStringGenerator;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,18 @@ class OrderRepository extends BaseRepository implements OrderContract
 
     public function getOrders()
     {
+        return $this->allPaginate(9, 'created_at', 'desc',  []);
 
+    }
+
+    public function filterOrders(OrderFilter $filters, int $pagination = 10)
+    {
+        $products = $this->model
+            ->with([])
+            ->filter($filters)
+            ->paginate($pagination);;
+
+        return $products;
     }
 
     public function getUserOrders(string $userId = null, array $relationship = [])
@@ -41,9 +53,20 @@ class OrderRepository extends BaseRepository implements OrderContract
 
     }
 
-    public function getOrderByTrackingNumber(string $tracking_number, array $relationship = [])
+    public function updateStatus(Order $order, string $status)
     {
-        return $this->findOneBy(['tracking_number' => $tracking_number, 'user_id' => auth()->id()], $relationship);
+        $order->status = $status;
+        $order->save();
+        return $order;
+    }
+
+
+    public function getOrderByTrackingNumber(string $tracking_number, array $relationship = [], $user = true)
+    {
+
+        $query = ['tracking_number' => $tracking_number];
+        if ($user) $query['user_id'] = auth()->id();
+        return $this->findOneBy($query, $relationship);
     }
 
     public function getOrderById(string $orderId, array $relationship = [])
