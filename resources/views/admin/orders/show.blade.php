@@ -2,7 +2,7 @@
 
 
 @section('title')
-{{$title}}
+    Order - {{$order->tracking_number}}
 @endsection
 
 @section('styles')
@@ -12,7 +12,10 @@
 @section('content')
 
     <div class="section-header">
-        <h1>{{$title}}</h1>
+        <div class="section-header-back">
+            <a href="{{route('orders.index')}}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
+        </div>
+        <h1>Order - {{$order->tracking_number}}</h1>
     </div>
 
     <div class="section-body" style="">
@@ -23,7 +26,7 @@
 
                 <div class="card" style="padding: 20px">
 
-                    <products></products>
+                    <view-order raw_order = "{{$order}}"></view-order>
 
                 </div>
 

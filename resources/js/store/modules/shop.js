@@ -37,6 +37,33 @@ export default {
                 return Promise.reject(err)
             })
         },
+        getProducts({ state, commit }, {page = 1, price = false, category, sub_category, order_by, sort_type, price_range  }){
+            if (typeof page === 'undefined' || !page) {
+                page = 1;
+            }
+            let query = '';
+            if(category){
+                query += `&category=${category.id}`
+            }
+            if(sub_category){
+                query += `&subCategory=${sub_category.id}`
+            }
+            if(order_by && sort_type){
+                if(sort_type === 'desc'){
+                    query += `&orderByDesc=${order_by}`
+                }else{
+                    query += `&orderByAsc=${order_by}`
+                }
+            }
+            if (price_range.min && price_range.max){
+                query += `&minPrice=${price_range.min}&maxPrice=${price_range.max}`
+            }
+            return Axios.get(`/${baseUrl}/products?page=${page}${query}`).then(res => {
+                return res.data
+            }).catch(err => {
+                return Promise.reject(err)
+            })
+        },
         getTrendingProducts({ state, commit }, {reset = false}){
             if(!reset && state.trending_products.length > 0){
                 return;
@@ -70,6 +97,7 @@ export default {
                 return Promise.reject(err)
             })
         },
+
     },
     mutations: {
 

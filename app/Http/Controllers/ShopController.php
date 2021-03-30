@@ -29,6 +29,8 @@ class ShopController extends Controller
 
     public function getProducts(Request $request){
 
+        if (!(isset($request['orderByAsc']) && isset($request['orderByDesc']))) $request['orderByDesc'] = 'created_at';
+
         $filters = new ProductFilter($request);
         return $this->productRepository->filterProducts($filters, 3);
 

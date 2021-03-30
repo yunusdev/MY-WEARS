@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <div class="float-right mb-4">
             <a style="padding: 10px" href="/admin/products/create" class=" pull-right btn btn-primary">
                 <i class="fas fa-user-plus" style="padding-right: 10px"></i>Add New Product
@@ -28,10 +27,10 @@
                 </thead>
                 <tbody>
                 <tr v-for="product, key in products">
-                    <td>{{key + 1}}</td>
+                    <td>{{productsData.from + key}}</td>
                     <td>{{product.name}}</td>
                     <td>{{product.code}}</td>
-                    <td>{{product.price}}</td>
+                    <td>N{{product.price | formatMoney}}</td>
                     <td>{{product.category.name}}</td>
                     <td>{{product.sub_category.name}}</td>
                     <td>{{product.class}}</td>
@@ -63,27 +62,46 @@
 
         </div>
 
+        <div class="card-footer text-right">
+            <nav class="d-inline-block">
+                <pagination :data="productsData" @pagination-change-page="getProducts"></pagination>
+            </nav>
+        </div>
+
     </div>
 
 </template>
 
 <script>
 import Swal from 'sweetalert'
+import {mapActions} from "vuex";
+import pagination from 'laravel-vue-pagination'
+import Product from "../User/Shop/Product";
 export default {
     name: "Products",
     props: ['raw_products'],
+    components: {pagination},
 
     data(){
 
         return{
 
-            products: JSON.parse(this.raw_products)
+            products: [],
+            productsData: {},
+            price_range: {
+                min: null,
+                max: null,
+            },
+            loaded: false,
+            order_by: '',
+            sort_type: 'desc',
 
         }
     },
 
-    mounted(){
+    async mounted(){
 
+        await this.getProducts()
     },
 
     computed: {
@@ -92,6 +110,23 @@ export default {
     },
 
     methods: {
+
+        ...mapActions({
+            getShopProducts: 'shop/getProducts'
+        }),
+
+        getProducts(page, price = false){
+
+            this.getShopProducts({
+                page: page, price, category: this.category, sub_category: this.sub_category,
+                order_by: this.order_by, sort_type: this.sort_type, price_range: this.price_range
+            }).then((data) => {
+                this.productsData = data;
+                this.products = data.data;
+                this.loaded = true
+            })
+
+        },
 
         editProduct(product){
 

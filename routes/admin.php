@@ -78,6 +78,20 @@ Route::group(['middleware'=>'auth:admin'], function() {
         '/products',
         \App\Http\Controllers\Admin\ProductsController::class,
     );
+    Route::get(
+        '/orders/get',
+        [\App\Http\Controllers\Admin\OrdersController::class, 'getOrders']
+    );
+
+    Route::put(
+        '/order/{order}/update/status',
+        [\App\Http\Controllers\Admin\OrdersController::class, 'updateStatus']
+    );
+
+    Route::resource(
+        '/orders',
+        \App\Http\Controllers\Admin\OrdersController::class,
+    );
 
     Route::resource(
         '/coupons',

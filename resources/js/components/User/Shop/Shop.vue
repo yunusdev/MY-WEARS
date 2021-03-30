@@ -9,13 +9,13 @@
                     <div class="column">
                         <div class="shop-sorting">
                             <label for="sorting">Sort by:</label>
-                            <select @change="getProducts()" v-model="orderBy" class="form-control" id="sorting">
+                            <select @change="getProducts()" v-model="order_by" class="form-control" id="sorting">
                                 <option value="">-- Select Sort --</option>
                                 <option value="created_at">Latest</option>
                                 <option value="views_count">Trending</option>
                                 <option value="price">Price</option>
                             </select>
-                            <select @change="getProducts()" v-model="sortType" class="form-control" id="sortType">
+                            <select @change="getProducts()" v-model="sort_type" class="form-control" id="sort_type">
                                 <option value="asc">Ascending</option>
                                 <option value="desc">Descending</option>
                             </select>
@@ -133,13 +133,13 @@ export default {
             category: this.raw_category ? JSON.parse(this.raw_category): null,
             sub_category: this.raw_sub_category ? JSON.parse(this.raw_sub_category) : null,
             productsData: {},
-            priceRange: {
+            price_range: {
               min: null,
               max: null,
             },
             loaded: false,
-            orderBy: '',
-            sortType: 'desc',
+            order_by: '',
+            sort_type: 'desc',
             products: []
         }
 
@@ -166,51 +166,33 @@ export default {
 
         ...mapActions({
             // getUserCartItems: 'cart/getUserCartItems',
-            getCategories: 'shop/getCategories'
+            getCategories: 'shop/getCategories',
+            getShopProducts: 'shop/getProducts'
 
         }),
 
         filterPrice(){
 
-            this.priceRange.min = $("#min").val() || 500
-            this.priceRange.max = $("#max").val() || 1000
+            this.price_range.min = $("#min").val() || 500
+            this.price_range.max = $("#max").val() || 1000
 
             this.getProducts(null, true)
 
         },
 
-        getProducts(page, price = false) {
-            if (typeof page === 'undefined' || !page) {
-                page = 1;
-            }
-            let query = '';
-            if (!price){
-                if(this.category){
-                    query += `&category=${this.category.id}`
-                }
-                if(this.sub_category){
-                    query += `&subCategory=${this.sub_category.id}`
-                }
-                if(this.orderBy && this.sortType){
-                    if(this.sortType === 'desc'){
-                        query += `&orderByDesc=${this.orderBy}`
-                    }else{
-                        query += `&orderByAsc=${this.orderBy}`
-                    }
-                }
-            }else{
-                query += `&minPrice=${this.priceRange.min}&maxPrice=${this.priceRange.max}`
-            }
+        getProducts(page, price = false){
 
-            this.$http.get(`/shop/products?page=${page}${query}`)
-                .then(response => {
-                    this.productsData = response.data;
-                    this.products = response.data.data;
-                    this.loaded = true
-                }).catch(err => {
-                // console.log(err)
-            });
-        }
+            this.getShopProducts({
+                page: page, price, category: this.category, sub_category: this.sub_category,
+                order_by: this.order_by, sort_type: this.sort_type, price_range: this.price_range
+            }).then((data) => {
+                this.productsData = data;
+                this.products = data.data;
+                this.loaded = true
+            })
+
+        },
+
 
     }
 
