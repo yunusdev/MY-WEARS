@@ -4,6 +4,10 @@ import cart from './modules/cart'
 import shop from './modules/shop'
 import account from './modules/account'
 import locality from './modules/locality'
+import users from './modules/users'
+import coupons_admin from './modules/coupons_admin'
+import orders_admin from './modules/orders_admin'
+import categories_admin from './modules/categories_admin'
 import createPersistedState from 'vuex-persistedstate'
 Vue.use(Vuex)
 
@@ -13,6 +17,10 @@ export default new Vuex.Store({
         locality,
         account,
         shop,
+        users,
+        coupons_admin,
+        orders_admin,
+        categories_admin,
     },
     plugins: [
         createPersistedState({

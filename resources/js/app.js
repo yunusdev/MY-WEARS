@@ -55,6 +55,7 @@ Vue.component('store-coupon', require('./components/Admin/StoreCoupon.vue').defa
 Vue.component('orders', require('./components/Admin/Orders.vue').default);
 Vue.component('view-order', require('./components/Admin/ViewOrder.vue').default);
 
+Vue.component('users', require('./components/Admin/Users.vue').default);
 
 
 Vue.component('nav-bar', require('./components/User/Layout/Navbar.vue').default);

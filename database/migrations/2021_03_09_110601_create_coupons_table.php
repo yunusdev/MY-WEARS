@@ -37,9 +37,11 @@ class CreateCouponsTable extends Migration
 
             $table->string('user_id');
             $table->string('coupon_id');
+            $table->string('order_id');
 
             $table->foreign('coupon_id')->references('id')->on('coupons')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
 
             $table->timestamps();
 

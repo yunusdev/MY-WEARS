@@ -28,11 +28,17 @@ class CategoriesController extends Controller
         return view('admin.categories.index')->with($data);
     }
 
+    public function getAllCategories(){
+
+        return $this->categoryRepository->getCategories();
+
+    }
+
     public function getProducts($categorySlug)
     {
         $category = $this->categoryRepository->getCategoryBy(['slug' => $categorySlug]);
         $data['title'] = 'Category (' . $category->name . ') - Products';
-        $data['products'] = $this->productRepository->getCategoryProducts($category->id, ['category', 'subCategory']);
+        $data['category'] = $category;
         return view('admin.products.index')->with($data);
     }
 

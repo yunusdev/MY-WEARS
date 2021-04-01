@@ -56,6 +56,15 @@ class BaseRepository implements BaseContract
         return $this->model->orderBy($orderBy, $sortBy)->with($relationship)->get($columns);
     }
 
+
+    public function filter($filters, $pagination, array $relationship = [] ){
+
+        return $this->model
+            ->with($relationship)
+            ->filter($filters)
+            ->paginate($pagination);
+    }
+
     /**
      * @param string $orderBy
      * @param string $sortBy

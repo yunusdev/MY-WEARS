@@ -104,16 +104,16 @@ import { mapActions, mapMutations, mapGetters } from 'vuex'
 import Swal from "sweetalert";
 
 export default {
-    name: "ViewUserOrder",
+    name: "ViewOrder",
 
-    props: ['raw_order'],
+    props: ['raw_order', 'raw_statuses'],
 
     data(){
 
         return {
 
             order: JSON.parse(this.raw_order),
-            statuses: ['Initiated', 'Processing', 'Prepared', 'Shipped', 'Delivered', 'Cancelled'],
+            statuses: JSON.parse(this.raw_statuses),
             allowed_updated_statuses: [],
             status: ''
 

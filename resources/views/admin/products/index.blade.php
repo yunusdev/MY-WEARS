@@ -12,6 +12,16 @@
 @section('content')
 
     <div class="section-header">
+        @if(isset($category))
+            <div class="section-header-back">
+                <a href="{{route('categories.index')}}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
+            </div>
+        @endif
+        @if(isset($sub_category))
+            <div class="section-header-back">
+                <a href="{{route('sub-categories.getAll')}}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
+            </div>
+        @endif
         <h1>{{$title}}</h1>
     </div>
 
@@ -23,7 +33,7 @@
 
                 <div class="card" style="padding: 20px">
 
-                    <products></products>
+                    <products raw_category="{{$category ?? ''}}" raw_sub_category="{{$sub_category ?? ''}}"></products>
 
                 </div>
 

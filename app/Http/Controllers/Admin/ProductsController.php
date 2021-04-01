@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Contracts\CategoryContract;
 use App\Contracts\ProductContract;
+use App\Filters\ProductFilter;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Utils\RandomStringGenerator;
@@ -30,6 +31,15 @@ class ProductsController extends Controller
 
         $data['title'] = 'Products';
         return view('admin.products.index')->with($data);
+
+    }
+
+    public function getProducts(Request $request){
+
+//        if (!(isset($request['orderByAsc']) && isset($request['orderByDesc']))) $request['orderByDesc'] = 'created_at';
+
+        $filters = new ProductFilter($request);
+        return $this->productRepository->filterProducts($filters, 5);
 
     }
 

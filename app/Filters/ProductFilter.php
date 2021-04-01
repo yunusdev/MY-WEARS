@@ -2,6 +2,7 @@
 
 namespace App\Filters;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 
 class ProductFilter extends QueryFilter
@@ -30,18 +31,31 @@ class ProductFilter extends QueryFilter
      *
      * @return void
      */
-    public function availability(string $availability)
+    public function available(string $availability)
     {
-        $this->builder->where('available', $availability);
+        $checkIfAvailable = $availability == 'Yes';
 
-//        $checkIfAvailable = $availability == 'yes' ? true : false;
-//
-//        if ($checkIfAvailable) {
-//            $this->builder->where('available', 0);
-//        } else {
-//            $this->builder->where('available', 0);
-//        }
+        if ($checkIfAvailable) {
+
+            $this->builder->where('available', 1);
+
+        } else {
+
+            $this->builder->where('available', 0);
+
+        }
     }
+
+    public function createdFrom(string $createdFrom)
+    {
+        $this->builder->where('created_at', '>=', $createdFrom);
+    }
+
+    public function createdTo(string $createdTo)
+    {
+        $this->builder->where('created_at', '<=', Carbon::create($createdTo)->addDay());
+    }
+
 
     /**
      * @param string $maxPrice
@@ -67,9 +81,24 @@ class ProductFilter extends QueryFilter
      * @param string $name
      * @return void
      */
-    public function productName(string $name)
+    public function name(string $name)
     {
         $this->builder->where('name', 'like', "%" . $name . "%");
+    }
+
+    public function availableColors(string $availableColors)
+    {
+        $this->builder->where('available_colors', 'like', "%" . $availableColors . "%");
+    }
+
+    public function availableSizes(string $availableSizes)
+    {
+        $this->builder->where('available_sizes', 'like', "%" . $availableSizes . "%");
+    }
+
+    public function class(string $class)
+    {
+        $this->builder->where('class', $class);
     }
 
     /**

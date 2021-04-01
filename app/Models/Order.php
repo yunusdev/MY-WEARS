@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Traits\Filterable;
 use App\Traits\uuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Traits\EnumeratesValues;
+
 //use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model

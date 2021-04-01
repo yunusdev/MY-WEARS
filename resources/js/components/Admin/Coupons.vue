@@ -17,11 +17,13 @@
                     <th>Status</th>
                     <th>Type</th>
                     <th>Discount</th>
+                    <th>Redeemed Count</th>
                     <th>Min Amount</th>
                     <th>Will Max Out</th>
                     <th>Max Usage</th>
                     <th>Will Expire</th>
                     <th>Expires In</th>
+                    <th>View Orders</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -34,14 +36,30 @@
                     </td>
                     <td>{{coupon.status == 1 ? 'Usable' : 'Not Usable'}}</td>
                     <td>{{coupon.type}}</td>
-                    <td>N{{coupon.discount}}</td>
+                    <td>
+                        <span v-if="coupon.type === 'Price'">
+                            N{{coupon.discount | formatMoney}}
+                        </span>
+                        <span v-else>
+                            {{coupon.discount}}%
+                        </span>
+                    </td>
+                    <td>{{coupon.redeemed_count}}</td>
                     <td>N{{coupon.lowest_amount || '--'}}</td>
                     <td>{{coupon.will_max_out == 1 ? 'Yes' : 'No'}}</td>
                     <td>{{coupon.max_usage || '--'}}</td>
                     <td>{{coupon.will_expire == 1 ? 'Yes' : 'No'}}</td>
                     <td>{{coupon.expires_format || '--'}}</td>
+                    <td><a :href="`/admin/coupons/${coupon.id}/orders`"><i class="text-center fas fa-2x fa-list"></i></a></td>
                     <td><a @click="editCoupon(coupon)"><i class="text-center fas fa-edit"></i></a></td>
-                    <td><a @click="deleteCoupon(coupon.id, key)"><span class="text-center fas fa-trash" ></span></a></td>
+                    <td>
+                        <a v-if="coupon.redeemed_count > 1" :class="{'disabled': coupon.redeemed_count > 1}">
+                            <span class="text-center fas fa-trash" ></span>
+                        </a>
+                        <a v-else @click="deleteCoupon(coupon.id, key)">
+                            <span class="text-center fas fa-trash" ></span>
+                        </a>
+                    </td>
                 </tr>
                 </tbody>
                 <tfoot>
@@ -51,11 +69,13 @@
                     <th>Status</th>
                     <th>Type</th>
                     <th>Discount</th>
+                    <th>Redeemed Count</th>
                     <th>Min Amount</th>
                     <th>Will Max Out</th>
                     <th>Max Usage</th>
                     <th>Will Expire</th>
                     <th>Expires In</th>
+                    <th>View Orders</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>

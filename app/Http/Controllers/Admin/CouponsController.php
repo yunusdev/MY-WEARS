@@ -20,12 +20,24 @@ class CouponsController extends Controller
 
     }
 
+    public function getAllCoupons()
+    {
+        return $this->couponRepository->getCoupons();
+    }
+
     public function index()
     {
         $data['coupons'] = $this->couponRepository->getCoupons();
         return view('admin.coupons.index')->with($data);
     }
 
+    public function getCouponOrders(Request $request, Coupon $coupon){
+
+        $data['title'] = 'Coupon Orders - (' . $coupon->code . ')';
+        $data['coupon'] = $coupon;
+        return view('admin.orders.index')->with($data);
+
+    }
 
     public function store(Request $request)
     {
