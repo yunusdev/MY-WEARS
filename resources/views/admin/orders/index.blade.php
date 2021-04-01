@@ -2,7 +2,7 @@
 
 
 @section('title')
-Orders
+{{$title}}
 @endsection
 
 @section('styles')
@@ -12,7 +12,17 @@ Orders
 @section('content')
 
     <div class="section-header">
-        <h1>Orders</h1>
+        @if(isset($user))
+        <div class="section-header-back">
+            <a href="{{route('users.index')}}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
+        </div>
+        @endif
+            @if(isset($coupon))
+                <div class="section-header-back">
+                    <a href="{{route('coupons.index')}}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
+                </div>
+            @endif
+        <h1>{{$title}}</h1>
     </div>
 
     <div class="section-body" style="">
@@ -23,7 +33,7 @@ Orders
 
                 <div class="card" style="padding: 20px">
 
-                    <orders></orders>
+                    <orders raw_coupon="{{$coupon ?? ''}}" raw_user="{{$user ?? ''}}"></orders>
 
                 </div>
 

@@ -37,12 +37,7 @@ class ProductRepository extends BaseRepository implements ProductContract
 
     public function filterProducts(ProductFilter $filters, int $pagination = 9)
     {
-        $products = $this->model
-            ->with(['category', 'subCategory'])
-            ->filter($filters)
-            ->paginate($pagination);;
-
-        return $products;
+        return $this->filter($filters, $pagination, ['category', 'subCategory']);
     }
 
     public function incrementProductViewCount(Product $product)

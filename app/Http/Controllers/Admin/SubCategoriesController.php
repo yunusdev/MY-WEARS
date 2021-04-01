@@ -34,11 +34,17 @@ class SubCategoriesController extends Controller
         return view('admin.categories.sub_categories')->with($data);
     }
 
+    public function getAllSubCategories(){
+
+        return $this->subCategoryRepository->getSubCategories();
+
+    }
+
     public function getProducts($subCategorySlug)
     {
-        $subCategory = $this->subCategoryRepository->getSubCategoryBy(['slug' => $subCategorySlug]);
+        $subCategory = $this->subCategoryRepository->getSubCategoryBy(['slug' => $subCategorySlug], ['category']);
         $data['title'] = 'Sub Category (' . $subCategory->name . ') - Products';
-        $data['products'] = $this->productRepository->getSubCategoryProducts($subCategory->id, ['category', 'subCategory']);
+        $data['sub_category'] = $subCategory;
         return view('admin.products.index')->with($data);
     }
 

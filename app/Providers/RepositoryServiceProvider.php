@@ -14,6 +14,7 @@ use App\Contracts\ProductContract;
 use App\Contracts\ProductsImageContract;
 use App\Contracts\LocalityContract;
 use App\Contracts\SubCategoryContract;
+use App\Contracts\UserContract;
 use App\Repositories\AccountRepository;
 use App\Repositories\CartRepository;
 use App\Repositories\CategoryRepository;
@@ -24,6 +25,7 @@ use App\Repositories\ProductRepository;
 use App\Repositories\ProductsImageRepository;
 use App\Repositories\LocalityRepository;
 use App\Repositories\SubCategoryRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -41,6 +43,7 @@ class RepositoryServiceProvider extends ServiceProvider
         OrderContract::class => OrderRepository::class,
         OrderItemContract::class => OrderItemRepository::class,
         AccountContract::class => AccountRepository::class,
+        UserContract::class => UserRepository::class,
 
     ];
 

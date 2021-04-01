@@ -84,6 +84,7 @@ class CouponRepository extends BaseRepository implements CouponContract
     {
         $params['admin_id'] = auth('admin')->id();
         $params['remaining'] = $params['max_usage'];
+        $params['code'] = strtoupper($params['code']);
         return $this->create($params);
     }
 

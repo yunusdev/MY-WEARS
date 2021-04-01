@@ -64,6 +64,7 @@ export default {
                 return Promise.reject(err)
             })
         },
+
         getTrendingProducts({ state, commit }, {reset = false}){
             if(!reset && state.trending_products.length > 0){
                 return;
@@ -97,6 +98,15 @@ export default {
                 return Promise.reject(err)
             })
         },
+
+        serialize({state, commit}, obj){
+            const str = [];
+            for (let p in obj)
+                if (obj.hasOwnProperty(p)) {
+                    if (encodeURIComponent(obj[p])) str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                }
+            return str.join("&");
+        }
 
     },
     mutations: {

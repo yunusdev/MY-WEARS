@@ -25,12 +25,7 @@ class OrderRepository extends BaseRepository implements OrderContract
 
     public function filterOrders(OrderFilter $filters, int $pagination = 10)
     {
-        $products = $this->model
-            ->with([])
-            ->filter($filters)
-            ->paginate($pagination);;
-
-        return $products;
+        return $this->filter($filters, $pagination, []);
     }
 
     public function getUserOrders(string $userId = null, array $relationship = [])

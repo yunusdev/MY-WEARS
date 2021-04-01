@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Filterable;
 use App\Traits\uuids;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,11 +11,11 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, uuids;
+    use HasFactory, Notifiable, uuids, Filterable;
 
     public $incrementing = false;
 
-    protected $appends = ['formatted_date'];
+    protected $appends = ['formatted_date', 'orders_count'];
 
     /**
      * The attributes that are mass assignable.
@@ -70,6 +71,18 @@ class User extends Authenticatable
     public function getFormattedDateAttribute(){
 
         return $this->created_at->format('F dS, Y');
+
+    }
+
+    public function orders(){
+
+        return $this->hasMany(Order::class);
+
+    }
+
+    public function getOrdersCountAttribute(){
+
+        return $this->orders()->count();
 
     }
 }

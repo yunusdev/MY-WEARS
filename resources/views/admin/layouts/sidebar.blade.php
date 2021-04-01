@@ -1,7 +1,7 @@
 <div class="main-sidebar">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a class="" style="" href="{{route('admin.home')}}">MY WEARS</a>
+{{--            <a class="" style="" href="{{route('admin.home')}}">MY WEARS</a>--}}
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="index.html">MY</a>

@@ -20,9 +20,24 @@ Route::group(['middleware'=>'auth:admin'], function() {
     )->name('admin.logout');
 
     Route::get(
+        '/users/get',
+        [\App\Http\Controllers\Admin\UsersController::class, 'getUsers']
+    );
+
+    Route::get(
+        '/users/all',
+        [\App\Http\Controllers\Admin\UsersController::class, 'getAllUsers']
+    );
+
+    Route::resource(
         '/users',
-        [\App\Http\Controllers\Admin\UsersController::class, 'index']
-    )->name('users.index');
+        \App\Http\Controllers\Admin\UsersController::class
+    );
+
+    Route::get(
+        '/users/{user}/orders',
+        [\App\Http\Controllers\Admin\UsersController::class, 'getUserOrders']
+    );
 
     Route::delete(
         '/users/delete/{id}',
@@ -49,6 +64,11 @@ Route::group(['middleware'=>'auth:admin'], function() {
         \App\Http\Controllers\Admin\RoleController::class,
     );
 
+    Route::get(
+        '/categories/all',
+        [\App\Http\Controllers\Admin\CategoriesController::class, 'getAllCategories']
+    );
+
     Route::resource(
         '/categories',
         \App\Http\Controllers\Admin\CategoriesController::class,
@@ -58,6 +78,11 @@ Route::group(['middleware'=>'auth:admin'], function() {
         '/categories/{category}/products',
         [\App\Http\Controllers\Admin\CategoriesController::class, 'getProducts']
     )->name('categories.products');
+
+    Route::get(
+        '/sub-categories/all',
+        [\App\Http\Controllers\Admin\SubCategoriesController::class, 'getAllSubCategories']
+    );
 
     Route::get(
         '/sub-categories',
@@ -74,6 +99,11 @@ Route::group(['middleware'=>'auth:admin'], function() {
         \App\Http\Controllers\Admin\SubCategoriesController::class,
     );
 
+    Route::get(
+        '/products/get',
+        [\App\Http\Controllers\Admin\ProductsController::class, 'getProducts']
+    );
+
     Route::resource(
         '/products',
         \App\Http\Controllers\Admin\ProductsController::class,
@@ -81,6 +111,11 @@ Route::group(['middleware'=>'auth:admin'], function() {
     Route::get(
         '/orders/get',
         [\App\Http\Controllers\Admin\OrdersController::class, 'getOrders']
+    );
+
+    Route::get(
+        '/orders/statuses',
+        [\App\Http\Controllers\Admin\OrdersController::class, 'getOrderStatus']
     );
 
     Route::put(
@@ -91,6 +126,16 @@ Route::group(['middleware'=>'auth:admin'], function() {
     Route::resource(
         '/orders',
         \App\Http\Controllers\Admin\OrdersController::class,
+    );
+
+    Route::get(
+        '/coupons/all',
+        [\App\Http\Controllers\Admin\CouponsController::class, 'getAllCoupons']
+    );
+
+    Route::get(
+        '/coupons/{coupon}/orders',
+        [\App\Http\Controllers\Admin\CouponsController::class, 'getCouponOrders']
     );
 
     Route::resource(

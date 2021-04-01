@@ -26,7 +26,7 @@
 
                 <div class="card" style="padding: 20px">
 
-                    <view-order raw_order = "{{$order}}"></view-order>
+                    <view-order raw_statuses="{{json_encode($statuses)}}" raw_order = "{{$order}}"></view-order>
 
                 </div>
 
