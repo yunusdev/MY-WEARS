@@ -8,6 +8,7 @@ import users from './modules/users'
 import coupons_admin from './modules/coupons_admin'
 import orders_admin from './modules/orders_admin'
 import categories_admin from './modules/categories_admin'
+import products_admin from './modules/products_admin'
 import createPersistedState from 'vuex-persistedstate'
 Vue.use(Vuex)
 
@@ -21,6 +22,7 @@ export default new Vuex.Store({
         coupons_admin,
         orders_admin,
         categories_admin,
+        products_admin,
     },
     plugins: [
         createPersistedState({

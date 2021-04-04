@@ -47,7 +47,7 @@
 <script>
 
 
-    import ErrorBag from '../error_bag'
+    import ErrorBag from '../../error_bag'
     import Multiselect from "vue-multiselect";
     import "vue-multiselect/dist/vue-multiselect.min.css";
 

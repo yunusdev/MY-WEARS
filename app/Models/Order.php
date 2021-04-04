@@ -16,7 +16,7 @@ class Order extends Model
     protected $appends = ['formatted_date'];
 
     protected $fillable = [
-        'tracking_number', 'number_of_items', 'shipped','country', 'sub_total_amount', 'total_amount', 'delivery_fee', 'name', 'email',
+        'tracking_number', 'number_of_items', 'user_created', 'shipped','country', 'sub_total_amount', 'total_amount', 'delivery_fee', 'name', 'email',
         'user_id', 'coupon_id', 'coupon_discount', 'ref', 'phone', 'state', 'lga', 'address', 'settled', 'comment'
     ];
 

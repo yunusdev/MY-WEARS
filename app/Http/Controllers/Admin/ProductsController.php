@@ -34,6 +34,12 @@ class ProductsController extends Controller
 
     }
 
+    public function getAllProducts(){
+
+        return $this->productRepository->getProducts();
+
+    }
+
     public function getProducts(Request $request){
 
 //        if (!(isset($request['orderByAsc']) && isset($request['orderByDesc']))) $request['orderByDesc'] = 'created_at';

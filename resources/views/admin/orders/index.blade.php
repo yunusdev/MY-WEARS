@@ -27,6 +27,8 @@
 
     <div class="section-body" style="">
 
+        @include('includes.status_message')
+
         <div class="row">
 
             <div class="col-12" >

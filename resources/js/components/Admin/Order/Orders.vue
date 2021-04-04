@@ -136,6 +136,7 @@
                 <thead>
                 <tr>
                     <th>No</th>
+                    <th>Name</th>
                     <th>Tracking Num</th>
                     <th>Status</th>
                     <th>Total Amount</th>
@@ -152,12 +153,13 @@
                 <tbody>
                 <tr v-for="order, key in orders">
                     <td>{{ordersData.from + key}}</td>
+                    <td>{{order.name}}</td>
                     <td>{{order.tracking_number}}</td>
                     <td>{{order.status}}</td>
                     <td>N{{order.total_amount | formatMoney}}</td>
                     <td>N{{order.sub_total_amount | formatMoney}}</td>
                     <td>N{{order.delivery_fee | formatMoney }}</td>
-                    <td>{{order.coupon_discount}}</td>
+                    <td>{{order.coupon_id ? order.coupon_discount : '--'}}</td>
                     <td>{{order.number_of_items}}</td>
                     <td>{{order.formatted_date}}</td>
                     <td><a target="_blank" :href="`/admin/orders/${order.tracking_number}`"><i class="text-center fas fa-2x fa-eye"></i></a></td>
@@ -168,6 +170,7 @@
                 <tfoot>
                 <tr>
                     <th>No</th>
+                    <th>Name</th>
                     <th>Tracking Num</th>
                     <th>Status</th>
                     <th>Total Amount</th>
@@ -235,7 +238,7 @@ export default {
             show_filter: true,
             ordersData: {},
             loaded: false,
-            order_by: '',
+            order_by: 'created_at',
             sort_type: 'desc',
             disabled: false,
             search: {...searchQuery},

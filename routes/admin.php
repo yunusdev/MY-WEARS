@@ -100,6 +100,11 @@ Route::group(['middleware'=>'auth:admin'], function() {
     );
 
     Route::get(
+        '/products/all',
+        [\App\Http\Controllers\Admin\ProductsController::class, 'getAllProducts']
+    );
+
+    Route::get(
         '/products/get',
         [\App\Http\Controllers\Admin\ProductsController::class, 'getProducts']
     );

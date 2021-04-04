@@ -118,7 +118,7 @@ class Coupon{
 
 }
 
-import ErrorBag from '../error_bag'
+import ErrorBag from '../../error_bag'
 import Axios from 'axios'
 import Datetime from 'vue-datetime'
 import 'vue-datetime/dist/vue-datetime.css'
