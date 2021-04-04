@@ -16,7 +16,7 @@ interface OrderContract
 
     public function getUserOrders(string $userId = null, array $relationship = []);
 
-    public function createUserOrder(array $params);
+    public function createUserOrder(array $params, bool $userCreated = true);
 
     public function updateStatus(Order $order, string $status);
 

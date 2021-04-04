@@ -13,9 +13,9 @@
 
     <div class="section-header">
         <div class="section-header-back">
-            <a href="{{route('products.index')}}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
+            <a href="{{route('orders.index')}}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
         </div>
-        <h1>Create Product</h1>
+        <h1>Create Order</h1>
     </div>
 
     <div class="section-body" style="">
@@ -26,7 +26,7 @@
 
                 <div class="card" style="padding: 20px">
 
-                    <store-product raw_categories = "{{$categories}}"></store-product>
+                    <store-order ></store-order>
 
                 </div>
 

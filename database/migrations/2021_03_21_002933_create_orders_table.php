@@ -34,6 +34,7 @@ class CreateOrdersTable extends Migration
             $table->string('lga');
             $table->string('address');
             $table->boolean('settled')->default(false);
+            $table->boolean('user_created')->default(true);
             $table->text('comment')->nullable();
             $table->timestamps();
 

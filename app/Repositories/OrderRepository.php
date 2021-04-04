@@ -36,15 +36,17 @@ class OrderRepository extends BaseRepository implements OrderContract
         ], $relationship);
     }
 
-    public function createUserOrder(array $params)
+    public function createUserOrder(array $params, bool $userCreated = true)
     {
-        if (Auth::check()){
+
+        if ($userCreated && Auth::check()){
+
             $params['user_id'] = auth()->id();
+
         }
         $random = new RandomStringGenerator();
         $params['tracking_number'] = $random->generate(6);
         return $this->create($params);
-
 
     }
 

@@ -95,9 +95,10 @@ class AccountRepository implements AccountContract
 
     public function createOrUpdateUserPhone(array $params, string $userId = null)
     {
-        $user = auth()->user();
-        $user['phone'] = $params['phone'];
-        $user->save();
+        if (!$userId) $userId = auth()->id();
+
+        return User::where('id', $userId)->update(['phone' => $params['phone']]);
+
     }
 
 

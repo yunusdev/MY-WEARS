@@ -52,7 +52,7 @@
 <script>
 
 
-    import ErrorBag from '../error_bag'
+    import ErrorBag from '../../error_bag'
 
     class Role{
 

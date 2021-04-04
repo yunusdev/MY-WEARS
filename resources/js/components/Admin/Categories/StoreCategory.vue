@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade" id="createPermission"  data-backdrop="false">
+    <div class="modal fade" id="createCategory"  data-backdrop="false">
         <div class="modal-dialog">
             <div class="modal-content">
                     <div class="modal-header">
@@ -11,22 +11,24 @@
 
                     <div class="modal-body">
 
-
                         <div class="form-group">
-                            <label>Permission Name</label>
-
-                            <input type="text" :class="{'is-invalid': errors.hasError('name')}" v-model="permission.name"
+                            <label>Name:</label>
+                            <input type="text" :class="{'is-invalid': errors.hasError('name')}" v-model="category.name"
                                    class="form-control" placeholder="">
                             <div class="invalid-feedback" v-if="errors.hasError('name')">{{ errors.first('name') }}</div>
-
+                        </div>
+                        <div class="form-group">
+                            <label>Description:</label>
+                            <textarea :class="{'form-control': true, 'is-invalid': errors.hasError('description')}" v-model="category.description"></textarea>
+                            <div class="invalid-feedback" v-if="errors.hasError('description')">{{ errors.first('description') }}</div>
                         </div>
 
                     </div>
 
                     <div class="modal-footer" style = "padding-top: 0">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" @click="editPermission(permission.id)" v-if="editing">Update Permission</button>
-                        <button type="button" @click="storePermission()" class="btn btn-primary" v-else>Create Permission</button>
+                        <button type="button" class="btn btn-primary" @click="editCategory(category.id)" v-if="editing">Update Category</button>
+                        <button type="button" @click="storeCategory()" class="btn btn-primary" v-else>Create Category</button>
                     </div>
 
                  </div>
@@ -37,26 +39,27 @@
 <script>
 
 
-    import ErrorBag from '../error_bag'
+    import ErrorBag from '../../error_bag'
 
-    class Permission{
+    class Category{
 
-        constructor(permission){
+        constructor(category){
 
-            this.name = permission.name || '';
+            this.name = category.name || '';
+            this.description = category.description || '';
         }
 
     }
 
     export default {
-        name: "StorePermission",
+        name: "StoreCategory",
 
         data(){
 
             return{
 
                 editing: false,
-                permission: new Permission({}),
+                category: new Category({}),
                 errors: new ErrorBag
 
             }
@@ -64,27 +67,27 @@
 
         mounted(){
 
-            this.$parent.$on('create_permission', () => {
+            this.$parent.$on('create_category', () => {
 
                 this.editing = false;
-                this.permission = new Permission({});
+                this.category = new Category({});
                 if (this.errors.hasErrors()) {
                     this.errors.clearAll();
                 }
-                $('#createPermission').modal('show')
+                $('#createCategory').modal('show')
 
 
             });
 
-            this.$parent.$on('edit_permission', (permission) => {
+            this.$parent.$on('edit_category', (category) => {
 
                 this.editing = true;
-                this.permission = new Permission(permission);
-                this.permission.id = permission.id;
+                this.category = new Category(category);
+                this.category.id = category.id;
                 if (this.errors.hasErrors()) {
                     this.errors.clearAll();
                 }
-                $('#createPermission').modal('show')
+                $('#createCategory').modal('show')
 
             })
 
@@ -94,7 +97,7 @@
 
             name(){
 
-                return this.editing ? 'Edit Permission' : 'Create Permission'
+                return this.editing ? 'Edit Category' : 'Create Category'
 
             }
 
@@ -102,13 +105,13 @@
 
         methods: {
 
-            storePermission(){
+            storeCategory(){
 
 
-                this.$http.post('/admin/permission', this.permission).then(res => {
+                this.$http.post('/admin/categories', this.category).then(res => {
 
-                    this.$parent.$emit('add_permission', res.data);
-                    $('#createPermission').modal('hide')
+                    this.$parent.$emit('add_category', res.data);
+                    $('#createCategory').modal('hide')
 
 
                 }).catch(err => {
@@ -122,13 +125,13 @@
 
             },
 
-            editPermission(id){
+            editCategory(id){
 
 
-                this.$http.put(`/admin/permission/${id}`, this.permission).then(res => {
+                this.$http.put(`/admin/categories/${id}`, this.category).then(res => {
 
-                    this.$parent.$emit('update_permission', res.data);
-                    $('#createPermission').modal('hide')
+                    this.$parent.$emit('update_category', res.data);
+                    $('#createCategory').modal('hide')
 
                 }).catch(err => {
 
@@ -146,5 +149,9 @@
 </script>
 
 <style scoped>
+
+    textarea {
+        height: 100px !important;
+    }
 
 </style>

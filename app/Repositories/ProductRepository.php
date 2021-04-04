@@ -25,8 +25,8 @@ class ProductRepository extends BaseRepository implements ProductContract
 
     public function getProducts()
     {
-        return $this->allPaginate(9, 'created_at', 'desc',  ['category', 'subCategory']);
-//        return $this->all(['*'],'created_at', 'desc',  ['category', 'subCategory']);
+//        return $this->allPaginate(9, 'created_at', 'desc',  ['category', 'subCategory']);
+        return $this->all(['*'],'created_at', 'desc',  ['category', 'subCategory']);
     }
 
     public function getTopCategoryProducts(string $categoryId, int $num = 3)
