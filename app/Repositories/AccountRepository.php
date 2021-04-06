@@ -28,7 +28,6 @@ class AccountRepository implements AccountContract
     public function getUserAndAddress(string $userId = null)
     {
         if (!$userId) $userId = auth()->id();
-        Log::debug($userId);
         $user = User::where('id', $userId)->first();
         if ($user) $user['address'] = UserAddress::where('user_id', $userId)->first();
         return  $user;

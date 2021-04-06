@@ -4,25 +4,29 @@
         <br>
         <div class="box-body">
 
-            <table id="example1"  class="table table-busered table-striped">
+            <table id="example1"  class="table">
                 <thead>
                 <tr>
                     <th>No</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Users Count</th>
+                    <th>Orders Count</th>
+                    <th>Date Created</th>
+                    <th>View</th>
                     <th>View Orders</th>
                     <th>Edit</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="user, key in users">
+                <tr @click="viewUser(user.id)" class="cursor cursor_hover" v-for="user, key in users">
                     <td>{{usersData.from + key}}</td>
                     <td>{{user.name}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.phone}}</td>
                     <td>{{user.orders_count}}</td>
+                    <td>{{user.formatted_date}}</td>
+                    <td><a :href="`/admin/users/${user.id}`"><i class="text-center fas fa-2x fa-eye"></i></a></td>
                     <td><a :href="`/admin/users/${user.id}/orders`"><i class="text-center fas fa-2x fa-list"></i></a></td>
                     <td><a @click="editUser(user)"><i class="text-center fas fa-edit"></i></a></td>
                 </tr>
@@ -33,7 +37,9 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Users Count</th>
+                    <th>Orders Count</th>
+                    <th>Date Created</th>
+                    <th>View</th>
                     <th>View Orders</th>
                     <th>Edit</th>
                 </tr>
@@ -86,6 +92,12 @@ export default {
     },
 
     methods: {
+
+        viewUser(userId){
+
+            window.location = `/admin/users/${userId}`
+
+        },
 
         getUsers(page, price = false) {
             if (typeof page === 'undefined' || !page) {

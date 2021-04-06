@@ -146,8 +146,8 @@
                     <th>Num of Items</th>
                     <th>Date</th>
                     <th>View</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+<!--                    <th>Edit</th>-->
+<!--                    <th>Delete</th>-->
                 </tr>
                 </thead>
                 <tbody>
@@ -163,8 +163,8 @@
                     <td>{{order.number_of_items}}</td>
                     <td>{{order.formatted_date}}</td>
                     <td><a target="_blank" :href="`/admin/orders/${order.tracking_number}`"><i class="text-center fas fa-2x fa-eye"></i></a></td>
-                    <td><a @click="editOrder(order)"><i class="text-center fas fa-edit"></i></a></td>
-                    <td><a @click="deleteOrder(order.id, key)"><span class="text-center fas fa-trash" ></span></a></td>
+<!--                    <td><a @click="editOrder(order)"><i class="text-center fas fa-edit"></i></a></td>-->
+<!--                    <td><a @click="deleteOrder(order.id, key)"><span class="text-center fas fa-trash" ></span></a></td>-->
                 </tr>
                 </tbody>
                 <tfoot>
@@ -180,8 +180,8 @@
                     <th>Num of Items</th>
                     <th>Date</th>
                     <th>View</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+<!--                    <th>Edit</th>-->
+<!--                    <th>Delete</th>-->
                 </tr>
                 </tfoot>
 

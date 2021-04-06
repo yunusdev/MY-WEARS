@@ -156,8 +156,8 @@
                     <td>{{product.available ? 'Available' : 'Not Available'}}</td>
                     <td>{{product.formatted_date}}</td>
                     <td><a :href="`/admin/products/${product.slug}`"><i class="text-center fas fa-2x fa-eye"></i></a></td>
-                    <td><a @click="editProduct(product)"><i class="text-center fas fa-edit"></i></a></td>
-                    <td><a @click="deleteProduct(product.id, key)"><span class="text-center fas fa-trash" ></span></a></td>
+                    <td><a :href="`/admin/products/${product.slug}/edit`"><i class="text-center fas fa-edit"></i></a></td>
+                    <td><a :class="{'disabled' : product.order_items_count > 0}" @click="deleteProduct(product.id, key)"><span class="text-center fas fa-trash" ></span></a></td>
                 </tr>
                 </tbody>
                 <tfoot>
@@ -326,6 +326,7 @@ export default {
                     this.$http.delete(`/admin/products/${id}`).then(res => {
 
                         this.products.splice(key, 1);
+                        this.productsData.total -= 1
                         this.notifSuceess('Product Deleted Successfully');
 
                     }).catch(err => {
