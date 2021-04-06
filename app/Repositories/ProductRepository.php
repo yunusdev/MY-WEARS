@@ -6,6 +6,7 @@ use App\Contracts\ProductContract;
 use App\Contracts\ProductsImageContract;
 use App\Filters\ProductFilter;
 use App\Models\Product;
+use App\Models\ProductsImage;
 use App\Traits\UploadImage;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -145,15 +146,28 @@ class ProductRepository extends BaseRepository implements ProductContract
             $this->handleArrayImageUploads($images, $product->id, $product->category_id);
 
             return $product;
-//            return $this->create($params);
         } catch (\Throwable $exception) {
             throw $exception;
         }
     }
 
-    public function updateProduct(array $params, string $id)
+    public function updateProduct(array $params, Product $product)
     {
-        return $this->update($params, $id);
+        try {
+            $params = $this->handleImageUpload($params);
+            $images = $params['images'];
+            unset($params['images']);
+            $params['slug'] = Str::slug($params['name'].'-'.$product['code']);
+
+            $this->update($params, $product->id);
+            $product->fresh();
+            $this->handleArrayImageUploads($images, $product->id, $product->category_id);
+
+            return $product;
+
+        } catch (\Throwable $exception) {
+            throw $exception;
+        }
     }
 
     private function generateProductCode()
@@ -161,6 +175,13 @@ class ProductRepository extends BaseRepository implements ProductContract
         $start = round(strlen(time())/2)-1;
         $end = strlen(time());
         return substr(time(), $start, $end);
+    }
+
+    public function deleteProductImages(array $images)
+    {
+
+        ProductsImage::whereIn('id', $images)->delete();
+
     }
 
 

@@ -113,6 +113,11 @@ Route::group(['middleware'=>'auth:admin'], function() {
         '/products',
         \App\Http\Controllers\Admin\ProductsController::class,
     );
+
+    Route::put(
+        '/products/delete/images',
+        [\App\Http\Controllers\Admin\ProductsController::class, 'deleteImages']
+    );
     Route::get(
         '/orders/get',
         [\App\Http\Controllers\Admin\OrdersController::class, 'getOrders']

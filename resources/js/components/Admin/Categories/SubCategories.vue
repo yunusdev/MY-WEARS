@@ -15,6 +15,7 @@
                     <th>No</th>
                     <th>Name</th>
                     <th>Category</th>
+                    <th>Products Count</th>
                     <th>View Products</th>
                     <th>Edit</th>
                     <th>Delete</th>
@@ -25,9 +26,10 @@
                     <td>{{key + 1}}</td>
                     <td>{{sub_category.name}}</td>
                     <td>{{sub_category.category.name}}</td>
+                    <td>{{sub_category.products_count}}</td>
                     <td><a :href="`/admin/sub-categories/${sub_category.slug}/products`"><i class="text-center fas fa-2x fa-list"></i></a></td>
                     <td><a @click="editSubCategory(sub_category)"><i class="text-center fas fa-edit"></i></a></td>
-                    <td><a @click="deleteSubCategory(sub_category.category.id, sub_category.id, key)"><span class="text-center fas fa-trash" ></span></a></td>
+                    <td><a :class="{'disabled': sub_category.products_count > 1}" @click="deleteSubCategory(sub_category.category.id, sub_category.id, key)"><span class="text-center fas fa-trash" ></span></a></td>
                 </tr>
                 </tbody>
                 <tfoot>
@@ -35,6 +37,7 @@
                     <th>No</th>
                     <th>Name</th>
                     <th>Category</th>
+                    <th>Products Count</th>
                     <th>View Products</th>
                     <th>Edit</th>
                     <th>Delete</th>

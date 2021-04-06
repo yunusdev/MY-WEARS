@@ -1,11 +1,18 @@
 <template>
 
     <div>
-        <div class="text-center mb-3">
-            <img width="150" height="auto" :src="product.front_image" class="img-fluid" alt="">
-        </div>
+
 
         <div class="row">
+            <div class="col-md-6 mb-3">
+                <img width="150" height="auto" :src="product.front_image" class="img-fluid" alt="">
+            </div>
+            <div class="col-md-6 mb-3">
+                <a style="padding: 10px" :href="`/admin/products/${product.slug}/edit`" class="pull-right btn btn-primary">
+                    <i class="fas fa-edit text-white"  style="padding-right: 10px"></i>Edit Product
+                </a>
+            </div>
+
 
             <div class="col-md-6">
                 <label>Name:</label>

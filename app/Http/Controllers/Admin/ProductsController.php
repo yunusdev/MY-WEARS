@@ -6,6 +6,8 @@ use App\Contracts\CategoryContract;
 use App\Contracts\ProductContract;
 use App\Filters\ProductFilter;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductStoreRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Product;
 use App\Utils\RandomStringGenerator;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
@@ -56,28 +58,16 @@ class ProductsController extends Controller
 
     }
 
-    public function store(Request  $request){
+    public function store(ProductStoreRequest  $request){
 
         try {
 
-            $this->validate($request, [
-
-//                'name' => 'required|max:100|unique:products',
-                'name' => 'required|max:100',
-                'class' => 'required',
-                'category_id' => 'required',
-                'sub_category_id' => 'required',
-                'price' => 'required',
-                'available_sizes' => 'required|array|min:1',
-                'available_colors' => 'required|array|min:1',
-                'images' => 'required|array|min:1',
-                'front_image' => 'required',
-                'description' => 'required',
-
-            ]);
-
-            $params = $request->only('name', 'class', 'category_id', 'images', 'quantity', 'weight', 'front_image', 'available',
-                'sub_category_id', 'price', 'available_colors', 'available_sizes', 'description', 'featured', 'verified');
+            $params = $request->only(
+                'name', 'class', 'category_id',
+                'images', 'quantity', 'weight', 'front_image', 'available',
+                'sub_category_id', 'price', 'available_colors',
+                'available_sizes', 'description', 'featured', 'verified'
+            );
 
             $params['available_colors'] = implode(',', $params['available_colors']);
             $params['available_sizes'] = implode(',', $params['available_sizes']);
@@ -102,16 +92,62 @@ class ProductsController extends Controller
 
     public function edit($slug){
 
+        $data['product'] = $this->productRepository->getProductBy(['slug' => $slug], ['category', 'subCategory', 'productImages']);
+        $data['categories'] = $this->categoryRepository->getCategories();
+        return view('admin.products.edit')->with($data);
 
     }
 
-    public function update(Request  $request, Product $product){
+    public function update(ProductUpdateRequest  $request, Product $product){
 
+        $params = $request->only(
+            'name', 'class', 'category_id',
+            'images', 'quantity', 'weight', 'front_image', 'available',
+            'sub_category_id', 'price', 'available_colors',
+            'available_sizes', 'description', 'featured', 'verified'
+        );
+
+        $params['available_colors'] = implode(',', $params['available_colors']);
+        $params['available_sizes'] = implode(',', $params['available_sizes']);
+
+        return $this->productRepository->updateProduct($params, $product);
+
+    }
+
+    public function deleteImages(Request $request){
+
+        try {
+
+            $this->validate($request, [
+
+                'images' => 'required'
+
+            ]);
+
+            $this->productRepository->deleteProductImages($request['images']);
+
+            return response()->json([
+
+                'message' => 'Images deleted successfully'
+
+            ]);
+
+
+        }catch (\Throwable $throwable){
+
+            throw $throwable;
+        }
 
     }
 
     public function destroy(Product $product){
 
+        $this->productRepository->deleteProduct($product->id);
 
+        return response()->json([
+
+            'message' => 'Product deleted successfully'
+
+        ]);
     }
 }

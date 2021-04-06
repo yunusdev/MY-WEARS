@@ -36,8 +36,11 @@ interface ProductContract
 
     public function storeProduct(array $params);
 
-    public function updateProduct(array $params, string $id);
+    public function updateProduct(array $params, Product $product);
+
+    public function deleteProductImages(array $images);
 
     public function deleteProduct(string $id);
+
 
 }

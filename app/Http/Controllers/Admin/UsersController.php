@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Contracts\AccountContract;
 use App\Contracts\OrderContract;
 use App\Contracts\UserContract;
 use App\Filters\OrderFilter;
@@ -13,13 +14,15 @@ use App\Http\Controllers\Controller;
 class UsersController extends Controller
 {
     //
-    private $userRepository, $orderRepository;
+    private $userRepository, $orderRepository, $accountRepository;
 
-    public function __construct(UserContract $userRepository, OrderContract $orderRepository)
+    public function __construct(UserContract $userRepository, OrderContract $orderRepository, AccountContract $accountRepository)
     {
 
         $this->userRepository = $userRepository;
         $this->orderRepository = $orderRepository;
+        $this->accountRepository = $accountRepository;
+
 
     }
 
@@ -50,6 +53,13 @@ class UsersController extends Controller
         $data['title'] = 'User Orders - (' . $user->name . ')';
         $data['user'] = $user;
         return view('admin.orders.index')->with($data);
+
+    }
+
+    public function show($user){
+
+        $data['user'] = $this->accountRepository->getUserAndAddress($user);
+        return view('admin.users.show')->with($data);
 
     }
 

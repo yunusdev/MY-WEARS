@@ -53,10 +53,7 @@
                     <td><a :href="`/admin/coupons/${coupon.id}/orders`"><i class="text-center fas fa-2x fa-list"></i></a></td>
                     <td><a @click="editCoupon(coupon)"><i class="text-center fas fa-edit"></i></a></td>
                     <td>
-                        <a v-if="coupon.redeemed_count > 1" :class="{'disabled': coupon.redeemed_count > 1}">
-                            <span class="text-center fas fa-trash" ></span>
-                        </a>
-                        <a v-else @click="deleteCoupon(coupon.id, key)">
+                        <a :class="{'disabled': coupon.redeemed_count > 1}">
                             <span class="text-center fas fa-trash" ></span>
                         </a>
                     </td>

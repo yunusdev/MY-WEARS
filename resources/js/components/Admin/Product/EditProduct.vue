@@ -1,12 +1,12 @@
 <template>
 
     <div class="card-body">
-        <form @submit.prevent="storeProduct" class="" id="addProductForm">
+        <form @submit.prevent="editProduct" class="" id="addProductForm">
             <div class="row">
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label class="col-form-label">Name <sup>*</sup></label>
-                        <input type="text"  v-model="product.name" name="name" style="text-transform: uppercase;" class="form-control" required/>
+                        <input type="text"  v-model="product.name" name="name" class="form-control" required/>
                         <div class="invalid-feedback" v-if="errors.hasError('name')">{{ errors.first('name') }}</div>
                     </div>
                     <div class="form-group col-md-6">
@@ -23,7 +23,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label class="form-label">Category <sup>*</sup></label>
-                        <multiselect v-model="product_category" :options="categories" track-by="name" label="name" :searchable="true" :close-on-select="true"
+                        <multiselect @input="onCategoryChange" v-model="product_category" :options="categories" track-by="name" label="name" :searchable="true" :close-on-select="true"
                                      :show-labels="false" placeholder="Search Category List">
                         </multiselect>
                         <div class="invalid-feedback" v-if="errors.hasError('category_id')">{{ errors.first('category_id') }}</div>
@@ -84,12 +84,21 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label class="col-form-label">Front View Image <sup>*</sup></label>
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file"  @change="frontViewImage" ref="front_image" class="custom-file-input form-control" />
-                                <label class="custom-file-label" for="">Choose front view image</label>
+
+                        <div class="row">
+                            <div class="col-1">
+                                <img :src="product.front_image" width="50" height="40" alt="">
+                            </div>
+                            <div class="col-11">
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file"  @change="frontViewImage" ref="front_image" class="custom-file-input form-control" />
+                                        <label class="custom-file-label" for="">Choose front view image</label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                         <div class="invalid-feedback" v-if="errors.hasError('front_image')">{{ errors.first('front_image') }}</div>
                     </div>
                     <div class="col-md-2">
@@ -119,6 +128,26 @@
                         <textarea v-model="product.description" name="description" required class="form-control" cols="10" rows="5"></textarea>
                         <div class="invalid-feedback" v-if="errors.hasError('description')">{{ errors.first('description') }}</div>
                     </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label class="form-label">Image Check</label>
+                            <div class="row ml-1">
+                                <div v-for="image in product.product_images" class="mr-2">
+                                    <label class="imagecheck">
+                                        <input name="imagecheck"  v-model="selected_images" type="checkbox" :value="image.id" class="imagecheck-input">
+                                        <figure class="imagecheck-figure">
+                                            <img width="105" height="80" :src="image.path" alt="}" class="imagecheck-image">
+                                        </figure>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <button @click="deleteSelectedImages" type="button" class="btn btn-danger" :disabled="selected_images.length === 0">
+                                Delete Selected Images
+                            </button>
+                        </div>
+                    </div>
                     <div class="form-group col-md-12">
                         <label class="my-2 col-form-label"> <i class="fas fa-info-circle"></i> Images</label>
                         <main class="col px-2">
@@ -146,7 +175,7 @@
             </div>
             <div class="mt-4 pull-right" style="">
                 <button type="submit" :disabled="disabled" class="btn btn-primary text-center btn-lg btn-block">
-                    <span>Create Product </span>
+                    <span>Update Product </span>
                     <i class="fas fa-spinner fa-pulse" v-if="disabled"></i>
                 </button>
             </div>
@@ -163,26 +192,33 @@ import "vue-multiselect/dist/vue-multiselect.min.css";
 import ErrorBag from '../../error_bag'
 import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+import Swal from "sweetalert";
 
 class Product{
 
     constructor(product) {
 
+        this.id = product.id || '';
+        this.category = product.category || {};
         this.category_id = product.category_id || '';
+        this.sub_category = product.sub_category || {};
         this.sub_category_id = product.sub_category_id || '';
         this.name = product.name || '';
-        this.class = product.class || 'Male';
-        this.description = product.description || 'Descriptionnn';
-        this.weight = product.weight || '14';
-        this.price = product.price || '4500';
-        this.quantity = product.quantity || '56';
-        this.available_sizes = product.available_sizes || ['35'];
-        this.available_colors = product.available_colors || ['Red'];
+        this.class = product.class || '';
+        this.description = product.description || '';
+        this.weight = product.weight || '';
+        this.price = product.price || '';
+        this.quantity = product.quantity || '';
+        this.available_sizes = product.available_sizes || [];
+        this.available_colors = product.available_colors || [];
+        this.colors = product.colors || [];
+        this.sizes = product.sizes || [];
         this.front_image = product.front_image || '';
         this.available = product.available || true;
         this.featured = product.featured || false;
         this.verified = product.verified || false;
         this.images = product.images || []
+        this.product_images = product.product_images || []
 
     }
 
@@ -190,11 +226,11 @@ class Product{
 
 
 export default {
-    name: "StoreProduct",
+    name: "editProduct",
 
     components: {Multiselect, vueDropzone: vue2Dropzone},
 
-    props: ['raw_categories'],
+    props: ['raw_categories', 'raw_product'],
 
     data(){
 
@@ -206,7 +242,7 @@ export default {
             errors: new ErrorBag({}),
             disabled: false,
             product_sub_category: '',
-            product: new Product({}),
+            product: new Product(JSON.parse(this.raw_product)),
             size_options: ['35', '36', '37', '38', '39', '40', '41', '42'],
             color_options: ['Red', 'Black', 'Blue', 'Pink', 'White', 'Yellow', 'Green', 'Purple', 'Indigo', 'Velvet'],
             dropzoneOptions: {
@@ -215,27 +251,29 @@ export default {
                 addRemoveLinks: true,
                 maxFilesize: 1.0,
                 headers: { 'My-Awesome-Header': 'header value' }
-            }
+            },
+            selected_images: []
 
         }
 
     },
+
+    mounted() {
+
+        Object.assign(this.product, {
+
+            available_colors: this.product.colors,
+            available_sizes: this.product.sizes,
+        })
+        this.product_category = this.product.category
+        this.product_sub_category = this.product.sub_category
+    },
+
     watch: {
 
         product_category: function (val) {
 
-            this.product_sub_category = '';
-            this.product.sub_category_id  = '';
-            if (val) {
 
-                this.product.category_id = val.id;
-                this.fetchProductSubCategory(val.id);
-
-            } else {
-
-
-
-            }
 
         },
 
@@ -247,6 +285,15 @@ export default {
     },
 
     methods: {
+
+        onCategoryChange(val){
+            this.product_sub_category = '';
+            this.product.sub_category_id  = '';
+            if (val) {
+                this.product.category_id = val.id;
+                this.fetchProductSubCategory(val.id);
+            }
+        },
 
         fetchProductSubCategory(category_id){
 
@@ -275,10 +322,6 @@ export default {
             };
         },
 
-        preUpload(){
-
-        },
-
         afterComplete(file){
             this.product.images.push(file.dataURL)
             console.log(this.product.images)
@@ -290,23 +333,41 @@ export default {
             console.log(this.product.images)
         },
 
-        getBase64(file) {
+        deleteSelectedImages() {
+
+            Swal('Are you sure want to delete the selected images', {
+                buttons: ['Oh no!', true]
+            }).then(value => {
+                if (value) {
+                    this.$http.put(`/admin/products/delete/images`, {
+
+                        images: this.selected_images
+
+                    }).then(res => {
+
+                        console.log('>>>>>> res')
+                        window.location.reload();
+                        this.notifSuceess('Images deleted successfully');
+
+                    }).catch(err => {
+                        console.log('>>>>>> errror')
+                        this.notifError( err.message || 'An error occurred')
+                    })
+
+                }
+            })
 
         },
 
-        storeProduct(){
+        editProduct(){
 
             if (this.errors.hasErrors()) this.errors.clearAll()
 
-            // let product = new FormData();
-            // for (const [key, value] of Object.entries(this.product)){
-            //     product.append(key, value);
-            // }
             this.disabled = true
-            this.$http.post(`/admin/products`, this.product).then(res => {
+            this.$http.put(`/admin/products/${this.product.id}`, this.product).then(res => {
 
                 this.disabled = false;
-                this.notifSuceess('Product Created Successfully!!!')
+                this.notifSuceess('Product Updated Successfully!!!')
 
                 // window.location = '/admin/products'
                 console.log(res.data)
