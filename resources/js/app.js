@@ -34,6 +34,7 @@ Vue.mixin({
     }
 });
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('home', require('./components/Admin/Home.vue').default);
 Vue.component('store-role', require('./components/Admin/Authorization/StoreRole.vue').default);
 Vue.component('store-permission', require('./components/Admin/Authorization/StorePermission.vue').default);
 Vue.component('roles', require('./components/Admin/Authorization/Roles.vue').default);

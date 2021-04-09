@@ -13,7 +13,7 @@ class Order extends Model
 {
     use HasFactory, uuids, Filterable;
 
-    protected $appends = ['formatted_date'];
+    protected $appends = ['formatted_date', 'incoming_amount'];
 
     protected $fillable = [
         'tracking_number', 'number_of_items', 'user_created', 'shipped','country', 'sub_total_amount', 'total_amount', 'delivery_fee', 'name', 'email',
@@ -22,7 +22,13 @@ class Order extends Model
 
     public function getFormattedDateAttribute(){
 
-        return $this->created_at->format('F dS, Y');
+        return $this->created_at ? $this->created_at->format('F dS, Y') : '';
+
+    }
+
+    public function getIncomingAmountAttribute(){
+
+        return $this->total_amount -  $this->delivery_fee;
 
     }
 

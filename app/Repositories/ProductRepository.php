@@ -30,6 +30,12 @@ class ProductRepository extends BaseRepository implements ProductContract
         return $this->all(['*'],'created_at', 'desc',  ['category', 'subCategory']);
     }
 
+    public function getProductsCount()
+    {
+        return $this->count();
+    }
+
+
     public function getTopCategoryProducts(string $categoryId, int $num = 3)
     {
         return $this->model->where('category_id', $categoryId)->latest()->take($num)->get();

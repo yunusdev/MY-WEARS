@@ -49,6 +49,11 @@ Route::group(['middleware'=>'auth:admin'], function() {
         [\App\Http\Controllers\Admin\HomeController::class, 'index']
     )->name('admin.home');
 
+    Route::get(
+        '/test',
+        [\App\Http\Controllers\Admin\HomeController::class, 'test']
+    );
+
     Route::resource(
         '/admins',
         \App\Http\Controllers\Admin\AdminUsersController::class,
@@ -127,6 +132,22 @@ Route::group(['middleware'=>'auth:admin'], function() {
         '/orders/statuses',
         [\App\Http\Controllers\Admin\OrdersController::class, 'getOrderStatus']
     );
+
+
+
+    Route::group(['prefix'=>'group'], function() {
+
+        Route::get(
+            '/week/days',
+            [\App\Http\Controllers\Admin\HomeController::class, 'groupOrdersByWeekDay']
+        );
+
+        Route::get(
+            '/month',
+            [\App\Http\Controllers\Admin\HomeController::class, 'groupOrdersByMonth']
+        );
+
+    });
 
     Route::put(
         '/order/{order}/update/status',

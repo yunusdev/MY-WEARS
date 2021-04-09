@@ -12,6 +12,8 @@ interface OrderContract
 
     public function getOrders();
 
+    public function getOrdersCount();
+
     public function filterOrders(OrderFilter $filters, int $pagination = 10);
 
     public function getUserOrders(string $userId = null, array $relationship = []);

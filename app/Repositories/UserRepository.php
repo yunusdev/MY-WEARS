@@ -31,5 +31,10 @@ class UserRepository extends BaseRepository implements UserContract
         // TODO: Implement getUser() method.
     }
 
+    public function getUsersCount()
+    {
+        return $this->count();
+    }
+
 
 }

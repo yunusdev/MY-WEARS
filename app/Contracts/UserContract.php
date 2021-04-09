@@ -14,4 +14,6 @@ interface UserContract
 
     public function getUser(string $id);
 
+    public function getUsersCount();
+
 }
