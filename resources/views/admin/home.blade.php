@@ -5,6 +5,11 @@
     Home
 @endsection
 
+@section('styles')
+
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+@endsection
+
 @section('content')
 
     <div class="section-header">
@@ -20,10 +25,12 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Total Admin</h4>
+                            <a href="{{route('admins.index')}}">
+                                <h4>Admins</h4>
+                            </a>
                         </div>
                         <div class="card-body">
-                            10
+                            {{$counts['admins']}}
                         </div>
                     </div>
                 </div>
@@ -31,14 +38,16 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-danger">
-                        <i class="far fa-newspaper"></i>
+                        <i class="far fa-user"></i>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>News</h4>
+                            <a href="{{route('users.index')}}">
+                                <h4>Users</h4>
+                            </a>
                         </div>
                         <div class="card-body">
-                            42
+                            {{$counts['users']}}
                         </div>
                     </div>
                 </div>
@@ -46,14 +55,16 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-warning">
-                        <i class="far fa-file"></i>
+                        <i class="fas fa-list"></i>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Reports</h4>
+                            <a href="{{route('products.index')}}">
+                                <h4>Products</h4>
+                            </a>
                         </div>
                         <div class="card-body">
-                            1,201
+                            {{$counts['products']}}
                         </div>
                     </div>
                 </div>
@@ -61,19 +72,29 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-success">
-                        <i class="fas fa-circle"></i>
+                        <i class="fas fa-shopping-cart"></i>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Online Users</h4>
+                            <a href="{{route('orders.index')}}">
+                                <h4>Orders</h4>
+                            </a>
                         </div>
                         <div class="card-body">
-                            47
+                            {{$counts['orders']}}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <home></home>
+
     </div>
+
+@endsection
+
+
+@section('scripts')
 
 @endsection

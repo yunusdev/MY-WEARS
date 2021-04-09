@@ -4,7 +4,6 @@
 @section('styles')
 
     <link rel="stylesheet" href="{{asset('admin/datatables/dataTables.bootstrap4.css')}}">
-
 @endsection
 
 @section('content')

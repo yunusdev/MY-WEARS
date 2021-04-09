@@ -10,6 +10,7 @@ use App\Contracts\CategoryContract;
 use App\Contracts\CouponContract;
 use App\Contracts\OrderContract;
 use App\Contracts\OrderItemContract;
+use App\Contracts\OrderStatContract;
 use App\Contracts\ProductContract;
 use App\Contracts\ProductsImageContract;
 use App\Contracts\LocalityContract;
@@ -21,6 +22,7 @@ use App\Repositories\CategoryRepository;
 use App\Repositories\CouponRepository;
 use App\Repositories\OrderItemRepository;
 use App\Repositories\OrderRepository;
+use App\Repositories\OrderStatRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\ProductsImageRepository;
 use App\Repositories\LocalityRepository;
@@ -44,6 +46,7 @@ class RepositoryServiceProvider extends ServiceProvider
         OrderItemContract::class => OrderItemRepository::class,
         AccountContract::class => AccountRepository::class,
         UserContract::class => UserRepository::class,
+        OrderStatContract::class => OrderStatRepository::class,
 
     ];
 

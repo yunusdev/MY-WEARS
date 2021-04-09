@@ -13,6 +13,7 @@ interface BaseContract
      * @return mixed
      */
     public function create(array $attributes);
+    public function count();
 
     /**
      * Update a model instance

@@ -29,6 +29,11 @@ class BaseRepository implements BaseContract
         return $this->model->create($attributes);
     }
 
+    public function count()
+    {
+        return $this->model->get()->count();
+    }
+
     public function createBulk(array $attributes)
     {
         return $this->model->insert($attributes);

@@ -23,6 +23,12 @@ class OrderRepository extends BaseRepository implements OrderContract
 
     }
 
+    public function getOrdersCount()
+    {
+        return $this->count();
+    }
+
+
     public function filterOrders(OrderFilter $filters, int $pagination = 10)
     {
         return $this->filter($filters, $pagination, []);
