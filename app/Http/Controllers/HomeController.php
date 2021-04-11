@@ -6,6 +6,7 @@ use App\Contracts\CategoryContract;
 use App\Contracts\ProductContract;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
@@ -29,6 +30,10 @@ class HomeController extends Controller
             $category['top_products'] = $this->productRepository->getTopCategoryProducts($category->id);
         }
         $data['top_categories'] = $categories;
+        Mail::raw('Hi, welcome user!', function ($message) {
+            $message->to(['yunusabdulqudus1@gmail.com', 'testinglaravel96@Gmail.com'])
+    ->subject('Goooof');
+});
         return view('welcome')->with($data);
     }
 

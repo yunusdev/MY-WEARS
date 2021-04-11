@@ -282,7 +282,8 @@ export default {
         },
 
         completeOrder(response){
-
+            $("body").addClass("no-click");
+            this.$swal({buttons: false, text: 'Pls wait while the order is been initiated..'});
             this.$http.post('/orders/create', {
                 order: {
                     ...this.order,
@@ -297,6 +298,7 @@ export default {
                 items: this.cartItems,
 
             }).then(async (res) => {
+                $("body").removeClass("no-click");
                 await this.resetAllShoppingMutations()
                 await this.notifSuceess('Your order has been initiated successfully!');
                 if (this.user){
@@ -306,7 +308,9 @@ export default {
                 }
 
             }).catch(err => {
-                this.notifError('An error occurred while trying to complete your order!. Pls contact us if you have been charged');
+                $("body").removeClass("no-click");
+                this.$swal({text: 'An error occurred while trying to complete your order! Pls contact us if you have been charged', dangerMode: true,});
+                // this.notifError('An error occurred while trying to complete your order!. Pls contact us if you have been charged');
                 console.log(err)
             })
 

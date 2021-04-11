@@ -38,7 +38,7 @@ class Product extends Model
 
     public function getOrderItemsCountAttribute(){
 
-        return $this->orderItems()->count();
+        return $this->orderItems()->sum('quantity');
 
     }
 

@@ -40,7 +40,7 @@ class UsersController extends Controller
 
     public function getUsers(Request $request){
 
-        if (!(isset($request['orderByAsc']) && isset($request['orderByDesc']))) $request['orderByDesc'] = 'created_at';
+//        if (!(isset($request['orderByAsc']) && isset($request['orderByDesc']))) $request['orderByDesc'] = 'created_at';
 
         $filters = new UserFilter($request);
 

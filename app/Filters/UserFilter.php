@@ -2,26 +2,40 @@
 
 namespace App\Filters;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 
 class UserFilter extends QueryFilter
 {
-    /**
-     * @param string $trackingNumber
-     * @return void
-     */
-    public function trackingNumber(string $trackingNumber)
+
+
+    public function createdFrom(string $createdFrom)
     {
-        $this->builder->where('tracking_number', $trackingNumber);
+        $this->builder->where('created_at', '>=', $createdFrom);
     }
 
-    /**
-     * @param string $minAmount
-     * @return void
-     */
-    public function minAmount(string $minAmount)
+    public function createdTo(string $createdTo)
     {
-        $this->builder->where('price', '>=', $minAmount);
+        $this->builder->where('created_at', '<=', Carbon::create($createdTo)->addDay());
+    }
+
+
+    public function name(string $name)
+    {
+        $this->builder
+            ->where('name', 'like', "%" . $name . "%");
+    }
+
+    public function email(string $email)
+    {
+        $this->builder
+            ->where('email', 'like', "%" . $email . "%");
+    }
+
+    public function phone(string $phone)
+    {
+        $this->builder
+            ->where('phone', 'like', "%" . $phone . "%");
     }
 
     /**

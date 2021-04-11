@@ -88,7 +88,7 @@
             </div>
         </div>
 
-        <home></home>
+        <home raw_top_products = "{{$top_products}}"></home>
 
     </div>
 
