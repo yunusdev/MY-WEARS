@@ -24,6 +24,8 @@ interface ProductContract
 
     public function getTopSellingProducts(int $num = 3);
 
+    public function getTopSellingProductsAndTotalAmount(int $num = 3);
+
     public function getNewArrivalsProducts(int $num = 3);
 
     public function incrementProductViewCount(Product $product);

@@ -50,6 +50,19 @@
                 </span>
                 </h6>
             </div>
+            <div class="col-md-6">
+                <label>Order Items Count:</label>
+                <h6>{{product.order_items_count}}</h6>
+            </div>
+            <div class="col-md-6">
+                <label>View Count:</label>
+                <h6>{{product.views_count}}</h6>
+            </div>
+            <div class="col-md-6">
+                <label>Formatted Date:</label>
+                <h6>{{product.formatted_date}}</h6>
+            </div>
+
             <div class="col-md-6 mb-3">
                 <label>Available Colors:</label>
                 <div>

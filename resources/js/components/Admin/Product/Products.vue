@@ -92,6 +92,7 @@
                     <option value="created_at">Latest</option>
                     <option value="price">Price</option>
                     <option value="views_count">View Count</option>
+<!--                    <option value="order_items_count">order_items_count</option>-->
                 </select>
             </div>
             <div v-if="order_by" class="col-md-3 col-xs-12 form-group">
@@ -138,6 +139,7 @@
                     <th>Sub Category</th>
                     <th>Class</th>
                     <th>Available</th>
+                    <th>Order Count</th>
                     <th>Date</th>
                     <th>View</th>
                     <th>Edit</th>
@@ -154,6 +156,7 @@
                     <td>{{product.sub_category.name}}</td>
                     <td>{{product.class}}</td>
                     <td>{{product.available ? 'Available' : 'Not Available'}}</td>
+                    <td>{{product.order_items_count}}</td>
                     <td>{{product.formatted_date}}</td>
                     <td><a :href="`/admin/products/${product.slug}`"><i class="text-center fas fa-2x fa-eye"></i></a></td>
                     <td><a :href="`/admin/products/${product.slug}/edit`"><i class="text-center fas fa-edit"></i></a></td>
@@ -170,6 +173,7 @@
                     <th>Sub Category</th>
                     <th>Class</th>
                     <th>Available</th>
+                    <th>Order Count</th>
                     <th>Date</th>
                     <th>View</th>
                     <th>Edit</th>
@@ -227,7 +231,7 @@ export default {
             loaded: false,
             disabled: false,
             show_filter: true,
-            order_by: '',
+            order_by: 'created_at',
             category: '',
             subCategory: '',
             sort_type: 'desc',

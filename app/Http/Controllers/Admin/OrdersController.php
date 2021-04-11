@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Contracts\AccountContract;
 use App\Contracts\OrderContract;
 use App\Contracts\OrderItemContract;
+use App\Events\OrderCompletedEvent;
 use App\Filters\OrderFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
@@ -69,7 +70,9 @@ class OrdersController extends Controller
 
             ]);
 
-            return $this->orderRepository->updateStatus($order, $request['status']);
+            $order = $this->orderRepository->updateStatus($order, $request['status']);
+            if ($request['status'] === 'Delivered') event(new OrderCompletedEvent($order));
+            return $order;
 
         }catch (\Throwable $throwable){
 

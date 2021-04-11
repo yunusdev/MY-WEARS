@@ -7,6 +7,7 @@ use App\Contracts\CartContract;
 use App\Contracts\OrderContract;
 use App\Contracts\OrderItemContract;
 use App\Contracts\ProductContract;
+use App\Events\OrderInitiatedEvent;
 use App\Http\Requests\OrderRequest;
 use App\Repositories\OrderRepository;
 use Illuminate\Http\Request;
@@ -54,7 +55,9 @@ class OrderController extends Controller
     }
 
     public function create(OrderRequest $request){
+        $url = env('APP_URL');
 
+        $name = ''; $is_auth = false;
         try{
 
             DB::beginTransaction();
@@ -66,9 +69,12 @@ class OrderController extends Controller
             if (!Auth::guest()) {
                 $this->accountRepository->updateOrCreateUserAddress($inOrder);
                 $this->accountRepository->createOrUpdateUserPhone($inOrder);
+                $name = auth()->user()->name;
+                $is_auth = true;
             }
             $orderItems = $this->orderItemRepository->createOrderItems($order, $inOrderItems);
             $this->cartRepository->clearUserCart();
+            event(new OrderInitiatedEvent($order, $inOrderItems, $name, $is_auth , $url));
             Cache::put('message_success', 'Order completed successfully!', now()->addSeconds(10));
 
             DB::commit();

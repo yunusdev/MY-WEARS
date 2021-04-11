@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Contracts\OrderItemContract;
 use App\Contracts\OrderStatContract;
+use App\Contracts\ProductContract;
 use App\Models\Admin\Admin;
 use App\Models\Order;
 use App\Models\Product;
@@ -16,11 +17,12 @@ use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
-    private $orderStatRepository;
+    private $orderStatRepository, $prodRepository;
 
-    public function __construct(OrderStatContract $orderStatRepository)
+    public function __construct(OrderStatContract $orderStatRepository, ProductContract $prodRepository)
     {
         $this->orderStatRepository = $orderStatRepository;
+        $this->prodRepository = $prodRepository;
         $this->middleware('auth:admin');
     }
 
@@ -28,6 +30,7 @@ class HomeController extends Controller
     {
         $admins = Admin::get()->take(4);
         $data['counts'] = $this->orderStatRepository->getDataCounts();
+        $data['top_products'] = $this->prodRepository->getTopSellingProductsAndTotalAmount(10);
 
         return view('admin.home')->with($data);
 
@@ -48,7 +51,7 @@ class HomeController extends Controller
     public function test(){
 
 //        WEEK NUM
-//        return $this->orderStatRepository->aggregateOrdersByWeekNumber(true, 2021);
+        return $this->prodRepository->getTopSellingProductsAndTotalAmount();
 
 
     }

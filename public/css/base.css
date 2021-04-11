@@ -4,7 +4,9 @@
 .f-29{
     font-size: 20px;
 }
-
+.no-click {
+    pointer-events: none;
+}
 .f-17{
     font-size: 17px !important;
 }

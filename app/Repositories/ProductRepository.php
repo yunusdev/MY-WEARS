@@ -5,9 +5,11 @@ namespace App\Repositories;
 use App\Contracts\ProductContract;
 use App\Contracts\ProductsImageContract;
 use App\Filters\ProductFilter;
+use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\ProductsImage;
 use App\Traits\UploadImage;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
@@ -71,6 +73,19 @@ class ProductRepository extends BaseRepository implements ProductContract
     public function getTopSellingProducts(int $num = 3)
     {
         return $this->model->get()->sortByDesc('order_items_count')->take($num)->values();
+
+    }
+
+    public function getTopSellingProductsAndTotalAmount(int $num = 3)
+    {
+        $query = OrderItem::query();
+
+        return $query->select(DB::raw('count(*) AS count, product_id, sum(quantity) as totalQty, sum(product_price * quantity) AS totalAmount'))
+                    ->groupBy('product_id')
+                    ->orderBy('totalQty', 'desc')
+                    ->with('product')
+                    ->take($num)
+                    ->get();
 
     }
 
