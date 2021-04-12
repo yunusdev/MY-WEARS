@@ -1,5 +1,9 @@
 @extends('layouts.base')
 
+@section('title')
+    Product - {{$product->name}}
+@endsection
+
 @section('content')
 
     <!-- Page Title-->

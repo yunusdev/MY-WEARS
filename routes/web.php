@@ -20,6 +20,14 @@ Route::get('/session',
     [App\Http\Controllers\ShopController::class, 'session']
 );
 
+Route::get('/track/order/{tracking_number?}',
+    [App\Http\Controllers\ShopController::class, 'trackOrder']
+)->name('track.order');
+
+Route::get('search/track/order/{tracking_number}',
+    [App\Http\Controllers\ShopController::class, 'searchTrackOrder']
+);
+
 Route::group(['prefix' => 'shop'], function (){
 
     Route::get('/',

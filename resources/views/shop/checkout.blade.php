@@ -1,5 +1,7 @@
 @extends('layouts.base')
-
+@section('title')
+    Checkout
+@endsection
 @section('styles')
     <script src="https://js.paystack.co/v1/inline.js"></script>
 @endsection

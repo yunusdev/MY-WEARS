@@ -1,5 +1,9 @@
 @extends('layouts.base')
 
+@section('title')
+    Register
+@endsection
+
 @section('content')
     <div class="page-title">
         <div class="container">
@@ -60,7 +64,9 @@
                     <div class="text-center text-sm-right">
                         <button class="btn btn-rounded btn-primary margin-bottom-none" type="submit">Register</button>
                     </div>
-
+                    <div class="text-center justify-content-between padding-bottom-1x">
+                        Already have an account? <a class="navi-link underline" href="{{ route('login') }}">Sign in</a>
+                    </div>
                     <p class="mt-3 mb-0 text-center">Or Register With</p>
                     <div class="row margin-bottom-1x">
                         <div class="col-xl-4 col-md-6 col-sm-4">

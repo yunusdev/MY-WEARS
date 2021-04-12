@@ -1,5 +1,9 @@
 @extends('layouts.base')
 
+@section('title')
+    Cart
+@endsection
+
 @section('content')
 
     <!-- Page Title-->

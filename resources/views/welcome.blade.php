@@ -1,6 +1,14 @@
 @extends('layouts.base')
 
 @section('content')
+    @if (session('status'))
+        <div class="alert alert-success alert-has-icon">
+            <div class="alert-body font-weight-bold">
+                <span class="alert-icon" style="margin-right: 10px"><i class="far fa-lightbulb"></i></span>
+                    {{ session('status') }}
+            </div>
+        </div>
+    @endif
     <!-- Main Slider-->
     <section class="hero-slider" style="background-image: url(img/hero-slider/main-bg.jpg);">
         <div class="owl-carousel large-controls dots-inside" data-owl-carousel="{ &quot;nav&quot;: true, &quot;dots&quot;: true, &quot;loop&quot;: true, &quot;autoplay&quot;: true, &quot;autoplayTimeout&quot;: 7000 }">

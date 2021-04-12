@@ -3,12 +3,13 @@
 <head>
 {{--    acb5f6--}}
     <meta charset="utf-8">
-    <title>MY WEARS
+    <title>
+        @yield('title') | MY Wears
     </title>
     <!-- SEO Meta Tags-->
-    <meta name="description" content="MY WEARS - Universal E-Commerce Template">
-    <meta name="keywords" content="shop, e-commerce, modern, flat style, responsive, online store, business, mobile, blog, bootstrap 4, html5, css3, jquery, js, gallery, slider, touch, creative, clean">
-    <meta name="author" content="Rokaux">
+    <meta name="description" content="MY WEARS">
+    <meta name="keywords" content="MY WEARS, shop, e-commerce, modern, flat style, responsive, online store, business, bootstrap 4, html5, css3, jquery, js, gallery, slider, touch, creative, clean">
+    <meta name="author" content="yunusdev">
     <!-- Mobile Specific Meta Tag-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <!-- Favicon and Apple Icons-->

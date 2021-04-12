@@ -1,5 +1,9 @@
 @extends('layouts.base')
 
+@section('title')
+    User Orders
+@endsection
+
 @section('content')
 
     <!-- Page Title-->

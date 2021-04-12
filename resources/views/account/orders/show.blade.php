@@ -1,5 +1,9 @@
 @extends('layouts.base')
 
+@section('title')
+    Order - {{$order->tracking_number}}
+@endsection
+
 @section('content')
 
     <!-- Page Title-->

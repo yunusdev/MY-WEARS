@@ -1,5 +1,9 @@
 @extends('layouts.base')
 
+@section('title')
+    Login
+@endsection
+
 @section('content')
     <div class="page-title">
         <div class="container">
@@ -49,7 +53,10 @@
                     <div class="text-center text-sm-right">
                         <button class="btn btn-rounded btn-primary margin-bottom-none" type="submit">Login</button>
                     </div>
-                    <p class="mt-3 mb-0 text-center">Or Register With</p>
+                    <div class="text-center justify-content-between padding-bottom-1x">
+                        Dont have an account? <a class="navi-link underline" href="{{ route('register') }}">Register</a>
+                    </div>
+                    <p class="mt-3 mb-0 text-center">Or Login With</p>
                     <div class="row margin-bottom-1x">
                         <div class="col-xl-4 col-md-6 col-sm-4">
                             <a class="btn btn-sm btn-block google-btn" href="{{route('social.redirect', 'google')}}">
