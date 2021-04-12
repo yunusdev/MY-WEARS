@@ -30,10 +30,6 @@ class HomeController extends Controller
             $category['top_products'] = $this->productRepository->getTopCategoryProducts($category->id);
         }
         $data['top_categories'] = $categories;
-        Mail::raw('Hi, welcome user!', function ($message) {
-            $message->to(['yunusabdulqudus1@gmail.com', 'testinglaravel96@Gmail.com'])
-    ->subject('Goooof');
-});
         return view('welcome')->with($data);
     }
 

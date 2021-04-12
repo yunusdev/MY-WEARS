@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contracts\AccountContract;
 use App\Contracts\CartContract;
+use App\Contracts\CouponContract;
 use App\Contracts\OrderContract;
 use App\Contracts\OrderItemContract;
 use App\Contracts\ProductContract;
@@ -20,10 +21,10 @@ class OrderController extends Controller
 {
     //
 
-    private $orderRepository, $orderItemRepository, $cartRepository, $productRepository, $accountRepository;
+    private $orderRepository, $orderItemRepository, $cartRepository, $productRepository, $accountRepository, $couponRepository;
 
     public function __construct(OrderContract $orderRepository, ProductContract $productRepository, AccountContract $accountRepository,
-                                OrderItemContract $orderItemRepository, CartContract  $cartRepository)
+                                OrderItemContract $orderItemRepository, CartContract  $cartRepository, CouponContract $couponRepository)
     {
         $this->orderRepository = $orderRepository;
         $this->orderItemRepository = $orderItemRepository;
@@ -31,6 +32,7 @@ class OrderController extends Controller
         $this->productRepository = $productRepository;
         $this->productRepository = $productRepository;
         $this->accountRepository = $accountRepository;
+        $this->couponRepository = $couponRepository;
 
     }
 
@@ -56,7 +58,6 @@ class OrderController extends Controller
 
     public function create(OrderRequest $request){
         $url = env('APP_URL');
-
         $name = ''; $is_auth = false;
         try{
 
@@ -66,6 +67,7 @@ class OrderController extends Controller
             $inOrderItems = $request['items'];
 
             $order = $this->orderRepository->createUserOrder($inOrder);
+            $this->couponRepository->userRedeemCoupon($order);
             if (!Auth::guest()) {
                 $this->accountRepository->updateOrCreateUserAddress($inOrder);
                 $this->accountRepository->createOrUpdateUserPhone($inOrder);

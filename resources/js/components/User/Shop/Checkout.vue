@@ -102,7 +102,7 @@
                             </tr>
                             <tr v-if="validCoupon">
                                 <td>Discount:</td>
-                                <td class="text-small text-danger">N{{couponDiscount | formatMoney}} off</td>
+                                <td class="text-small text-danger"> - N{{couponDiscount | formatMoney}}</td>
                             </tr>
                             <tr>
                                 <td></td>
@@ -138,10 +138,10 @@
 </template>
 
 <script>
-import {mapGetters, mapActions, mapMutations} from "vuex";
-import store from "../../../store";
+import {mapActions, mapGetters, mapMutations} from "vuex";
 import Paystack from "../Paystack";
 import ProductWidget from "./ProductWidget";
+
 class Order {
 
     constructor(order) {
@@ -188,8 +188,6 @@ export default {
         if (this.user){
             const user = this.user
             const address =  this.user && this.user.address
-            console.log(user)
-            console.log(address)
             Object.assign(this.order, {...user, ...address})
             if (this.user.address){
                 const state = this.states.find((state) => state.name === this.user.address.state)
@@ -264,6 +262,7 @@ export default {
 
         ...mapActions({
             getCountries: 'locality/getCountries',
+            couponValidate: 'cart/couponValidate',
             getNigerianStates: 'locality/getNigerianStates',
             resetAllShoppingMutations: 'cart/resetAllShoppingMutations',
             getTopSellingProducts: 'shop/getTopSellingProducts',
@@ -273,12 +272,17 @@ export default {
         ...mapMutations({
             setTotalFee: 'cart/setTotalFee',
             setDeliveryFee: 'cart/setDeliveryFee',
+            setValidCoupon: 'cart/setValidCoupon',
+            setCouponDiscount: 'cart/setCouponDiscount',
         }),
 
-        initiateCheckout(){
+        async initiateCheckout(){
 
+            if(this.validCoupon && this.validCoupon.id){
+                const isValid = await this.validateCoupon()
+                if (!isValid) return
+            }
             this.$refs.paystackPayment.makePayment()
-
         },
 
         completeOrder(response){
@@ -299,14 +303,13 @@ export default {
 
             }).then(async (res) => {
                 $("body").removeClass("no-click");
-                await this.resetAllShoppingMutations()
-                await this.notifSuceess('Your order has been initiated successfully!');
-                if (this.user){
-                    window.location = '/account/orders'
-                }else{
-                    window.location = '/shop'
-                }
-
+                // await this.resetAllShoppingMutations()
+                // await this.notifSuceess('Your order has been initiated successfully!');
+                // if (this.user){
+                //     window.location = '/account/orders'
+                // }else{
+                //     window.location = '/shop'
+                // }
             }).catch(err => {
                 $("body").removeClass("no-click");
                 this.$swal({text: 'An error occurred while trying to complete your order! Pls contact us if you have been charged', dangerMode: true,});
@@ -341,20 +344,29 @@ export default {
             if (this.order.state === 'Lagos' && fartherLagosLGA.indexOf(this.order.lga) === -1){
                 this.setDeliveryFee(1500)
             }
+
             this.setTotalFee((this.subTotalAmount + this.deliveryFee) - this.couponDiscount)
 
         },
 
-        validateCoupon(){
-            this.couponValidate({code: this.coupon_code, total_amount: this.subTotalAmount}).then((data) => {
-                console.log(data)
+        async validateCoupon(){
+            return this.couponValidate({
+                code: this.validCoupon.code,
+                total_amount: this.subTotalAmount
+            }).then((data) => {
+                let isValid = true
                 this.coupon_data = data.coupon_data
-                if(data.coupon_data.valid) store.commit('cart/setTotalFee', this.totalFee)
-                this.notifSuceess(this.coupon_data.message);
+                if (!data.coupon_data.valid) {
+                    this.notifError(data.coupon_data.message);
+                    this.setTotalFee(this.subTotalAmount + this.deliveryFee)
+                    this.setValidCoupon(null)
+                    this.setCouponDiscount(0)
+                    isValid = false
+                }
+                return isValid;
             }).catch((err) => {
-                this.notifError( err.message || 'An error occurred')
-            })
-
+                this.notifError(err.message || 'An error occurred')
+            });
         },
 
     }

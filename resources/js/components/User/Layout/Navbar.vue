@@ -147,8 +147,8 @@
                                     </div>
                                 </div>
                                 <div v-if="cartItems && cartItems.length > 0" class="toolbar-dropdown-group">
-                                    <div class="column"><span class="text-lg">Total:</span></div>
-                                    <div class="column text-right"><span class="text-lg text-medium">N{{subTotalAmount | formatMoney}}&nbsp;</span></div>
+                                    <div class="column"><span class="text-medium">Sub Total:</span></div>
+                                    <div class="column text-right"><span class=" text-medium">N{{subTotalAmount | formatMoney}}&nbsp;</span></div>
                                 </div>
                                 <div v-if="cartItems && cartItems.length > 0" class="toolbar-dropdown-group">
                                     <div class="column"><a class="btn btn-sm btn-block btn-secondary" href="/cart">View Cart</a></div>
@@ -198,7 +198,8 @@ export default {
             cartItems: 'cart/items',
             subTotalAmount: 'cart/subTotalAmount',
             categories: 'shop/categories',
-            totalQty: 'cart/totalQty'
+            totalQty: 'cart/totalQty',
+            totalFee: 'cart/totalFee',
 
         }),
     },

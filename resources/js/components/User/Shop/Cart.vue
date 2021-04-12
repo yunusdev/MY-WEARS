@@ -206,9 +206,7 @@ export default {
             }).catch((err) => {
                 this.notifError( err.message || 'An error occurred')
             })
-
         },
-
         emptyCart(item){
             this.clearCart().then((data) => {
                 this.resetAllShoppingMutations()

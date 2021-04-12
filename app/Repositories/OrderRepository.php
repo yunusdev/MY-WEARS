@@ -46,9 +46,7 @@ class OrderRepository extends BaseRepository implements OrderContract
     {
 
         if ($userCreated && Auth::check()){
-
             $params['user_id'] = auth()->id();
-
         }
         $random = new RandomStringGenerator();
         $params['tracking_number'] = $random->generate(6);

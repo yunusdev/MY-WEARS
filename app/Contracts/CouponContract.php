@@ -3,12 +3,16 @@
 namespace App\Contracts;
 
 
+use App\Models\Order;
+
 interface CouponContract
 {
 
     public function getCoupons();
 
     public function storeCoupon(array $params);
+
+    public function userRedeemCoupon(Order $order);
 
     public function validateCoupon(string $code, int $totalAmount, string $userId = null);
 

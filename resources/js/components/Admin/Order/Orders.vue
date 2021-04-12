@@ -159,7 +159,10 @@
                     <td>N{{order.total_amount | formatMoney}}</td>
                     <td>N{{order.sub_total_amount | formatMoney}}</td>
                     <td>N{{order.delivery_fee | formatMoney }}</td>
-                    <td>{{order.coupon_id ? order.coupon_discount : '--'}}</td>
+                    <td> <span v-if="order.coupon_id">N{{order.coupon_discount | formatMoney}}</span>
+                        <span v-else>--</span>
+                    </td>
+
                     <td>{{order.number_of_items}}</td>
                     <td>{{order.formatted_date}}</td>
                     <td><a target="_blank" :href="`/admin/orders/${order.tracking_number}`"><i class="text-center fas fa-2x fa-eye"></i></a></td>
