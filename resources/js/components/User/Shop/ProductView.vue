@@ -4,23 +4,24 @@
         <div class="row">
             <!-- Poduct Gallery-->
             <div class="col-md-6">
-                <div class="product-gallery"><span class="product-badge text-danger">30% Off</span>
-                    <div class="gallery-wrapper">
-                        <div class="gallery-item video-btn text-center"><a href="#" data-toggle="tooltip" data-type="video" data-video="&lt;div class=&quot;wrapper&quot;&gt;&lt;div class=&quot;video-wrapper&quot;&gt;&lt;iframe class=&quot;pswp__video&quot; width=&quot;960&quot; height=&quot;640&quot; src=&quot;//www.youtube.com/embed/B81qd2v6alw?rel=0&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;/div&gt;" title="Watch video"></a></div>
-                    </div>
+                <div class="product-gallery">
                     <div class="product-carousel owl-carousel gallery-wrapper">
-                        <div class="gallery-item" data-hash="one"><a :href="product.front_image" data-size="1000x667">
-                            <img :src="product.front_image" alt="Product"></a></div>
-                        <div class="gallery-item" :key="image.id" v-for="image in product.product_images" :data-hash="image.id">
+                        <div class="gallery-item" data-hash="one">
+                            <a :href="product.front_image" data-size="1000x667">
+                            <img :src="product.front_image" alt="Product"></a>
+                        </div>
+                        <div class="gallery-item" :key="image.id" :data-hash="numWords[key]" v-for="image,key in product.product_images">
                             <a :href="image.path" data-size="1000x667">
                                 <img :src="image.path" alt="Product">
                             </a>
                         </div>
                     </div>
                     <ul class="product-thumbnails">
-                        <li class="active"><a href="#one"><img :src="product.front_image" alt="Product"></a></li>
-                        <li :key="image.id" v-for="image in product.product_images" >
-                            <a :href="'#'+ image.id">
+                        <li class="active">
+                            <a href="#one"><img :src="product.front_image" alt="Product"></a>
+                        </li>
+                        <li :key="image.id" v-for="image, key in product.product_images" >
+                            <a :href="'#'+numWords[key]">
                                 <img :src="image.path" alt="Product">
                             </a>
                         </li>
@@ -110,6 +111,8 @@ export default {
 
             product: JSON.parse(this.raw_product),
             related_products: JSON.parse(this.raw_related_products),
+            numWords: ['two','three','four','five','six','seven','eight','nine','ten',
+               'eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen']
 
         }
 

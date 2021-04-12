@@ -74,6 +74,7 @@ Vue.component('user-profile', require('./components/User/Account/UserProfile.vue
 Vue.component('user-address', require('./components/User/Account/UserAddress.vue').default);
 Vue.component('user-wishlists', require('./components/User/Account/UserWishlist.vue').default);
 Vue.component('leading-products-home', require('./components/User/Shop/LeadingProductsHome.vue').default);
+Vue.component('tracking-order', require('./components/User/Shop/TrackingOrder.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

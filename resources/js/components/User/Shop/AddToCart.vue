@@ -4,11 +4,25 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Modal title</h4>
+                    <h4 class="modal-title">Select</h4>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <form @submit.prevent="addToCart()">
                     <div class="modal-body">
+
+                        <div class="row font-weight-bold  mb-2">
+                            <div class="col-1 " style="">
+                            </div>
+                            <div class="col-3 " style="">
+                                <span class="">Size</span>
+                            </div>
+                            <div class="col-4" style="">
+                                Color
+                            </div>
+                            <div class="col-3 " style="">
+                                Quantity
+                            </div>
+                        </div>
 
                         <div v-for="item, key in items" class="row">
 
@@ -42,8 +56,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-outline-secondary btn-sm" type="submit">Add To cart</button>
-                        <button class="btn btn-primary btn-sm" type="button">Checkout</button>
+                        <button class="btn btn-primary btn-sm" type="submit">Add To cart</button>
+<!--                        <button class="btn btn-primary btn-sm" type="button">Checkout</button>-->
                     </div>
                 </form>
             </div>

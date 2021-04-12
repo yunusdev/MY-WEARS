@@ -1,5 +1,9 @@
 @extends('layouts.base')
 
+@section('title')
+    Delivery Address
+@endsection
+
 @section('content')
 
     <!-- Page Title-->

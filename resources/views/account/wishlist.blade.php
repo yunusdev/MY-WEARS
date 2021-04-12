@@ -1,5 +1,9 @@
 @extends('layouts.base')
 
+@section('title')
+    Wishlist
+@endsection
+
 @section('content')
 
     <!-- Page Title-->

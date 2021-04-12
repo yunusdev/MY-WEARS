@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\CategoryContract;
+use App\Contracts\OrderContract;
 use App\Contracts\ProductContract;
 use App\Contracts\SubCategoryContract;
 use App\Filters\ProductFilter;
@@ -14,13 +15,15 @@ class ShopController extends Controller
 {
     //
 
-    private $productRepository, $categoryRepository, $subCategoryRepository;
+    private $productRepository, $categoryRepository, $subCategoryRepository, $orderRepository;
 
-    public function __construct(ProductContract $productRepository, CategoryContract $categoryRepository, SubCategoryContract $subCategoryRepository)
+    public function __construct(ProductContract $productRepository, CategoryContract $categoryRepository,
+                                SubCategoryContract $subCategoryRepository, OrderContract $orderRepository)
     {
         $this->productRepository = $productRepository;
         $this->categoryRepository = $categoryRepository;
         $this->subCategoryRepository = $subCategoryRepository;
+        $this->orderRepository = $orderRepository;
     }
 
     public function index(){
@@ -36,9 +39,17 @@ class ShopController extends Controller
 
     }
 
-    public function session(){
+    public function trackOrder($tracking_number = ""){
 
-        return json_encode(Session::get('cart'));
+        $data['tracking_number'] = $tracking_number;
+        $data['order'] = $this->orderRepository->getOrderByTrackingNumber($tracking_number, [], false);
+        return view('shop.track-order')->with($data);
+
+    }
+
+    public function searchTrackOrder($tracking_number){
+
+        return $this->orderRepository->getOrderByTrackingNumber($tracking_number, [], false);
 
     }
 

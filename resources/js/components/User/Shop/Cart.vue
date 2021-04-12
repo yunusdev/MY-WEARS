@@ -20,7 +20,8 @@
                         <td>
                             <div class="product-item"><a class="product-thumb" :href="'/product/' + item.product.slug"><img class="cart-item-image" :src="item.product.front_image" alt="Product"></a>
                                 <div class="product-info">
-                                    <h4 class="product-title"><a :href="'/product/' + item.product.slug">{{item.product.name}}</a></h4><span><em>Size:</em> {{item.size}}</span><span><em>Color:</em> {{item.color}}</span>
+                                    <h4 class="product-title"><a :href="'/product/' + item.product.slug">{{item.product.name}}</a></h4>
+                                    <span><em class="">Size:</em> {{item.size}}</span><span><em>Color:</em> {{item.color}}</span>
                                 </div>
                             </div>
                         </td>
