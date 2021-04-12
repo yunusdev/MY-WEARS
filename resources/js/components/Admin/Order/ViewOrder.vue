@@ -5,7 +5,7 @@
                 <div class="padding-top-2x mt-2 hidden-lg-up"></div>
 
                 <div class="text-center order-details">
-                    <h6><span class="badge f-13 font-weight-600 pt-2 pb-2 pl-3 pr-3 badge-warning">{{order.status}}</span></h6>
+                    <h6><span :class="`badge${getStatusColor(order.status)}`" class="badge f-13 font-weight-600 pt-2 pb-2 pl-3 pr-3">{{order.status}}</span></h6>
                     <h6><span class="cont">#{{order.tracking_number}}</span></h6>
                     <h6><span class="cont">{{order.name}} | {{order.email}} | {{order.phone}}</span></h6>
                     <h6><span class="cont">{{order.address}} | {{order.lga}} | {{order.state}}</span></h6>
@@ -102,6 +102,7 @@
 <script>
 import { mapActions, mapMutations, mapGetters } from 'vuex'
 import Swal from "sweetalert";
+const {getOrderStatusColor} = require('../../order_status');
 
 export default {
     name: "ViewOrder",
@@ -132,6 +133,10 @@ export default {
     },
 
     methods: {
+
+        getStatusColor(status){
+            return  getOrderStatusColor(status)
+        },
 
         updateAllowedStatus(){
 

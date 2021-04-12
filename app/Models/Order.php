@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Contracts\CouponContract;
 use App\Traits\Filterable;
 use App\Traits\uuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,6 +25,12 @@ class Order extends Model
 
         return $this->created_at ? $this->created_at->format('F dS, Y') : '';
 
+    }
+
+
+    public function coupon()
+    {
+        return $this->belongsTo(Coupon::class);
     }
 
     public function getIncomingAmountAttribute(){

@@ -34,12 +34,11 @@ class OrderRepository extends BaseRepository implements OrderContract
         return $this->filter($filters, $pagination, []);
     }
 
-    public function getUserOrders(string $userId = null, array $relationship = [])
+    public function getUserOrders(string $userId = null, $numPaginate = 10, array $relationship = [])
     {
         if (!$userId) $userId = auth()->id();
-        return $this->findByWhere([
-            'user_id' => $userId
-        ], $relationship);
+
+        return $this->paginate(['user_id' => $userId], $numPaginate);
     }
 
     public function createUserOrder(array $params, bool $userCreated = true)

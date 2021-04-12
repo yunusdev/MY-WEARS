@@ -29,10 +29,7 @@
 <!--                            <div class="shop-view"><a class="grid-view active" href="shop-grid-ls.html"><span></span><span></span><span></span></a><a class="list-view" href="shop-list-ls.html"><span></span><span></span><span></span></a></div>-->
                     </div>
                 </div>
-                <!-- Products Grid-->
                 <div class="row mb-5">
-<!--                    <div class="gutter-sizer"></div>-->
-<!--                    <div class="grid-sizer"></div>-->
                     <product :add_col="true" v-if="loaded" v-for="product, key in products" :key="product.name" :product="product"></product>
                 </div>
 

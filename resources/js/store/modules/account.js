@@ -4,7 +4,7 @@ const baseUrl = 'account'
 export default {
     namespaced: true,
     state: {
-        user_orders: [],
+        user_orders: null,
         user_wishlist: [],
         order: null,
     },
@@ -23,11 +23,14 @@ export default {
     },
 
     actions: {
-        getUserOrders({ state, commit }, {reset = false}){
-            if(!reset && state.user_orders.length > 0){
-                return;
+        getUserOrders({ state, commit }, {page, reset = false}){
+            // if(!reset && state.user_orders.length > 0){
+            //     return;
+            // }
+            if (typeof page === 'undefined' || !page) {
+                page = 1;
             }
-            return Axios.get(`/${baseUrl}/user/orders`).then(res => {
+            return Axios.get(`/${baseUrl}/user/orders?page=${page}`).then(res => {
                 commit('setUserOrders', res.data)
                 return res.data
             }).catch(err => {
