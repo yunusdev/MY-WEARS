@@ -51,7 +51,10 @@ class OrderController extends Controller
 
     public function show($tracking_number){
 
-        $data['order'] = $this->orderRepository->getOrderByTrackingNumber($tracking_number, ['orderItems.product']);
+        $data['order'] = $this->orderRepository->getOrderByTrackingNumber($tracking_number, ['orderItems.product', 'coupon']);
+
+        if (!$data['order']) return redirect('/');
+
         return view('account.orders.show')->with($data);
 
     }

@@ -56,12 +56,12 @@ interface BaseContract
 
     /**
      * Return all model rows
-     * @param array $columns
-     * @param string $orderBy
-     * @param string $sortBy
+     * @param array $data
+     * @param int $paginate
+     * @param array $relationship
      * @return mixed
      */
-    public function paginate(array $data, int $paginate);
+    public function paginate(array $data, int $paginate, array $relationship = []);
 
     /**
      * Find one by ID

@@ -9,7 +9,7 @@
                 <h4 class="product-price">N{{product.price}}</h4>
                 <div class="product-buttons">
                     <wishlist :product="product"></wishlist>
-                    <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
+                    <a class="btn btn-outline-primary btn-sm" :href="'/product/' + product.slug">View</a>
                 </div>
             </div>
         </div>

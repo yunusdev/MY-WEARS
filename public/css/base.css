@@ -11,6 +11,14 @@
     font-size: 17px !important;
 }
 
+.text-blue{
+    color: #0da9ef !important;
+}
+.badge.badge-blue {
+    background-color: #0da9ef;
+    color: white;
+}
+
 .f-15{
     font-size: 15px !important;
 }

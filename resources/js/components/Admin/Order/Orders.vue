@@ -155,7 +155,9 @@
                     <td>{{ordersData.from + key}}</td>
                     <td>{{order.name}}</td>
                     <td>{{order.tracking_number}}</td>
-                    <td>{{order.status}}</td>
+                    <td>
+                        <span :class="`badge${getStatusColor(order.status)}`" class="badge">{{order.status}}</span>
+                    </td>
                     <td>N{{order.total_amount | formatMoney}}</td>
                     <td>N{{order.sub_total_amount | formatMoney}}</td>
                     <td>N{{order.delivery_fee | formatMoney }}</td>
@@ -207,6 +209,7 @@ import pagination from "laravel-vue-pagination";
 import {mapActions, mapGetters} from "vuex";
 import Multiselect from 'vue-multiselect'
 import 'vue-multiselect/dist/vue-multiselect.min.css'
+const {getOrderStatusColor} = require('../../order_status');
 
 const searchQuery = {
     createdFrom: '',
@@ -279,6 +282,9 @@ export default {
     },
 
     methods: {
+        getStatusColor(status){
+            return  getOrderStatusColor(status)
+        },
         toggleFilter(){
 
             this.show_filter = !this.show_filter

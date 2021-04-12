@@ -6,6 +6,7 @@
                 <div class="padding-top-2x mt-2 hidden-lg-up"></div>
 
                 <div class="text-center order-details">
+                    <h6><span :class="`badge${getStatusColor(order.status)}`" class="badge f-13 font-weight-600 pt-2 pb-2 pl-3 pr-3">{{order.status}}</span></h6>
                     <h6><span class="cont">#{{order.tracking_number}}</span></h6>
                     <h6><span class="cont">{{order.name}} | {{order.email}} | {{order.phone}}</span></h6>
                     <h6><span class="cont">{{order.address}} | {{order.lga}} | {{order.state}}</span></h6>
@@ -57,8 +58,8 @@
                                     <td>Delivery Fee:</td>
                                     <td class="text-small">N{{order.delivery_fee | formatMoney}}</td>
                                 </tr>
-                                <tr v-if="order.coupon_id">
-                                    <td>Discount:</td>
+                                <tr v-if="order.coupon_id && order.coupon ">
+                                    <td>Discount <span class="text-uppercase">({{order.coupon.code}})</span>:</td>
                                     <td class="text-small text-danger">- N{{order.coupon_discount | formatMoney}}</td>
                                 </tr>
 
@@ -78,6 +79,7 @@
 
 <script>
 import NavAccount from "./NavAccount";
+const {getOrderStatusColor} = require('../../order_status');
 
 import { mapActions, mapMutations, mapGetters } from 'vuex'
 
@@ -109,9 +111,9 @@ export default {
     },
 
     methods: {
-
-
-
+        getStatusColor(status){
+            return  getOrderStatusColor(status)
+        },
     }
 }
 </script>
