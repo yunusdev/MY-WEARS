@@ -16,7 +16,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label>Code:</label>
-                        <input required style="text-transform: uppercase;" type="text" :class="{'form-control': true, 'is-invalid': errors.hasError('code')}" placeholder="Code" v-model="coupon.code">
+                        <input :disabled="editing && redeemed_count > 0" required style="text-transform: uppercase;" type="text" :class="{'form-control': true, 'is-invalid': errors.hasError('code')}" placeholder="Code" v-model="coupon.code">
                         <div class="invalid-feedback" v-if="errors.hasError('code')">{{ errors.first('code') }}</div>
                     </div>
                     <div class="form-group col-md-6">
@@ -145,6 +145,7 @@ export default {
         this.$parent.$on('edit_coupon', (coupon) => {
 
             this.editing = true;
+            this.redeemed_count = coupon.redeemed_count
             this.coupon = new Coupon(coupon);
             this.coupon.id = coupon.id;
             if (this.errors.hasErrors()) {
@@ -160,6 +161,7 @@ export default {
 
         return {
 
+            redeemed_count: 0,
             coupon: new Coupon({}),
             editing: false,
             disabled: false,

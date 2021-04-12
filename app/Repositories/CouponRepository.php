@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Contracts\CouponContract;
 use App\Models\Coupon;
+use App\Models\Order;
 
 class CouponRepository extends BaseRepository implements CouponContract
 {
@@ -17,6 +18,16 @@ class CouponRepository extends BaseRepository implements CouponContract
     public function getCoupons()
     {
         return $this->all();
+    }
+
+    public function userRedeemCoupon(Order $order){
+
+        if (!isset($order->coupon_id) || !isset($order->user_id)) return false;
+
+        $coupon = $this->find($order->coupon_id);
+
+        return $coupon->users()->attach($order->user_id, ['order_id' => $order->id]);
+
     }
 
     public function validateCoupon(string $code, int $totalAmount, string $userId = null)
@@ -46,7 +57,7 @@ class CouponRepository extends BaseRepository implements CouponContract
 
             case $coupon->users->contains($userId):
 
-                $data =  ['valid' => false, 'message' => 'You have used this coupon before...'];
+                $data =  ['valid' => false, 'message' => 'You have used this coupon previously...'];
                 break;
 
             case $coupon->lowest_amount > $totalAmount:
