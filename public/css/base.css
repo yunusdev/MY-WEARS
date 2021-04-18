@@ -11,6 +11,9 @@
     font-size: 17px !important;
 }
 
+img{
+    border-radius: 2px !important;
+}
 .text-blue{
     color: #0da9ef !important;
 }
@@ -80,4 +83,11 @@ div.order-details h6{
 
 .underline{
     text-decoration: underline !important;
+}
+
+.widget-light-skin.widget-categories ul>li>a:hover, .widget-light-skin.widget-links ul>li>a:hover{
+
+    color: white !important;
+    opacity: 0.7 !important;
+
 }

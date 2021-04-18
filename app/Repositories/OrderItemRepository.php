@@ -27,8 +27,6 @@ class OrderItemRepository extends BaseRepository implements OrderItemContract
     public function createOrderItems(Order $order, array $orderItems)
     {
         $items = [];
-        Log::debug('orderItems');
-        Log::debug(json_encode($orderItems));
         foreach ($orderItems as $item){
 
             $item['order_id'] = $order['id'];

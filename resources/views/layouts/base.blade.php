@@ -41,7 +41,7 @@
             <!-- Page Content-->
             @yield('content')
 
-            @include('layouts.footer')
+            <user-footer raw_user="{{auth()->user()}}"></user-footer>
         </div>
 
     </div>

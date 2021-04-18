@@ -66,9 +66,9 @@ export default {
         },
 
         getTrendingProducts({ state, commit }, {reset = false}){
-            if(!reset && state.trending_products.length > 0){
-                return;
-            }
+            // if(!reset && state.trending_products.length > 0){
+            //     return;
+            // }
             return Axios.get(`/${baseUrl}/trending/products`).then(res => {
                 commit('setTrendingProducts', res.data)
                 return res.data
@@ -77,9 +77,9 @@ export default {
             })
         },
         getTopSellingProducts({ state, commit }, {reset = false, num = 3}){
-            if(!reset && state.top_selling_products.length > 0 && num && num <= state.top_selling_products.length){
-                return;
-            }
+            // if(!reset && state.top_selling_products.length > 0 && num && num <= state.top_selling_products.length){
+            //     return;
+            // }
             return Axios.get(`/${baseUrl}/top/sellers/${num}`).then(res => {
                 commit('setTopSellingProducts', res.data)
                 return res.data
@@ -88,9 +88,9 @@ export default {
             })
         },
         getNewArrivalsProducts({ state, commit }, {reset = false}){
-            if(!reset && state.new_arrivals_products.length > 0){
-                return;
-            }
+            // if(!reset && state.new_arrivals_products.length > 0){
+            //     return;
+            // }
             return Axios.get(`/${baseUrl}/new/arrivals`).then(res => {
                 commit('setNewArrivalsProducts', res.data)
                 return res.data

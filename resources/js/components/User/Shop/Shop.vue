@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="row mb-5">
-                    <product :add_col="true" v-if="loaded" v-for="product, key in products" :key="product.name" :product="product"></product>
+                    <product class="mb-3" :add_col="true" v-if="loaded" v-for="product, key in products" :key="product.name" :product="product"></product>
                 </div>
 
                 <!-- Pagination-->
@@ -79,7 +79,7 @@
                     <!-- Widget Price Range-->
                     <section class="widget widget-categories">
                         <h3 class="widget-title">Price Range</h3>
-                        <form class="price-range-slider" method="post" data-start-min="500" data-start-max="1000" data-min="500" data-max="20000" data-step="1">
+                        <form class="price-range-slider" method="post" data-start-min="5000" data-start-max="8000" data-min="4000" data-max="15000" data-step="1">
                             <div class="ui-range-slider"></div>
                             <footer class="ui-range-slider-footer">
                                 <div class="column">
@@ -135,7 +135,7 @@ export default {
               max: null,
             },
             loaded: false,
-            order_by: '',
+            order_by: 'created_at',
             sort_type: 'desc',
             products: []
         }

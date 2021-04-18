@@ -7,6 +7,7 @@ namespace App\Providers;
 use App\Contracts\AccountContract;
 use App\Contracts\CartContract;
 use App\Contracts\CategoryContract;
+use App\Contracts\ConfigContract;
 use App\Contracts\CouponContract;
 use App\Contracts\OrderContract;
 use App\Contracts\OrderItemContract;
@@ -19,6 +20,7 @@ use App\Contracts\UserContract;
 use App\Repositories\AccountRepository;
 use App\Repositories\CartRepository;
 use App\Repositories\CategoryRepository;
+use App\Repositories\ConfigRepository;
 use App\Repositories\CouponRepository;
 use App\Repositories\OrderItemRepository;
 use App\Repositories\OrderRepository;
@@ -47,6 +49,7 @@ class RepositoryServiceProvider extends ServiceProvider
         AccountContract::class => AccountRepository::class,
         UserContract::class => UserRepository::class,
         OrderStatContract::class => OrderStatRepository::class,
+        ConfigContract::class => ConfigRepository::class,
 
     ];
 

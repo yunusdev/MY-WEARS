@@ -16,8 +16,8 @@ Route::get('/',
     [App\Http\Controllers\HomeController::class, 'index']
 )->name('home');
 
-Route::get('/session',
-    [App\Http\Controllers\ShopController::class, 'session']
+Route::get('/config',
+    [App\Http\Controllers\ConfigController::class, 'index']
 );
 
 Route::get('/track/order/{tracking_number?}',

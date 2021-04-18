@@ -32,7 +32,7 @@ class LocalityController extends Controller
 
     public function getNigeriaStatesLGA($stateId){
 
-        return $this->stateRepository->getStatesLGA($stateId);
+        return $this->stateRepository->getNigeriaStatesLGA($stateId);
 
     }
 }

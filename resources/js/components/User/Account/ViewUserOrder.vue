@@ -56,7 +56,8 @@
                                 </tr>
                                 <tr>
                                     <td>Delivery Fee:</td>
-                                    <td class="text-small">N{{order.delivery_fee | formatMoney}}</td>
+                                    <td v-if="order.delivery_fee" class="text-small">N{{order.delivery_fee | formatMoney}}</td>
+                                    <td v-else class="text-small">Free</td>
                                 </tr>
                                 <tr v-if="order.coupon_id && order.coupon ">
                                     <td>Discount <span class="text-uppercase">({{order.coupon.code}})</span>:</td>
