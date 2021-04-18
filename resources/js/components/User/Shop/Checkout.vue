@@ -98,6 +98,7 @@
                             <tr>
                                 <td>Delivery Fee:</td>
                                 <td v-if="deliveryFee" class="text-small">N{{deliveryFee | formatMoney}}</td>
+                                <td v-else-if="deliveryFee === 0" class="text-small">Free</td>
                                 <td v-else class="text-small">To be Calculated</td>
                             </tr>
                             <tr v-if="validCoupon">
@@ -114,12 +115,12 @@
                     <product-widget :title="'TOP SELLERS'" :products="topSellingProducts"></product-widget>
 
                     <!-- Promo Banner-->
-                    <section class="promo-box" style="background-image: url(img/banners/02.jpg);"><span class="overlay-dark" style="opacity: .4;"></span>
-                        <div class="promo-box-content text-center padding-top-2x padding-bottom-2x">
-                            <h4 class="text-light text-thin text-shadow">New Collection of</h4>
-                            <h3 class="text-bold text-light text-shadow">Sunglasses</h3><a class="btn btn-outline-white btn-sm" href="shop-grid-ls.html">Shop Now</a>
-                        </div>
-                    </section>
+<!--                    <section class="promo-box" style="background-image: url(img/banners/02.jpg);"><span class="overlay-dark" style="opacity: .4;"></span>-->
+<!--                        <div class="promo-box-content text-center padding-top-2x padding-bottom-2x">-->
+<!--                            <h4 class="text-light text-thin text-shadow">New Collection of</h4>-->
+<!--                            <h3 class="text-bold text-light text-shadow">Sunglasses</h3><a class="btn btn-outline-white btn-sm" href="shop-grid-ls.html">Shop Now</a>-->
+<!--                        </div>-->
+<!--                    </section>-->
                 </aside>
             </div>
         </div>
@@ -141,6 +142,7 @@
 import {mapActions, mapGetters, mapMutations} from "vuex";
 import Paystack from "../Paystack";
 import ProductWidget from "./ProductWidget";
+import config from "../../../store/modules/config";
 
 class Order {
 
@@ -184,6 +186,7 @@ export default {
         this.getNigerianStates({})
         this.setDeliveryFee(0)
         this.setTotalFee(this.subTotalAmount - this.couponDiscount)
+        this.getConfig({})
 
         if (this.user){
             const user = this.user
@@ -231,7 +234,8 @@ export default {
             states: 'locality/states',
             countries: 'locality/countries',
             topSellingProducts: 'shop/topSellingProducts',
-            totalQty: 'cart/totalQty'
+            totalQty: 'cart/totalQty',
+            config: 'config/config',
         }),
 
         isCart(){
@@ -266,6 +270,7 @@ export default {
             getNigerianStates: 'locality/getNigerianStates',
             resetAllShoppingMutations: 'cart/resetAllShoppingMutations',
             getTopSellingProducts: 'shop/getTopSellingProducts',
+            getConfig: 'config/getConfig',
 
         }),
 
@@ -303,13 +308,13 @@ export default {
 
             }).then(async (res) => {
                 $("body").removeClass("no-click");
-                // await this.resetAllShoppingMutations()
-                // await this.notifSuceess('Your order has been initiated successfully!');
-                // if (this.user){
-                //     window.location = '/account/orders'
-                // }else{
-                //     window.location = '/shop'
-                // }
+                await this.resetAllShoppingMutations()
+                await this.notifSuceess('Your order has been initiated successfully!');
+                if (this.user){
+                    window.location = '/account/orders'
+                }else{
+                    window.location = '/shop'
+                }
             }).catch(err => {
                 $("body").removeClass("no-click");
                 this.$swal({text: 'An error occurred while trying to complete your order! Pls contact us if you have been charged', dangerMode: true,});
@@ -330,20 +335,29 @@ export default {
 
         setDeliveryAmount(){
 
-            if(this.order.country !== 'Nigeria'){
-                this.setDeliveryFee(5000)
-            }
-            if (this.order.country === 'Nigeria' && this.order.state !== 'Lagos'){
-                this.setDeliveryFee(3000)
-            }
-            const fartherLagosLGA = ["Ikorodu", "Ikeja", "green"];
+            if (this.config.delivery_free || this.subTotalAmount >= this.config.min_amount_free_delivery ){
 
-            if (this.order.state === 'Lagos' && fartherLagosLGA.indexOf(this.order.lga) !== -1){
-                this.setDeliveryFee(2000)
+                this.setDeliveryFee(0)
+
+            }else{
+
+                if(this.order.country !== 'Nigeria'){
+                    this.setDeliveryFee(5000)
+                }
+                if (this.order.country === 'Nigeria' && this.order.state !== 'Lagos'){
+                    this.setDeliveryFee(this.config.flat_outside_lagos_delivery_fee)
+                }
+                const fartherLagosLGA = this.config.farther_lagos_lg;
+
+                if (this.order.state === 'Lagos' && fartherLagosLGA.indexOf(this.order.lga) !== -1){
+                    this.setDeliveryFee(this.config.flat_farther_lagos_delivery_fee)
+                }
+                if (this.order.state === 'Lagos' && fartherLagosLGA.indexOf(this.order.lga) === -1){
+                    this.setDeliveryFee(this.config.flat_lagos_delivery_fee)
+                }
             }
-            if (this.order.state === 'Lagos' && fartherLagosLGA.indexOf(this.order.lga) === -1){
-                this.setDeliveryFee(1500)
-            }
+
+
 
             this.setTotalFee((this.subTotalAmount + this.deliveryFee) - this.couponDiscount)
 

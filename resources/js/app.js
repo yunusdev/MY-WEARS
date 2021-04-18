@@ -61,8 +61,11 @@ Vue.component('view-order', require('./components/Admin/Order/ViewOrder.vue').de
 Vue.component('users', require('./components/Admin/Users/Users.vue').default);
 Vue.component('view-user', require('./components/Admin/Users/ViewUser.vue').default);
 
+Vue.component('config', require('./components/Admin/Config.vue').default);
+
 
 Vue.component('nav-bar', require('./components/User/Layout/Navbar.vue').default);
+Vue.component('user-footer', require('./components/User/Layout/Footer.vue').default);
 Vue.component('shop', require('./components/User/Shop/Shop.vue').default);
 Vue.component('product-view', require('./components/User/Shop/ProductView.vue').default);
 Vue.component('carousel-products', require('./components/User/CarouselProducts.vue').default);
@@ -74,6 +77,7 @@ Vue.component('user-profile', require('./components/User/Account/UserProfile.vue
 Vue.component('user-address', require('./components/User/Account/UserAddress.vue').default);
 Vue.component('user-wishlists', require('./components/User/Account/UserWishlist.vue').default);
 Vue.component('leading-products-home', require('./components/User/Shop/LeadingProductsHome.vue').default);
+Vue.component('tracking-order', require('./components/User/Shop/TrackingOrder.vue').default);
 Vue.component('tracking-order', require('./components/User/Shop/TrackingOrder.vue').default);
 
 /**

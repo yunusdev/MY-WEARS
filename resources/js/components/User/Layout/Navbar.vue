@@ -72,8 +72,8 @@
         <div class="topbar">
             <div class="topbar-column pb-2 pt-2">
                 <div class="lang-currency-switcher-wrap">
-                    <a class="" href="tel:00331697720"><span class="font-weight-bold">PHONE:</span> 00 33 169 7720</a>
-                        <a class="" href="tel:00331697720"><span class="font-weight-bold">MAIL:</span> support@unisp.com</a>
+                    <a class="" href="tel:00331697720"><span class="font-weight-bold">PHONE:</span> {{ config.contact_phone }}</a>
+                        <a class="" href="tel:00331697720"><span class="font-weight-bold">MAIL:</span> {{ config.contact_email }}</a>
 <!--                    <a class="" href="mailto:support@unishop.com">&nbsp; support@unisp.com</a>-->
                     <!--                    <div class="lang-currency-switcher dropdown-toggle"><span class="language"><img alt="English" src="/img/flags/GB.png"></span><span class="currency">$ USD</span></div>-->
                     <!--                    <div class="dropdown-menu">-->
@@ -130,10 +130,12 @@
                         <div class="account"><a href="#"></a><i class="icon-head"></i>
                             <ul class="toolbar-dropdown">
                                 <li v-if="user" class="sub-menu-user">
-                                    <div class="user-ava"><img src="https://icotar.com/avatar/craig.png?s=200" :alt="user.name">
+                                    <div class="user-ava">
+                                        <img src="https://icotar.com/avatar/craig.png?s=200" :alt="user.name">
                                     </div>
                                     <div class="user-info">
-                                        <h6 class="user-name">{{ user.name }}</h6><span class="text-xs text-muted">290 Reward points</span>
+                                        <h6 class="user-name">{{ user.name }}</h6>
+<!--                                        <span class="text-xs text-muted">290 Reward points</span>-->
                                     </div>
                                 </li>
                                 <li :class="isActiveUrl('/login')" v-if="!user"><a href="/login">Login</a></li>
@@ -203,6 +205,7 @@ export default {
 
         await this.getUserCartItems()
         await this.getCategories({})
+        await this.getConfig({})
 
     },
 
@@ -213,6 +216,7 @@ export default {
             categories: 'shop/categories',
             totalQty: 'cart/totalQty',
             totalFee: 'cart/totalFee',
+            config: 'config/config',
 
         }),
     },
@@ -223,6 +227,7 @@ export default {
             getUserCartItems: 'cart/getUserCartItems',
             getCategories: 'shop/getCategories',
             removeItemFromCart: 'cart/removeItemFromCart',
+            getConfig: 'config/getConfig',
 
         }),
 

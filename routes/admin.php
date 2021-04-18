@@ -133,8 +133,6 @@ Route::group(['middleware'=>'auth:admin'], function() {
         [\App\Http\Controllers\Admin\OrdersController::class, 'getOrderStatus']
     );
 
-
-
     Route::group(['prefix'=>'group'], function() {
 
         Route::get(
@@ -172,6 +170,12 @@ Route::group(['middleware'=>'auth:admin'], function() {
     Route::resource(
         '/coupons',
         \App\Http\Controllers\Admin\CouponsController::class,
+    );
+
+    Route::apiResource(
+        '/config',
+        \App\Http\Controllers\Admin\ConfigController::class,
+        ['only' => ['index', 'update']]
     );
 
 });

@@ -32,10 +32,9 @@ class ShopController extends Controller
 
     public function getProducts(Request $request){
 
-        if (!(isset($request['orderByAsc']) && isset($request['orderByDesc']))) $request['orderByDesc'] = 'created_at';
-
+        $request['available'] = 'Yes';
         $filters = new ProductFilter($request);
-        return $this->productRepository->filterProducts($filters, 3);
+        return $this->productRepository->filterProducts($filters, 6);
 
     }
 
@@ -69,19 +68,19 @@ class ShopController extends Controller
 
     public function trendingProducts(){
 
-        return $this->productRepository->getTrendingProducts();
+        return $this->productRepository->getTrendingProducts(6, ['available' => true]);
 
     }
 
     public function topSellingProducts($num = 3){
 
-        return $this->productRepository->getTopSellingProducts(intval($num));
+        return $this->productRepository->getTopSellingProducts(intval($num), ['available' => true]);
 
     }
 
     public function newArrivalsProducts(){
 
-        return $this->productRepository->getNewArrivalsProducts();
+        return $this->productRepository->getNewArrivalsProducts(3, ['available' => true]);
 
     }
 }

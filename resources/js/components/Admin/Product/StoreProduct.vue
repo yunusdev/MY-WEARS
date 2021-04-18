@@ -268,7 +268,6 @@ export default {
             let vm = this;
             reader.onload = function () {
                 vm.product.front_image = reader.result
-                console.log(reader.result);
             };
             reader.onerror = function (error) {
                 console.log('Error: ', error);

@@ -20,13 +20,13 @@ interface ProductContract
 
     public function getRelatedProducts(Product $product, int $num = 6);
 
-    public function getTrendingProducts(int $num = 6);
+    public function getTrendingProducts(int $num = 6, array $whereData = []);
 
-    public function getTopSellingProducts(int $num = 3);
+    public function getTopSellingProducts(int $num = 3, array $whereData = []);
 
     public function getTopSellingProductsAndTotalAmount(int $num = 3);
 
-    public function getNewArrivalsProducts(int $num = 3);
+    public function getNewArrivalsProducts(int $num = 3, array $whereData = []);
 
     public function incrementProductViewCount(Product $product);
 

@@ -10,6 +10,7 @@ import orders_admin from './modules/orders_admin'
 import categories_admin from './modules/categories_admin'
 import products_admin from './modules/products_admin'
 import group from './modules/group'
+import config from './modules/config'
 import createPersistedState from 'vuex-persistedstate'
 Vue.use(Vuex)
 
@@ -25,6 +26,7 @@ export default new Vuex.Store({
         categories_admin,
         products_admin,
         group,
+        config,
     },
     plugins: [
         createPersistedState({

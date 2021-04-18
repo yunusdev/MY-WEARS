@@ -64,15 +64,15 @@ class ProductRepository extends BaseRepository implements ProductContract
 
     }
 
-    public function getTrendingProducts(int $num = 6)
+    public function getTrendingProducts(int $num = 6, array $whereData = [])
     {
-        return $this->model->orderBy('views_count', 'desc')->take($num)->get();
+        return $this->model->where($whereData)->orderBy('views_count', 'desc')->take($num)->get();
 
     }
 
-    public function getTopSellingProducts(int $num = 3)
+    public function getTopSellingProducts(int $num = 3, array $whereData = [])
     {
-        return $this->model->get()->sortByDesc('order_items_count')->take($num)->values();
+        return $this->model->where($whereData)->get()->sortByDesc('order_items_count')->take($num)->values();
 
     }
 
@@ -89,9 +89,9 @@ class ProductRepository extends BaseRepository implements ProductContract
 
     }
 
-    public function getNewArrivalsProducts(int $num = 3)
+    public function getNewArrivalsProducts(int $num = 3, array $whereData = [])
     {
-        return $this->model->latest()->take($num)->get();
+        return $this->model->where($whereData)->latest()->take($num)->get();
     }
 
 
