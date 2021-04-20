@@ -33,21 +33,6 @@ class CreateCouponsTable extends Migration
             $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
-        Schema::create('coupon_user', function (Blueprint $table) {
-
-            $table->string('user_id');
-            $table->string('coupon_id');
-            $table->string('order_id');
-
-            $table->unique(['user_id', 'coupon_id']);
-
-            $table->foreign('coupon_id')->references('id')->on('coupons')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-
-            $table->timestamps();
-
-        });
     }
 
     /**
