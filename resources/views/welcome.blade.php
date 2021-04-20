@@ -1,5 +1,10 @@
 @extends('layouts.base')
 
+
+@section('title')
+Home
+@endsection
+
 @section('content')
     @if (session('status'))
         <div class="alert alert-success alert-has-icon">
@@ -109,7 +114,7 @@
 {{--                                </div>--}}
 {{--                            </div>--}}
                             <br>
-                            <a class="btn btn-primary margin-bottom-none" href="{{route('view.product', $config->product->slug)}}">View</a>
+                            <a class="btn btn-primary margin-bottom-none" href="{{route('view.product', $config->product->slug)}}">Shop Now!</a>
                         </div>
                     </div>
                 </div>

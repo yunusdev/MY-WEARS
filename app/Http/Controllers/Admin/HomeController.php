@@ -50,8 +50,8 @@ class HomeController extends Controller
 
     public function test(){
 
-//        WEEK NUM
-        return $this->prodRepository->getTopSellingProductsAndTotalAmount();
+        $data['cnt'] = Order::sum('coupon_discount');
+        return $this->orderStatRepository->getOrderStatistics();
 
 
     }

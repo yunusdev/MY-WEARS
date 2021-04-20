@@ -52,11 +52,7 @@
                     <td>{{coupon.expires_format || '--'}}</td>
                     <td><a :href="`/admin/coupons/${coupon.id}/orders`"><i class="text-center fas fa-2x fa-list"></i></a></td>
                     <td><a @click="editCoupon(coupon)"><i class="text-center fas fa-edit"></i></a></td>
-                    <td>
-                        <a :class="{'disabled': coupon.redeemed_count > 1}">
-                            <span class="text-center fas fa-trash" ></span>
-                        </a>
-                    </td>
+                    <td><a :class="{'disabled': coupon.redeemed_count > 0}" @click="deleteCoupon(coupon.id, key)"><span class="text-center fas fa-trash" ></span></a></td>
                 </tr>
                 </tbody>
                 <tfoot>

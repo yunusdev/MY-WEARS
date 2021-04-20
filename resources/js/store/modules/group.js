@@ -34,6 +34,14 @@ export default {
             })
 
         },
+        groupOrdersStatistics({ state, commit }, query = ''){
+            return Axios.get(`/admin/orders/statistics/get?${query}`).then(res => {
+                return res.data
+            }).catch(err => {
+                return Promise.reject(err)
+            })
+
+        },
     },
     mutations: {
 
