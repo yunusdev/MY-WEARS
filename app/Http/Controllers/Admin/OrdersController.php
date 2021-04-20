@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Contracts\AccountContract;
 use App\Contracts\OrderContract;
 use App\Contracts\OrderItemContract;
+use App\Contracts\OrderStatContract;
 use App\Events\OrderCompletedEvent;
 use App\Filters\OrderFilter;
 use App\Http\Controllers\Controller;
@@ -19,14 +20,16 @@ class OrdersController extends Controller
 {
     //
 
-    private $orderRepository, $accountRepository, $orderItemRepository;
+    private $orderRepository, $accountRepository, $orderItemRepository, $orderStatRepository;
 
-    public function __construct(OrderContract $orderRepository,
+    public function __construct(OrderContract $orderRepository, OrderStatContract $orderStatRepository,
                                 AccountContract $accountRepository, OrderItemContract $orderItemRepository)
     {
         $this->orderRepository = $orderRepository;
         $this->accountRepository = $accountRepository;
         $this->orderItemRepository = $orderItemRepository;
+        $this->orderStatRepository = $orderStatRepository;
+
     }
 
     public function getOrderStatus(){
@@ -42,9 +45,32 @@ class OrdersController extends Controller
 
     }
 
-    public function getOrders(Request $request){
+    public function statistics(){
 
-//        if (!(isset($request['orderByAsc']) && isset($request['orderByDesc']))) $request['orderByDesc'] = 'created_at';
+        $data = [];
+
+        return view('admin.orders.statistics')->with($data);
+
+    }
+
+    public function getStatistics(Request $request){
+
+        if (isset($request['createdFrom']) && isset($request['createdTo'])){
+
+            $data['custom'] = $this->orderStatRepository
+                ->getOrderStatistics('custom', $request['createdFrom'], $request['createdTo']);
+
+        }
+
+        $data['all'] = $this->orderStatRepository->getOrderStatistics();
+        $data['week'] = $this->orderStatRepository->getOrderStatistics('week');
+        $data['month'] = $this->orderStatRepository->getOrderStatistics('month');
+
+        return $data;
+
+    }
+
+    public function getOrders(Request $request){
 
         $filters = new OrderFilter($request);
         return $this->orderRepository->filterOrders($filters, 10);

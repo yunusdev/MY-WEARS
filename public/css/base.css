@@ -91,3 +91,8 @@ div.order-details h6{
     opacity: 0.7 !important;
 
 }
+
+.widget-categories ul>li.active>a, .widget-links ul>li.active>a {
+    color: #232B35;
+    font-weight: bold;
+}

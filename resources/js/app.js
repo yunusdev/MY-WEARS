@@ -62,6 +62,7 @@ Vue.component('users', require('./components/Admin/Users/Users.vue').default);
 Vue.component('view-user', require('./components/Admin/Users/ViewUser.vue').default);
 
 Vue.component('config', require('./components/Admin/Config.vue').default);
+Vue.component('orders-stats', require('./components/Admin/Order/OrdersStats.vue').default);
 
 
 Vue.component('nav-bar', require('./components/User/Layout/Navbar.vue').default);

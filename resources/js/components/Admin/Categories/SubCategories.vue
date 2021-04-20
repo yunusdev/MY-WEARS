@@ -29,7 +29,7 @@
                     <td>{{sub_category.products_count}}</td>
                     <td><a :href="`/admin/sub-categories/${sub_category.slug}/products`"><i class="text-center fas fa-2x fa-list"></i></a></td>
                     <td><a @click="editSubCategory(sub_category)"><i class="text-center fas fa-edit"></i></a></td>
-                    <td><a :class="{'disabled': sub_category.products_count > 1}" @click="deleteSubCategory(sub_category.category.id, sub_category.id, key)"><span class="text-center fas fa-trash" ></span></a></td>
+                    <td><a :class="{'disabled': sub_category.products_count > 0}" @click="deleteSubCategory(sub_category.category.id, sub_category.id, key)"><span class="text-center fas fa-trash" ></span></a></td>
                 </tr>
                 </tbody>
                 <tfoot>

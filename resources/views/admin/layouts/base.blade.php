@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>@yield('title')</title>
+    <title>@yield('title') &mdash; MY Wears</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{asset('admin/css/bootstrap.min.css')}}" >

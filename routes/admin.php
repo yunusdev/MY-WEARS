@@ -129,6 +129,16 @@ Route::group(['middleware'=>'auth:admin'], function() {
     );
 
     Route::get(
+        '/orders/statistics/get',
+        [\App\Http\Controllers\Admin\OrdersController::class, 'getStatistics']
+    );
+
+    Route::get(
+        '/orders/statistics',
+        [\App\Http\Controllers\Admin\OrdersController::class, 'statistics']
+    )->name('orders.statistics');
+
+    Route::get(
         '/orders/statuses',
         [\App\Http\Controllers\Admin\OrdersController::class, 'getOrderStatus']
     );

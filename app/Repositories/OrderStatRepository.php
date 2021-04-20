@@ -25,8 +25,7 @@ class OrderStatRepository extends BaseRepository implements OrderStatContract
         $this->model = $model;
         $this->orderRepository = $orderRepository;
         $this->productRepository = $productRepository;
-        $this->userRepository = $userRepository;
-
+        $this->userRepository =    $userRepository;
     }
 
     public function getDataCounts(): array
@@ -39,6 +38,46 @@ class OrderStatRepository extends BaseRepository implements OrderStatContract
 
         return $count;
 
+    }
+
+    public function getOrderStatistics($by = null, $createdFrom = null, $createdTo = null)
+    {
+
+        $query = $this->model->query();
+
+        if ($by === 'week'){
+
+//            $query = $query->whereBetween('created_at', [
+//                Carbon::now()->startOfWeek(),
+//                Carbon::now()->endOfWeek(),
+//            ]);
+
+            $query = $query->whereBetween('created_at', [
+                Carbon::parse('last monday')->startOfDay(),
+                Carbon::parse('next sunday')->endOfDay(),
+            ]);
+
+        }elseif ($by === 'month'){
+
+            $query = $query->whereBetween('created_at', [
+                Carbon::now()->startOfMonth(),
+                Carbon::now()->endOfMonth(),
+            ]);
+
+        }elseif ($by === 'custom'){
+
+            $query = $query->whereBetween('created_at', [
+                Carbon::create($createdFrom)->startOfDay(),
+                Carbon::create($createdTo)->endOfDay(),
+            ]);
+
+        }
+         $data = $query
+            ->select(DB::raw("count(*) AS count,  sum(total_amount) as totalAmt, sum(number_of_items) as numOfItems,
+            sum(delivery_fee) as deliveryFee, sum(sub_total_amount) as subTotalAmount, sum(coupon_discount) as couponDiscount"))
+            ->get();
+
+        return $data[0];
     }
 
     public function aggregateOrdersByMonth(bool $totalAmount = true, $year = null){
@@ -71,7 +110,7 @@ class OrderStatRepository extends BaseRepository implements OrderStatContract
 
             $query = $query->whereBetween('created_at', [
                 Carbon::parse('last monday')->startOfDay(),
-                Carbon::parse('next saturday')->endOfDay(),
+                Carbon::parse('next sunday')->endOfDay(),
             ]);
 
         }elseif ($by === 'month'){
@@ -102,7 +141,7 @@ class OrderStatRepository extends BaseRepository implements OrderStatContract
 
             $query = $query->whereBetween('created_at', [
                 Carbon::parse('last monday')->startOfDay(),
-                Carbon::parse('next saturday')->endOfDay(),
+                Carbon::parse('next sunday')->endOfDay(),
             ]);
 
         }elseif ($by === 'month'){
