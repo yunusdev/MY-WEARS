@@ -63,7 +63,7 @@ Home
     </section>
     <!-- Top Categories-->
     <section class="container padding-top-3x">
-        <h3 class="text-center mb-30">Top Categories</h3>
+        <h3 class="text-center mb-30">Top Categories..</h3>
         <div class="row">
             @foreach($top_categories as $key => $category)
             <div class="col-md-4 col-sm-6">
