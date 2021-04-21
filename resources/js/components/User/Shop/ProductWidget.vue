@@ -1,5 +1,5 @@
 <template>
-    <div class="widget widget-featured-products">
+    <div v-if="products && products.length" class="widget widget-featured-products">
         <h3 class="widget-title">{{ title }}</h3>
         <!-- Entry-->
         <div v-for="product, key in products" v-if="!num || num > key" class="entry">

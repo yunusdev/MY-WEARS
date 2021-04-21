@@ -79,12 +79,16 @@
             </div>
         </div>
         <!-- Related Products Carousel-->
-        <h3 class="text-center padding-top-2x mt-2 padding-bottom-1x">You May Also Like</h3>
-        <!-- Carousel-->
-        <div class="owl-carousel" data-owl-carousel="{ &quot;nav&quot;: false, &quot;dots&quot;: true, &quot;margin&quot;: 30, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:1},&quot;576&quot;:{&quot;items&quot;:2},&quot;768&quot;:{&quot;items&quot;:3},&quot;991&quot;:{&quot;items&quot;:4},&quot;1200&quot;:{&quot;items&quot;:4}} }">
-            <!-- Product-->
-            <product v-for="product, key in related_products" :key="product.name" :product="product"></product>
 
+
+        <div v-if="related_products && related_products.length">
+            <h3 class="text-center padding-top-2x mt-2 padding-bottom-1x">You May Also Like</h3>
+            <!-- Carousel-->
+            <div class="owl-carousel" data-owl-carousel="{ &quot;nav&quot;: false, &quot;dots&quot;: true, &quot;margin&quot;: 30, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:1},&quot;576&quot;:{&quot;items&quot;:2},&quot;768&quot;:{&quot;items&quot;:3},&quot;991&quot;:{&quot;items&quot;:4},&quot;1200&quot;:{&quot;items&quot;:4}} }">
+                <!-- Product-->
+                <product v-for="product, key in related_products" :key="product.name" :product="product"></product>
+
+            </div>
         </div>
         <add-to-cart :sizes="product.sizes" :product="product" :colors="product.colors"></add-to-cart>
 

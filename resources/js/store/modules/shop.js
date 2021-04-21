@@ -27,9 +27,9 @@ export default {
 
     actions: {
         getCategories({ state, commit }, {reset = false}){
-            if(!reset && state.categories.length > 0){
-                return;
-            }
+            // if(!reset && state.categories.length > 0){
+            //     return;
+            // }
             return Axios.get(`/${baseUrl}/categories`).then(res => {
                 commit('setCategories', res.data)
                 return res.data

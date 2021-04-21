@@ -6,7 +6,7 @@
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label class="col-form-label">Name <sup>*</sup></label>
-                        <input type="text"  v-model="product.name" name="name" style="text-transform: uppercase;" class="form-control" required/>
+                        <input type="text"  v-model="product.name" name="name" style=";" class="form-control" required/>
                         <div class="invalid-feedback" v-if="errors.hasError('name')">{{ errors.first('name') }}</div>
                     </div>
                     <div class="form-group col-md-6">

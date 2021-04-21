@@ -3,9 +3,14 @@
     <div class="container padding-bottom-3x mb-2">
         <div class="row">
             <nav-account :user="user" :raw_url="raw_url"></nav-account>
-            <div class="col-lg-8">
+
+            <spinner v-if="!loaded"></spinner>
+
+            <div v-else class="col-lg-8">
                 <div class="padding-top-2x mt-2 hidden-lg-up"></div>
-                <div v-if="userOrders"  class="table-responsive">
+
+
+                <div v-if="userOrders && userOrders.data.length > 0"  class="table-responsive">
                     <table class="table table-hover margin-bottom-none">
                         <thead>
                         <tr>
@@ -50,6 +55,7 @@
 
 <script>
 import { mapActions, mapMutations, mapGetters } from 'vuex'
+import Spinner from "../Spinner";
 import NavAccount from "./NavAccount";
 const {getOrderStatusColor} = require('../../order_status');
 export default {
@@ -57,13 +63,14 @@ export default {
 
     props: ['raw_url', 'raw_user'],
 
-    components: {NavAccount},
+    components: {NavAccount, Spinner},
 
     data(){
 
         return {
 
             user: JSON.parse(this.raw_user),
+            loaded: false,
 
         }
 
@@ -71,7 +78,9 @@ export default {
 
     async mounted(){
 
-        await this.getOrders()
+        await this.getOrders().then(() => {
+            this.loaded = true
+        })
 
     },
 

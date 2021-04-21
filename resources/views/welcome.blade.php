@@ -15,7 +15,7 @@ Home
         </div>
     @endif
     <!-- Main Slider-->
-    <section class="hero-slider" style="background-image: url(img/hero-slider/main-bg.jpg);">
+    <section class="hero-slider mb-5" style="background-image: url(img/hero-slider/main-bg.jpg);">
         <div class="owl-carousel large-controls dots-inside" data-owl-carousel="{ &quot;nav&quot;: true, &quot;dots&quot;: true, &quot;loop&quot;: true, &quot;autoplay&quot;: true, &quot;autoplayTimeout&quot;: 7000 }">
             <div class="item">
                 <div class="container padding-top-3x">
@@ -62,31 +62,37 @@ Home
         </div>
     </section>
     <!-- Top Categories-->
-    <section class="container padding-top-3x">
-        <h3 class="text-center mb-30">Top Categories..</h3>
-        <div class="row">
-            @foreach($top_categories as $key => $category)
-            <div class="col-md-4 col-sm-6">
-                <div class="card mb-30">
-                    <a class="card-img-tiles" href="{{route('category.products', $category->slug)}}">
-                        <div class="inner">
-                            <div class="main-img"><img style="height: 179px !important; " src="{{$category->top_products[0]->front_image}}" alt="Category"></div>
-                            <div class="thumblist"><img style="height: 83px !important; " src="{{$category->top_products[1]->front_image}}" alt="Category">
-                            <img style="height: 83px !important; " src="{{$category->top_products[2]->front_image}}" alt="Category"></div>
+    @if(count($top_categories) > 0)
+        <section class="container">
+            <h3 class="text-center mb-30">Top Categories..</h3>
+            <div class="row">
+                @foreach($top_categories as $key => $category)
+
+                    @if(count($category->top_products) > 0)
+                        <div class="col-md-4 col-sm-6" >
+                            <div class="card mb-30">
+                                <a class="card-img-tiles" href="{{route('category.products', $category->slug)}}">
+                                    <div class="inner">
+                                        <div class="main-img"><img style="height: 179px !important; " src="{{$category->top_products[0]->front_image}}" alt="Category"></div>
+                                        <div class="thumblist"><img style="height: 83px !important; " src="{{$category->top_products[1]->front_image}}" alt="Category">
+                                            <img style="height: 83px !important; " src="{{$category->top_products[2]->front_image}}" alt="Category"></div>
+                                    </div>
+                                </a>
+                                <div class="card-body text-center">
+                                    <h4 class="card-title">
+                                        <a class="text-decoration-none" href="{{route('category.products', $category->slug)}}">{{$category->name}}</a>
+                                    </h4>
+                                    <p class="text-muted">Starting from N5000</p><a class="btn btn-outline-primary btn-sm" href="{{route('category.products', $category->slug)}}">View Products</a>
+                                </div>
+                            </div>
                         </div>
-                    </a>
-                    <div class="card-body text-center">
-                        <h4 class="card-title">
-                            <a class="text-decoration-none" href="{{route('category.products', $category->slug)}}">{{$category->name}}</a>
-                        </h4>
-                        <p class="text-muted">Starting from N5000</p><a class="btn btn-outline-primary btn-sm" href="{{route('category.products', $category->slug)}}">View Products</a>
-                    </div>
-                </div>
+
+                    @endif
+                @endforeach
             </div>
-            @endforeach
-        </div>
-        <div class="text-center"><a class="btn btn-outline-secondary margin-top-none" href="/shop">All Categories</a></div>
-    </section>
+            <div class="text-center"><a class="btn btn-outline-secondary margin-top-none" href="/shop">All Categories</a></div>
+        </section>
+    @endif
     <!-- Promo #1-->
 
     @if($config->product)
