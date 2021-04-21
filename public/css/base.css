@@ -96,3 +96,8 @@ div.order-details h6{
     color: #232B35;
     font-weight: bold;
 }
+
+.offcanvas-menu ul li.has-children.active>span>a {
+    color: #43d9a3 !important;
+    font-weight: bold !important;
+}

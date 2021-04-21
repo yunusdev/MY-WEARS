@@ -4,7 +4,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Select</h4>
+                    <h4 class="modal-title">Add To Cart</h4>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <form @submit.prevent="addToCart()">
@@ -24,10 +24,10 @@
                             </div>
                         </div>
 
-                        <div v-for="item, key in items" class="row">
+                        <div v-for="item, key in items" class="row no-gutters">
 
-                            <div class="col-1" style="">
-                                <a class="remove-from-cart mt-2 text-danger cursor" @click="removeItem(item)" data-toggle="tooltip" title="Remove item">
+                            <div class="col-1 text-center" style="">
+                                <a class="remove-from-cart text-center mt-2 text-danger cursor" @click="removeItem(item)" data-toggle="tooltip" title="Remove item">
                                     <i class="icon-cross"></i>
                                 </a>
                             </div>
@@ -152,4 +152,44 @@ div.sizes h6 {
     /*margin-top: 6px;*/
 }
 
+.modal{
+    border-radius: 10px;
+}
+
+.no-gutters > div {
+    margin-right: 1%;
+}
+
+.modal-footer {
+    padding-right: 10px;
+    padding-left: 10px;
+}
+.modal-body {
+    padding-top: 20px;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.modal-header{
+    border-bottom: 1px solid #eff2f7;
+
+}
+
+ .modal-footer {
+     display: -webkit-box;
+     display: -ms-flexbox;
+     display: flex;
+     -ms-flex-wrap: wrap;
+     flex-wrap: wrap;
+     -webkit-box-align: center;
+     -ms-flex-align: center;
+     align-items: center;
+     -webkit-box-pack: end;
+     -ms-flex-pack: end;
+     justify-content: flex-end;
+     padding: 0.75rem;
+     border-top: 1px solid #eff2f7;
+     border-bottom-right-radius: calc(0.3rem - 1px);
+     border-bottom-left-radius: calc(0.3rem - 1px);
+ }
 </style>
