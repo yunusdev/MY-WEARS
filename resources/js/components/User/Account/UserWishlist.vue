@@ -2,7 +2,10 @@
     <div class="container padding-bottom-3x mb-2">
         <div class="row">
             <nav-account :user="user" :raw_url="raw_url"></nav-account>
-            <div class="col-lg-8">
+
+            <spinner v-if="!loaded"></spinner>
+
+            <div v-else class="col-lg-8">
                 <h4 class="mt-3 mb-3">Wishlist</h4>
                 <div v-if="userWishlist.length > 0"  class="table-responsive wishlist-table margin-bottom-none">
                     <table class="table">
@@ -42,6 +45,7 @@
 
 <script>
 import NavAccount from "./NavAccount";
+import Spinner from "../Spinner";
 import ErrorBag from "../../error_bag";
 import {mapActions, mapMutations, mapGetters} from "vuex";
 
@@ -62,7 +66,7 @@ export default {
 
     props: ['raw_user', 'raw_url'],
 
-    components: {NavAccount},
+    components: {NavAccount, Spinner},
 
     data(){
 
@@ -73,16 +77,17 @@ export default {
             errors: new ErrorBag,
             state: '',
             lga: '',
-            LGA: []
+            LGA: [],
+            loaded: false,
 
         }
 
     },
 
     async mounted() {
-        // if (this.userOrders.length === 0){
-            await this.getUserWishlist({reset: true})
-        // }
+        await this.getUserWishlist({reset: true}).then(() => {
+            this.loaded = true
+        })
     },
 
     computed: {

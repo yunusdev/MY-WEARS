@@ -79,7 +79,7 @@
 
         <p class="f-17" v-else>No items in your cart. Go to the <a href="/shop">shop</a> to add items to the cart.</p>
         <!-- Related Products Carousel-->
-        <h3 class="text-center padding-top-2x mt-2 padding-bottom-1x">You May Also Like</h3>
+        <h3 v-if="trendingProducts && trendingProducts.length > 0" class="text-center padding-top-2x mt-2 padding-bottom-1x">You May Also Like</h3>
         <!-- Carousel-->
         <carousel-products :products="trendingProducts"></carousel-products>
     </div>

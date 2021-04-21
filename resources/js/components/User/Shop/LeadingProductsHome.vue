@@ -1,7 +1,7 @@
 <template>
     <div>
-        <section class="container padding-top-3x padding-bottom-3x">
-            <h3 class="text-center mb-30">Trending Products</h3>
+        <section v-if="trendingProducts && trendingProducts.length > 0" class="container padding-top-3x padding-bottom-3x">
+            <h3 class="text-center mb-30">Trending Products..</h3>
             <carousel-products :products="trendingProducts"></carousel-products>
         </section>
         <section class="container padding-bottom-2x">

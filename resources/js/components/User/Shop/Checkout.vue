@@ -98,7 +98,7 @@
                             <tr>
                                 <td>Delivery Fee:</td>
                                 <td v-if="deliveryFee" class="text-small">N{{deliveryFee | formatMoney}}</td>
-                                <td v-else-if="deliveryFee === 0" class="text-small">Free</td>
+                                <td v-else-if="config.delivery_free" class="text-small">Free</td>
                                 <td v-else class="text-small">To be Calculated</td>
                             </tr>
                             <tr v-if="validCoupon">
