@@ -15,7 +15,7 @@ services:
       - mysql
       - redis
     ports:
-      - 8000:80
+      - 80:80
     networks:
       - my-wears
 
