@@ -3,21 +3,19 @@
     <div class="container padding-bottom-3x mb-2">
         <spinner v-if="!loaded"></spinner>
         <div v-else>
-            <div v-if="(categories && categories.length > 0) && products.length > 0" class="row">
-                <!-- Products-->
+            <div v-if="categories.length > 0 || products.length > 0" class="row">
                 <div class="col-xl-9 col-lg-8 order-lg-2">
-                    <!-- Shop Toolbar-->
                     <div class="shop-toolbar padding-bottom-1x mb-2">
                         <div class="column">
                             <div class="shop-sorting">
                                 <label for="sorting">Sort by:</label>
-                                <select @change="getProducts()" v-model="order_by" class="form-control" id="sorting">
+                                <select @change="getProducts()" v-model="order_by" class="form-control mb-2" id="sorting">
                                     <option value="">-- Select Sort --</option>
                                     <option value="created_at">Latest</option>
                                     <option value="views_count">Trending</option>
                                     <option value="price">Price</option>
                                 </select>
-                                <select @change="getProducts()" v-model="sort_type" class="form-control" id="sort_type">
+                                <select @change="getProducts()" v-model="sort_type" class="form-control mb-2" id="sort_type">
                                     <option value="asc">Ascending</option>
                                     <option value="desc">Descending</option>
                                 </select>
@@ -34,84 +32,55 @@
                     <div class="row mb-5">
                         <product class="mb-3" :add_col="true" v-if="loaded" v-for="product, key in products" :key="product.name" :product="product"></product>
                     </div>
-
-                    <!-- Pagination-->
-                    <!--                <pagination :data="productsData" @pagination-change-page="getProducts"></pagination>-->
                     <nav class="pagination">
-                        <div class="column text-left hidden-xs-down">
+                        <div class="column text-left">
                             <a class="btn btn-outline-secondary btn-sm" @click="getProducts(productsData.current_page - 1)"
                                :class="{'disabled': productsData.current_page === 1}">
                                 <i class="icon-arrow-left"></i> Prev&nbsp;</a>
                         </div>
-                        <div class="column">
-                            <ul class="pages">
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li>...</li>
-                                <li><a href="#">12</a></li>
-                            </ul>
-                        </div>
-                        <div class="column text-right hidden-xs-down">
+                        <div class="column text-right">
                             <a class="btn btn-outline-secondary btn-sm" :class="{'disabled': productsData.current_page === productsData.last_page}"
                                @click="getProducts(productsData.current_page + 1)">Next&nbsp;<i class="icon-arrow-right"></i>
                             </a>
                         </div>
                     </nav>
+<!--                    <nav class="pagination">-->
+<!--                        <pagination :data="productsData" @pagination-change-page="getProducts"></pagination>-->
+<!--                    </nav>-->
+<!--                    <div class="column">-->
+<!--                        <ul class="pages">-->
+<!--                            <li class="active"><a href="#">1</a></li>-->
+<!--                            <li><a href="#">2</a></li>-->
+<!--                            <li><a href="#">3</a></li>-->
+<!--                            <li><a href="#">4</a></li>-->
+<!--                            <li>...</li>-->
+<!--                            <li><a href="#">12</a></li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
                 </div>
-                <!-- Sidebar          -->
+                <div style="margin-top: 80px;" class="modal fade" id="modalShopFilters" data-backdrop="false" tabindex="-1" >
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Shop Filters</h4>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <shop-sidebar @filterPrice="filterPrice" :categories="categories"
+                                              :category="category" :sub_category="sub_category"></shop-sidebar>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-xl-3 col-lg-4 order-lg-1">
                     <button class="sidebar-toggle position-left" data-toggle="modal" data-target="#modalShopFilters"><i class="icon-layout"></i></button>
                     <aside class="sidebar sidebar-offcanvas">
-                        <!-- Widget Categories-->
-                        <section class="widget widget-categories">
-                            <h3 class="widget-title">Shop Categories</h3>
-                            <ul>
-                                <li :class="{'active': category && category.slug === cat.slug}" v-for="cat in categories" :key="cat.id" class="has-children mb-3 expanded">
-                                    <a :href="`/category/${cat.slug}/products`">{{ cat.name }} <span>(1138)</span></a>
-                                    <ul>
-                                        <li class="mt-2" :class="{'active': sub_category && sub_category.slug === sub_cat.slug}" v-for="sub_cat in cat.sub_categories" :key="sub_cat.id">
-                                            <a class="" :href="`/sub-category/${sub_cat.slug}/products`">{{sub_cat.name}} <span>(508)</span></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </section>
-                        <!-- Widget Price Range-->
-                        <section class="widget widget-categories">
-                            <h3 class="widget-title">Price Range</h3>
-                            <form class="price-range-slider" method="post" data-start-min="5000" data-start-max="8000" data-min="4000" data-max="15000" data-step="1">
-                                <div class="ui-range-slider"></div>
-                                <footer class="ui-range-slider-footer">
-                                    <div class="column">
-                                        <button @click="filterPrice" class="btn btn-outline-primary btn-sm" type="button">Filter</button>
-                                    </div>
-                                    <div class="column">
-                                        <div class="ui-range-values">
-                                            <div class="ui-range-value-min">N<span></span>
-                                                <input id="min" type="hidden">
-                                            </div>&nbsp;-&nbsp;
-                                            <div class="ui-range-value-max">N<span></span>
-                                                <input id="max" type="hidden">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </footer>
-                            </form>
-                        </section>
-                        <!-- Promo Banner-->
-                        <section class="promo-box" style="background-image: url(img/banners/02.jpg);">
-                            <!-- Choose between .overlay-dark (#000) or .overlay-light (#fff) with default opacity of 50%. You can overrride default color and opacity values via 'style' attribute.--><span class="overlay-dark" style="opacity: .45;"></span>
-                            <div class="promo-box-content text-center padding-top-3x padding-bottom-2x">
-                                <h4 class="text-light text-thin text-shadow">New Collection of</h4>
-                                <h3 class="text-bold text-light text-shadow">Sunglassess</h3><a class="btn btn-sm btn-primary" href="#">Shop Now</a>
-                            </div>
-                        </section>
+
+                        <shop-sidebar @filterPrice="filterPrice" :categories="categories" :category="category"
+                                      :sub_category="sub_category"></shop-sidebar>
                     </aside>
                 </div>
             </div>
-
             <p class="f-17" v-else>No items in the shop yet.</p>
         </div>
 
@@ -121,13 +90,14 @@
 
 <script>
 import Product from "./Product";
+import ShopSidebar from "./ShopSidebar";
 import Spinner from "../Spinner";
 import pagination from 'laravel-vue-pagination'
 import {mapMutations, mapActions, mapGetters} from 'vuex'
 export default {
     name: "Shop",
 
-    components: {Product, pagination, Spinner},
+    components: {Product, pagination, Spinner, ShopSidebar},
 
     props: ['raw_sub_category', 'raw_category'],
 
@@ -177,11 +147,11 @@ export default {
 
         }),
 
-        filterPrice(){
-
-            this.price_range.min = $("#min").val() || 500
-            this.price_range.max = $("#max").val() || 1000
-
+        filterPrice(min, max){
+            Object.assign(this.price_range, {
+                min,
+                max,
+            })
             this.getProducts(null, true)
 
         },

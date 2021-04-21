@@ -122,6 +122,12 @@ export default {
 
     },
 
+    mounted(){
+
+        $('#addToCart').modal()
+
+    },
+
     methods: {
 
         showAddToCart(){

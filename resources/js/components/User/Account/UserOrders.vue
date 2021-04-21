@@ -33,12 +33,12 @@
                     </table>
 
                     <nav class="pagination">
-                        <div class="column text-left hidden-xs-down">
+                        <div class="column text-left ">
                             <a class="btn btn-outline-secondary btn-sm" @click="getOrders(userOrders.current_page - 1)"
                                :class="{'disabled': userOrders.current_page === 1}">
                                 <i class="icon-arrow-left"></i> Prev&nbsp;</a>
                         </div>
-                        <div class="column text-right hidden-xs-down">
+                        <div class="column text-right ">
                             <a class="btn btn-outline-secondary btn-sm" :class="{'disabled': userOrders.current_page === userOrders.last_page}"
                                @click="getOrders(userOrders.current_page + 1)">Next&nbsp;<i class="icon-arrow-right"></i>
                             </a>
