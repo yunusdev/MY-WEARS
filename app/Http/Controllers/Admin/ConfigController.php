@@ -25,6 +25,7 @@ class ConfigController extends Controller
     public function index(){
 
         $data['config'] =  $this->configRepository->getConfig();
+        $data['foreign_countries'] =  $this->configRepository->getForeignDeliveryCountries();
         return view('admin.config.index')->with($data);
 
     }
@@ -64,6 +65,19 @@ class ConfigController extends Controller
         $this->configRepository->updateConfig($params, $config->id);
 
         return $config->fresh();
+
+    }
+
+
+    public function updateForeignDeliveryCountries(Request $request){
+
+        $this->validate($request, [
+
+            'items' => 'array'
+
+        ]);
+        $this->configRepository->updateForeignDeliveryCountries($request->items);
+        return $this->configRepository->getForeignDeliveryCountries();
 
     }
 }

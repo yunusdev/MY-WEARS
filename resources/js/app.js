@@ -6,6 +6,7 @@
 
 require('./bootstrap');
 
+
 window.Vue = require('vue').default;
 
 import Axios from 'axios'
@@ -13,6 +14,11 @@ import Swal from 'sweetalert'
 import izitoast from 'izitoast'
 import '../../public/admin/css/izitoast.css'
 
+if (process.env.MIX_APP_ENV === 'production') {
+    Vue.config.devtools = false;
+    Vue.config.debug = false;
+    Vue.config.silent = true;
+}
 Vue.prototype.$http = Axios;
 Vue.prototype.$swal = Swal;
 Vue.mixin({

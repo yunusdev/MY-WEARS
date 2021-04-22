@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade" id="createCategory"  data-backdrop="false">
+    <div style="z-index: 10000000000000000000" class="modal fade" id="createCategory"  data-backdrop="false">
         <div class="modal-dialog">
             <div class="modal-content">
                     <div class="modal-header">
@@ -153,5 +153,7 @@
     textarea {
         height: 100px !important;
     }
+
+
 
 </style>

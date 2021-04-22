@@ -4,7 +4,9 @@ namespace App\Repositories;
 
 use App\Contracts\ConfigContract;
 use App\Models\Config;
+use App\Models\ForeignDeliveryCountry;
 use App\Traits\UploadImage;
+use Illuminate\Support\Facades\DB;
 
 class ConfigRepository extends BaseRepository implements ConfigContract
 {
@@ -17,6 +19,39 @@ class ConfigRepository extends BaseRepository implements ConfigContract
     {
         parent::__construct($model);
         $this->model = $model;
+    }
+
+    public function getForeignDeliveryCountries()
+    {
+        return ForeignDeliveryCountry::all();
+
+    }
+
+    public function updateForeignDeliveryCountries(array $params)
+    {
+        try {
+
+            DB::beginTransaction();
+
+            ForeignDeliveryCountry::truncate();
+
+            foreach ($params as $item){
+
+                ForeignDeliveryCountry::create($item);
+
+            }
+
+            DB::commit();
+
+        }catch (\Throwable $throwable){
+
+            DB::rollback();
+
+            throw $throwable;
+
+        }
+
+
     }
 
     public function getConfig()

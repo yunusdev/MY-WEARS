@@ -1,7 +1,8 @@
 <template>
     <!-- Page Content-->
     <div class="container padding-bottom-3x mb-2">
-        <div class="row">
+        <spinner v-if="!loaded"></spinner>
+        <div class="row" v-if="config && loaded">
             <div class="col-xl-9 col-lg-8">
                 <form v-if="isCart"  @submit.prevent="initiateCheckout" >
                     <h4>Shipping Information</h4>
@@ -30,9 +31,10 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="checkout-country">Country</label>
-                                <select v-model="order.country"  @change="setDeliveryAmount" required class="form-control" id="checkout-country">
+                                <input v-if="countries.length === 1" type="text" v-model="order.country"  disabled class="form-control">
+                                <select v-else v-model="order.country"  @change="setDeliveryAmount" required class="form-control" id="checkout-country">
                                     <option value="">Select country</option>
-                                    <option :value="country.name" v-for="country in countries">{{ country.name }}</option>
+                                    <option :value="country" v-for="country in countries">{{ country }}</option>
                                 </select>
                             </div>
                         </div>
@@ -113,14 +115,6 @@
                     </section>
                     <!-- Featured Products Widget-->
                     <product-widget :title="'TOP SELLERS'" :products="topSellingProducts"></product-widget>
-
-                    <!-- Promo Banner-->
-<!--                    <section class="promo-box" style="background-image: url(img/banners/02.jpg);"><span class="overlay-dark" style="opacity: .4;"></span>-->
-<!--                        <div class="promo-box-content text-center padding-top-2x padding-bottom-2x">-->
-<!--                            <h4 class="text-light text-thin text-shadow">New Collection of</h4>-->
-<!--                            <h3 class="text-bold text-light text-shadow">Sunglasses</h3><a class="btn btn-outline-white btn-sm" href="shop-grid-ls.html">Shop Now</a>-->
-<!--                        </div>-->
-<!--                    </section>-->
                 </aside>
             </div>
         </div>
@@ -143,6 +137,7 @@ import {mapActions, mapGetters, mapMutations} from "vuex";
 import Paystack from "../Paystack";
 import ProductWidget from "./ProductWidget";
 import config from "../../../store/modules/config";
+import Spinner from "../Spinner";
 
 class Order {
 
@@ -150,11 +145,11 @@ class Order {
 
         this.name = order.name || ''
         this.email = order.email || ''
-        this.phone = order.phone || '2349021333232'
+        this.phone = order.phone || ''
         this.country = order.country || 'Nigeria'
         this.state = order.state || ''
         this.lga = order.lga || ''
-        this.address = order.address || 'Bajlulaiye'
+        this.address = order.address || ''
 
     }
 }
@@ -164,7 +159,7 @@ export default {
 
     props: ['raw_user', 'paystack_pk'],
 
-    components: {Paystack, ProductWidget},
+    components: {Paystack, Spinner, ProductWidget},
 
     data(){
 
@@ -174,20 +169,24 @@ export default {
             order: new Order({}),
             state: '',
             lga: '',
-            LGA: []
-
+            LGA: [],
+            countries: [],
+            loaded: false
         }
 
     },
 
-    mounted() {
+    async mounted() {
 
-        this.getCountries({})
-        this.getNigerianStates({})
-        this.setDeliveryFee(0)
-        this.setTotalFee(this.subTotalAmount - this.couponDiscount)
-        this.getConfig({})
-
+        // await this.getCountries({})
+        await this.getNigerianStates({})
+        await this.setDeliveryFee(0)
+        await this.setTotalFee(this.subTotalAmount - this.couponDiscount)
+        await this.getConfig({})
+        this.countries.unshift('Nigeria')
+        this.config.foreign_countries.forEach((item) => {
+            this.countries.push(item.country)
+        })
         if (this.user){
             const user = this.user
             const address =  this.user && this.user.address
@@ -195,10 +194,11 @@ export default {
             if (this.user.address){
                 const state = this.states.find((state) => state.name === this.user.address.state)
                 this.state = state
-                this.LGA = state.locals
+                if (this.user.address.country === 'Nigeria') this.LGA = state.locals
                 this.order.lga = this.user.address.lga
             }
         }
+        this.loaded = true
         this.getTopSellingProducts({num: 4})
 
     },
@@ -207,7 +207,7 @@ export default {
 
         'state': function (state){
             // this.order.lga = ''
-            if(state.name && state.locals){
+            if(state && state.name && state.locals){
                 this.order.state = state.name
                 this.LGA = state.locals
             }
@@ -232,7 +232,7 @@ export default {
             deliveryFee: 'cart/deliveryFee',
             payBeforePercentage: 'cart/payBeforePercentage',
             states: 'locality/states',
-            countries: 'locality/countries',
+            // countries: 'locality/countries',
             topSellingProducts: 'shop/topSellingProducts',
             totalQty: 'cart/totalQty',
             config: 'config/config',
@@ -265,7 +265,7 @@ export default {
     methods: {
 
         ...mapActions({
-            getCountries: 'locality/getCountries',
+            // getCountries: 'locality/getCountries',
             couponValidate: 'cart/couponValidate',
             getNigerianStates: 'locality/getNigerianStates',
             resetAllShoppingMutations: 'cart/resetAllShoppingMutations',
@@ -309,7 +309,7 @@ export default {
             }).then(async (res) => {
                 $("body").removeClass("no-click");
                 await this.resetAllShoppingMutations()
-                await this.notifSuceess('Your order has been initiated successfully!');
+                // await this.notifSuceess('Your order has been initiated successfully!');
                 if (this.user){
                     window.location = '/account/orders'
                 }else{
@@ -318,14 +318,13 @@ export default {
             }).catch(err => {
                 $("body").removeClass("no-click");
                 this.$swal({text: 'An error occurred while trying to complete your order! Pls contact us if you have been charged', dangerMode: true,});
-                // this.notifError('An error occurred while trying to complete your order!. Pls contact us if you have been charged');
-                console.log(err)
             })
 
         },
         paymentFailed(response){
 
             console.log(response)
+            this.notifError(response && response.message || 'An error occurred while trying to process your payment')
 
         },
         goBack(){
@@ -342,7 +341,16 @@ export default {
             }else{
 
                 if(this.order.country !== 'Nigeria'){
-                    this.setDeliveryFee(5000)
+
+                    this.config.foreign_countries.forEach((item) =>{
+
+                        if (this.order.country === item.country){
+
+                            this.setDeliveryFee(parseInt(item.amount))
+                        }
+
+                    })
+
                 }
                 if (this.order.country === 'Nigeria' && this.order.state !== 'Lagos'){
                     this.setDeliveryFee(this.config.flat_outside_lagos_delivery_fee)
@@ -356,8 +364,6 @@ export default {
                     this.setDeliveryFee(this.config.flat_lagos_delivery_fee)
                 }
             }
-
-
 
             this.setTotalFee((this.subTotalAmount + this.deliveryFee) - this.couponDiscount)
 

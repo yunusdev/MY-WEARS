@@ -186,4 +186,8 @@ Route::group(['middleware'=>'auth:admin'], function() {
         ['only' => ['index', 'update']]
     );
 
+    Route::put(
+        '/update/delivery/countries',
+        [\App\Http\Controllers\Admin\ConfigController::class, 'updateForeignDeliveryCountries']
+    );
 });

@@ -1,7 +1,7 @@
 <template>
     <div class="card-body">
-        <form @submit.prevent="updateConfig" class="" id="addProductForm">
-            <div class="row">
+        <div class="">
+            <form @submit.prevent="updateConfig" class="" id="addProductForm">
                 <div class="row">
 
                     <div class="form-group col-md-6">
@@ -48,7 +48,7 @@
                                 <div class="input-group">
                                     <div class="custom-file">
                                         <input type="file"  @change="homeCarouselImage3" ref="front_image" class="custom-file-input form-control" />
-                                        <label class="custom-file-label" for="">Choose Home Carousel Image 1</label>
+                                        <label class="custom-file-label" for="">Choose Home Carousel Image 3</label>
                                     </div>
                                 </div>
                             </div>
@@ -199,10 +199,58 @@
 
                 </div>
 
+                <div>
+                    <div class="mt-4 float-right" style="margin-bottom: 30px !important;">
+                        <button type="submit" :disabled="disabled" class="btn btn-primary  text-center btn-lg btn-block">
+                            <span>Update Config </span>
+                            <i class="fas fa-spinner fa-pulse" v-if="disabled"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <form @submit.prevent="updateForeignDeliveryCountries" class="mt-1" style="">
+            <div class="box-body">
+               <div>
+                   <h6 class="">Update Foreign Delivery Prices</h6>
+                   <table class="table table-bordered table-striped">
+                       <thead>
+                       <tr>
+                           <th>Delete</th>
+                           <th>Country</th>
+                           <th>Amount</th>
+                       </tr>
+                       </thead>
+                       <tbody v-for="item in items">
+                       <tr v-if="item">
+                           <td>
+                               <div class="col-md-1 text-center mb-2" style="">
+                                   <a class="remove-from-cart text-center mt-2 text-danger cursor" @click="removeItem(item)" data-toggle="tooltip" title="Remove item">
+                                       <i class="fas fa-remove"></i>
+                                   </a>
+                               </div>
+                           </td>
+                           <td>
+                               <input type="text" placeholder="Country"  v-model="item.country" name="home_caption_bottom_1"
+                                      style="" class="form-control-2" required/>
+                           </td>
+                           <td>
+                               <input type="number" placeholder="Amount" min="1000" v-model="item.amount" name="home_caption_bottom_1"
+                                      style="" class="form-control-2" required/>
+                           </td>
+                       </tr>
+                       </tbody>
+                   </table>
+               </div>
+
+            </div>
+            <div class="mt-3 text-center">
+                <button style="" class="mt-2 mb-3 btn btn-warning" @click="addMore()">
+                    <i class="fas fa-plus"></i> Add More</button>
             </div>
             <div class="mt-4 pull-right" style="">
                 <button type="submit" :disabled="disabled" class="btn btn-primary text-center btn-lg btn-block">
-                    <span>Update Config </span>
+                    <span>Update Delivery Countries</span>
                     <i class="fas fa-spinner fa-pulse" v-if="disabled"></i>
                 </button>
             </div>
@@ -259,7 +307,7 @@ class Config{
 export default {
     name: "Config",
 
-    props: ['raw_config'],
+    props: ['raw_config', 'raw_foreign_countries'],
 
     components: {Multiselect},
 
@@ -268,11 +316,17 @@ export default {
         return {
 
             config: new Config(JSON.parse(this.raw_config)),
+            foreign_countries: JSON.parse(this.raw_foreign_countries),
             category: '',
             product: '',
             lagosLgas: [],
             disabled: false,
             errors: new ErrorBag({}),
+            items: [],
+            item: {
+                country: '',
+                amount: '',
+            }
 
         }
 
@@ -291,9 +345,7 @@ export default {
         this.getAllCategories({})
         this.getAllProducts({})
         this.getNigeriaStatesLGA(25).then((data) => {
-
             this.lagosLgas = data
-
         })
         Object.assign(this.config, {
 
@@ -302,6 +354,14 @@ export default {
         })
         if(this.config.category) this.category = this.config.category
         if(this.config.product) this.product = this.config.product
+
+        this.foreign_countries.forEach((item) => {
+            this.items.push({
+                country: item.country,
+                amount: item.amount,
+            })
+        })
+        this.items.push({...this.item})
     },
 
     methods: {
@@ -315,6 +375,12 @@ export default {
             if (val) {
                 this.config.featured_category = val.id;
             }
+        },
+        addMore(){
+            this.items.push({...this.item})
+        },
+        removeItem(index){
+            this.items.splice(index, 1)
         },
         onProductChange(val){
             this.config.featured_product = '';
@@ -346,13 +412,34 @@ export default {
         updateConfig(){
 
             if (this.errors.hasErrors()) this.errors.clearAll()
-
             this.disabled = true
             this.$http.put(`/admin/config/${this.config.id}`, this.config).then(res => {
 
                 this.disabled = false;
                 this.notifSuceess('Config Updated Successfully!!!')
-                console.log(res.data)
+
+            }).catch(err => {
+                this.disabled = false;
+                console.log(err.response)
+                if (err.response && err.response.status == 422) {
+                    const errors = err.response.data.errors;
+                    this.errors.setErrors(errors);
+                }
+                this.notifError( err.message || 'An error occurred')
+
+            })
+
+        },
+        updateForeignDeliveryCountries(){
+
+            if (this.errors.hasErrors()) this.errors.clearAll()
+            this.disabled = true
+            this.$http.put(`/admin/update/delivery/countries`, {
+                items: this.items
+            }).then(res => {
+
+                this.disabled = false;
+                this.notifSuceess('Config Updated Successfully!!!')
 
             }).catch(err => {
                 this.disabled = false;
@@ -375,5 +462,21 @@ export default {
 <style scoped>
 .invalid-feedback{
     display: block !important;
+}
+
+.form-control-2 {
+    display: block;
+    /* width: 100%; */
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 </style>

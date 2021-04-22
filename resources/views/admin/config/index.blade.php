@@ -23,7 +23,7 @@
 
                 <div class="card" style="padding: 20px">
 
-                    <config raw_config="{{$config}}"></config>
+                    <config raw_foreign_countries="{{$foreign_countries}}" raw_config="{{$config}}"></config>
 
                 </div>
 

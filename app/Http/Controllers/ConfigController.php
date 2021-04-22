@@ -22,7 +22,10 @@ class ConfigController extends Controller
 
     public function index(){
 
-        return $this->configRepository->getConfig();
+        $data =  $this->configRepository->getConfig();
+        $data['foreign_countries'] =  $this->configRepository->getForeignDeliveryCountries();
+
+        return $data;
 
     }
 }

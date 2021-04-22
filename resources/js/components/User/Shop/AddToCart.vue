@@ -56,7 +56,10 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary btn-sm" type="submit">Add To cart</button>
+                        <button class="btn btn-primary btn-sm" type="submit">
+                            Add To cart
+                            <i class="fa fa-spinner fa-pulse" v-if="disabled"></i>
+                        </button>
 <!--                        <button class="btn btn-primary btn-sm" type="button">Checkout</button>-->
                     </div>
                 </form>
@@ -87,7 +90,8 @@ export default {
               size: '',
               color: '',
               quantity: '',
-          }
+          },
+          disabled: false
 
       }
 
@@ -119,10 +123,14 @@ export default {
 
         addToCart(){
 
+            this.disabled = true
             this.addItemsToCart(this.items).then((data) => {
                 this.notifSuceess('Item Added to cart successfully');
                 $('#addToCart').modal('hide')
+                this.disabled = false
+
             }).catch((err) => {
+                this.disabled = false
                 this.notifError( err.message || 'An error occurred')
             })
 

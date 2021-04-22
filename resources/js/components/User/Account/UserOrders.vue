@@ -78,9 +78,8 @@ export default {
 
     async mounted(){
 
-        await this.getOrders().then(() => {
-            this.loaded = true
-        })
+        await this.getOrders()
+        this.loaded = true
 
     },
 
