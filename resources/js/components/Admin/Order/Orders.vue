@@ -11,7 +11,7 @@
             <a style="padding: 10px" href="/admin/orders/create" class=" pull-right btn btn-primary">
                 <i class="fas fa-user-plus" style="padding-right: 10px"></i>Add New Order
             </a>
-            <button style="padding: 10px" @click="toggleFilter" class="  mr-3 btn btn-warning">
+            <button style="padding: 10px" @click="toggleFilter" class="pull-right  mr-3 btn btn-warning">
                 Toggle Filter
             </button>
         </div>
