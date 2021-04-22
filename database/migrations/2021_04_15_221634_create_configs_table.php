@@ -21,10 +21,15 @@ class CreateConfigsTable extends Migration
 
             $table->string('home_caption_top_1');
             $table->string('home_caption_bottom_1');
+            $table->string('home_link_1');
+
             $table->string('home_caption_top_2');
             $table->string('home_caption_bottom_2');
+            $table->string('home_link_2');
+
             $table->string('home_caption_top_3');
             $table->string('home_caption_bottom_3');
+            $table->string('home_link_3');
 
             $table->string('featured_product')->nullable();
             $table->string('featured_category')->nullable();

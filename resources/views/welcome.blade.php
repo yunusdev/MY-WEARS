@@ -25,7 +25,7 @@ Home
 {{--                                <img class="d-inline-block w-150 mb-4" src="img/hero-slider/logo02.png" alt="Puma">--}}
                                 <div class="h2 text-body text-normal mb-2 pt-1">{{$config->home_caption_top_1}}</div>
                                 <div class="h2 text-body text-normal mb-4 pb-1">{{$config->home_caption_bottom_1}}</div>
-                            </div><a class="btn btn-primary scale-up delay-1" href="/shop">Shop Now</a>
+                            </div><a class="btn btn-primary scale-up delay-1" href="{{$config->home_link_1}}">Shop Now</a>
                         </div>
                         <div class="col-md-6 padding-bottom-2x mb-3"><img class="d-block mx-auto" src="img/hero-slider/02.png" alt="Puma Backpack"></div>
                     </div>
@@ -39,7 +39,7 @@ Home
 {{--                                <img class="d-inline-block w-200 mb-4" src="img/hero-slider/logo01.png" alt="Converse">--}}
                                 <div class="h2 text-body text-normal mb-2 pt-1">{{$config->home_caption_top_2}}</div>
                                 <div class="h2 text-body text-normal mb-4 pb-1">{{$config->home_caption_bottom_2}}</div>
-                            </div><a class="btn btn-primary scale-up delay-1" href="/shop">Shop Now</a>
+                            </div><a class="btn btn-primary scale-up delay-1" href="{{$config->home_link_2}}">Shop Now</a>
                         </div>
                         <div class="col-md-6 padding-bottom-2x mb-3"><img class="d-block mx-auto" src="img/hero-slider/01.png" alt="Chuck Taylor All Star II"></div>
                     </div>
@@ -53,7 +53,7 @@ Home
 {{--                                <img class="d-inline-block mb-4" src="img/hero-slider/logo03.png" style="width: 125px;" alt="Motorola">--}}
                                 <div class="h2 text-body text-normal mb-2 pt-1">{{$config->home_caption_top_3}}</div>
                                 <div class="h2 text-body text-normal mb-4 pb-1">{{$config->home_caption_bottom_3}}</div>
-                            </div><a class="btn btn-primary scale-up delay-1" href="/shop">Shop Now</a>
+                            </div><a class="btn btn-primary scale-up delay-1" href="{{$config->home_link_3}}">Shop Now</a>
                         </div>
                         <div class="col-md-6 padding-bottom-2x mb-3"><img class="d-block mx-auto" src="img/hero-slider/03.png" alt="Moto 360"></div>
                     </div>

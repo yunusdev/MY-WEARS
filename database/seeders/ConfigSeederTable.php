@@ -24,10 +24,15 @@ class ConfigSeederTable extends Seeder
 
             'home_caption_top_1' => 'Puma Backpacks Collection',
             'home_caption_bottom_1' => 'starting at $37.99',
+            'home_link_1' => '/shop',
+
             'home_caption_top_2' => 'Chuck Taylor All Star II',
             'home_caption_bottom_2' => 'for only $59.99',
+            'home_link_2' => '/shop',
+
             'home_caption_top_3' => 'Smart Watch Moto 360 2nd',
             'home_caption_bottom_3' => 'for only $299.99',
+            'home_link_3' => '/shop',
 
             'featured_product' => '8736bd70-826e-11eb-94b7-87bc04206b44',
             'featured_category' => '7155f3f0-80e1-11eb-8bb5-37d65ea58c90',

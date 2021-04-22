@@ -35,10 +35,15 @@ class ConfigController extends Controller
 
             'home_caption_top_1' => 'required',
             'home_caption_bottom_1' => 'required',
+            'home_link_1' => 'required',
+
             'home_caption_top_2' => 'required',
             'home_caption_bottom_2' => 'required',
+            'home_link_2' => 'required',
+
             'home_caption_top_3' => 'required',
             'home_caption_bottom_3' => 'required',
+            'home_link_3' => 'required',
 
             'delivery_free' => 'required',
             'min_amount_free_delivery' => 'required',
