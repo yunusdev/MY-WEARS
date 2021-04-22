@@ -14,7 +14,9 @@ import Swal from 'sweetalert'
 import izitoast from 'izitoast'
 import '../../public/admin/css/izitoast.css'
 
+console.log(process.env.MIX_APP_ENV)
 if (process.env.MIX_APP_ENV === 'production') {
+    console.log(process.env.MIX_APP_ENV + " ?????????????")
     Vue.config.devtools = false;
     Vue.config.debug = false;
     Vue.config.silent = true;
