@@ -13,9 +13,16 @@
                 </li>
             </ul>
         </section>
-        <section v-if="productPriceRange && range.length === 2" class="widget widget-categories">
+        <section v-if="productPriceRange && range.length === 2 && !modal" class="widget widget-categories">
             <h3 class="widget-title">Price Range</h3>
 
+<!--            <price-range-slider-->
+<!--                :trackHeight="0.5"-->
+<!--                :min="productPriceRange.min"-->
+<!--                :max="productPriceRange.max"-->
+<!--                :minValue="productPriceRange.rangeMin"-->
+<!--                :maxValue="productPriceRange.rangeMax"-->
+<!--            />-->
             <VueSimpleRangeSlider
                 :min="productPriceRange.min"
                 :max="productPriceRange.max"
@@ -41,13 +48,13 @@
 <script>
 import VueSimpleRangeSlider from 'vue-simple-range-slider';
 import 'vue-simple-range-slider/dist/vueSimpleRangeSlider.css'
-import {mapActions, mapGetters} from 'vuex'
+import {mapGetters} from 'vuex'
 export default {
     name: "ShopSidebar",
 
     components: {VueSimpleRangeSlider},
 
-    props: ['categories', 'category', 'sub_category'],
+    props: ['categories', 'category', 'sub_category', 'modal'],
 
     data(){
 
@@ -59,8 +66,6 @@ export default {
     },
 
     mounted(){
-        this.getProductPriceRange()
-
         this.range.push(this.productPriceRange.rangeMin)
         this.range.push(this.productPriceRange.rangeMax)
 
@@ -77,11 +82,6 @@ export default {
 
     methods: {
 
-        ...mapActions({
-
-            getProductPriceRange: 'shop/getProductPriceRange'
-
-        }),
 
         formatter(value){
 

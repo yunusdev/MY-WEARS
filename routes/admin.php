@@ -58,17 +58,15 @@ Route::group(['middleware'=>'auth:admin'], function() {
         '/admins',
         \App\Http\Controllers\Admin\AdminUsersController::class,
     );
-
-    Route::resource(
-        '/permission',
-        \App\Http\Controllers\Admin\PermissionController::class,
-    );
-
-    Route::resource(
-        '/role',
-        \App\Http\Controllers\Admin\RoleController::class,
-    );
-
+//    Route::resource(
+//        '/permission',
+//        \App\Http\Controllers\Admin\PermissionController::class,
+//    );
+//
+//    Route::resource(
+//        '/role',
+//        \App\Http\Controllers\Admin\RoleController::class,
+//    );
     Route::get(
         '/categories/all',
         [\App\Http\Controllers\Admin\CategoriesController::class, 'getAllCategories']

@@ -45,25 +45,25 @@
                                         <span class="custom-switch-description">Status</span>
                                     </label>
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-label">Attach Role(s)</label>
-                                    <div class="selectgroup selectgroup-pills" >
-                                        @foreach($roles as $role)
-                                            <label class="selectgroup-item" >
-                                                <input type="radio" name="roles[]"  value="{{$role->id}}" class="selectgroup-input"
-                                               @foreach($admin->roles as $adrole)
-                                                    @if($adrole->id  == $role->id)
-                                                         checked
-                                                    @endif
-                                                @endforeach
+{{--                                <div class="form-group">--}}
+{{--                                    <label class="form-label">Attach Role(s)</label>--}}
+{{--                                    <div class="selectgroup selectgroup-pills" >--}}
+{{--                                        @foreach($roles as $role)--}}
+{{--                                            <label class="selectgroup-item" >--}}
+{{--                                                <input type="radio" name="roles[]"  value="{{$role->id}}" class="selectgroup-input"--}}
+{{--                                               @foreach($admin->roles as $adrole)--}}
+{{--                                                    @if($adrole->id  == $role->id)--}}
+{{--                                                         checked--}}
+{{--                                                    @endif--}}
+{{--                                                @endforeach--}}
 
-                                                >
-                                                <span class="selectgroup-button">{{$role->name}}</span>
-                                            </label>
-                                        @endforeach
+{{--                                                >--}}
+{{--                                                <span class="selectgroup-button">{{$role->name}}</span>--}}
+{{--                                            </label>--}}
+{{--                                        @endforeach--}}
 
-                                    </div>
-                                </div>
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
 
                             </div>

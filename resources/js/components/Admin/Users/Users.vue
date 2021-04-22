@@ -6,13 +6,14 @@
             class="badge badge-primary px-3 py-2 text-white font-weight-bold float"
         >{{usersData.total}}</span
         >
-        <div class="float-right mb-4">
-            <button style="padding: 10px" @click="toggleFilter" class=" pull-right mr-3 btn btn-secondary">
+        <div class="mb-4">
+            <button style="padding: 10px" @click="toggleFilter" class=" pull-right mr-3 btn btn-warning">
                 Toggle Filter
             </button>
         </div>
         <br>
-        <div v-if="show_filter" class="row container">
+        <hr>
+        <div v-if="show_filter" class="row">
             <div class="col-md-3 form-group">
                 <label for="">Created At (From):</label>
                 <input v-model="search.createdFrom" class="form-control" type="date">
@@ -73,8 +74,7 @@
         </div>
 
         <div class="box-body">
-
-            <table id="example1"  class="table">
+            <table id="example1"  class="table table-bordered table-striped">
                 <thead>
                 <tr>
                     <th>No</th>

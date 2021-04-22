@@ -69,17 +69,19 @@
                                 <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             </div>
                             <div class="modal-body">
-                                <shop-sidebar @filterPrice="filterPrice" :categories="categories"
+                                <shop-sidebar @filterPrice="filterPrice" :categories="categories" :modal="true"
                                               :category="category" :sub_category="sub_category"></shop-sidebar>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-4 order-lg-1">
-                    <button class="sidebar-toggle position-left" data-toggle="modal" data-target="#modalShopFilters"><i class="icon-layout"></i></button>
+                    <button class="sidebar-toggle position-left" data-toggle="modal" data-target="#modalShopFilters">
+                        <i class="icon-layout"></i>
+                    </button>
                     <aside class="sidebar sidebar-offcanvas">
 
-                        <shop-sidebar @filterPrice="filterPrice" :categories="categories" :category="category"
+                        <shop-sidebar  @filterPrice="filterPrice" :categories="categories" :category="category" :modal="false"
                                       :sub_category="sub_category"></shop-sidebar>
                     </aside>
                 </div>
@@ -128,6 +130,7 @@ export default {
         await this.getCategories({}).then(() => {
             this.loaded = true
         })
+        await this.getProductPriceRange()
 
     },
 
@@ -146,7 +149,8 @@ export default {
         ...mapActions({
             // getUserCartItems: 'cart/getUserCartItems',
             getCategories: 'shop/getCategories',
-            getShopProducts: 'shop/getProducts'
+            getShopProducts: 'shop/getProducts',
+            getProductPriceRange: 'shop/getProductPriceRange'
 
         }),
 

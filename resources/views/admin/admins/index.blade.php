@@ -40,39 +40,39 @@
                                     <th>No</th>
                                     <th>Admin Name</th>
                                     <th>Status</th>
-                                    <th>Assigned Role</th>
+{{--                                    <th>Assigned Role</th>--}}
                                     <th>Edit</th>
-                                    <th>Delete</th>
+{{--                                    <th>Delete</th>--}}
 
                                 </tr>
                                 </thead>
                                 <tbody>
 
                                 @if($admins)
-                                    @foreach($admins as $admin)
+                                    @foreach($admins as $key => $admin)
                                         <tr>
-                                            <td>{{$admin->id}}</td>
+                                            <td>{{$key+1}}</td>
                                             <td>{{$admin->name}}</td>
                                             <td>{{$admin->status == 1 ? 'Active': 'Not Active' }}</td>
-                                            <td> {{$admin->roles()->pluck('name')->implode(' | ')}}</td>
+{{--                                            <td> {{$admin->roles()->pluck('name')->implode(' | ')}}</td>--}}
 
                                             <td><a href="{{route('admins.edit', $admin->id)}}"><span class="fas fa-edit"></span></a></td>
-                                            <td>
+{{--                                            <td>--}}
 
-                                                <form method="post" id="delete-form-{{$admin->id}}" action="{{route('admins.destroy', $admin->id)}}">
-                                                    {{csrf_field()}}
-                                                    {{method_field('DELETE')}}
+{{--                                                <form method="post" id="delete-form-{{$admin->id}}" action="{{route('admins.destroy', $admin->id)}}">--}}
+{{--                                                    {{csrf_field()}}--}}
+{{--                                                    {{method_field('DELETE')}}--}}
 
-                                                </form>
+{{--                                                </form>--}}
 
-                                                <a href="" onclick="
-                                                    if(confirm('Are you sure you want to delete this ?'))
-                                                    {
-                                                    event.preventDefault();document.getElementById('delete-form-{{$admin->id}}').submit();}
-                                                    else
-                                                    {event.preventDefault();}">
-                                                    <span class="text-center fas fa-trash" ></span></a>
-                                            </td>
+{{--                                                <a href="" onclick="--}}
+{{--                                                    if(confirm('Are you sure you want to delete this ?'))--}}
+{{--                                                    {--}}
+{{--                                                    event.preventDefault();document.getElementById('delete-form-{{$admin->id}}').submit();}--}}
+{{--                                                    else--}}
+{{--                                                    {event.preventDefault();}">--}}
+{{--                                                    <span class="text-center fas fa-trash" ></span></a>--}}
+{{--                                            </td>--}}
                                         </tr>
                                     @endforeach
                                 @endif
@@ -83,9 +83,9 @@
                                     <th>No</th>
                                     <th>Admin Name</th>
                                     <th>Status</th>
-                                    <th>Assigned Role</th>
+{{--                                    <th>Assigned Role</th>--}}
                                     <th>Edit</th>
-                                    <th>Delete</th>
+{{--                                    <th>Delete</th>--}}
 
                                 </tr>
                                 </tfoot>

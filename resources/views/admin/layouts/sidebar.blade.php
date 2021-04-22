@@ -32,16 +32,17 @@
             <li class="{{isActiveUrl('/admin/coupons')}}"><a class="nav-link" href="{{route('coupons.index')}}"><i class="fas fa-gift"></i> <span>Coupons</span></a></li>
 
 
-            <li class="menu-header">AUTHORIZING</li>
-            <li class="{{isActiveUrl('/admin/config')}}"><a class="nav-link" href="{{route('config.index')}}"><i class="fas fa-cogs"></i> <span>Config</span></a></li>
-            <li class="{{isActiveUrl('/admin/role')}}"><a class="nav-link" href="{{route('role.index')}}"><i class="fas fa-pencil-ruler"></i> <span>Roles</span></a></li>
-            <li class="{{isActiveUrl('/admin/permission')}}"><a class="nav-link" href="{{route('permission.index')}}"><i class="fas fa-pencil-ruler"></i> <span>Permissions</span></a></li>
+{{--            <li class="menu-header">AUTHORIZING</li>--}}
+{{--            <li class="{{isActiveUrl('/admin/config')}}"><a class="nav-link" href="{{route('config.index')}}"><i class="fas fa-cogs"></i> <span>Config</span></a></li>--}}
+{{--            <li class="{{isActiveUrl('/admin/role')}}"><a class="nav-link" href="{{route('role.index')}}"><i class="fas fa-pencil-ruler"></i> <span>Roles</span></a></li>--}}
+{{--            <li class="{{isActiveUrl('/admin/permission')}}"><a class="nav-link" href="{{route('permission.index')}}"><i class="fas fa-pencil-ruler"></i> <span>Permissions</span></a></li>--}}
 
         </ul>
 
-        <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
-            <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
-                <i class="fas fa-rocket"></i> Documentation
+        <hr>
+        <div class="mt-1 mb-4 p-3 hide-sidebar-mini">
+            <a href="{{route('config.index')}}" class="btn btn-primary btn-lg btn-block btn-icon-split">
+                <i class="fas fa-cogs"></i> Configurations
             </a>
         </div>
     </aside>

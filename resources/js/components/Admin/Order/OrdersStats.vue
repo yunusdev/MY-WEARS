@@ -1,7 +1,7 @@
 <template>
-    <div class="box-body" v-if="data">
+    <div class="" v-if="data">
 
-        <div class="row container">
+        <div class="row">
             <div class="col-md-3 form-group">
                 <label for="">Created At (From):</label>
                 <input v-model="search.createdFrom" class="form-control" type="date">
@@ -34,69 +34,73 @@
             </div>
 
         </div>
-        <table id="example1"  class="table table-bordered table-striped">
-            <thead>
-            <tr>
-                <th></th>
-                <th>Order Count</th>
-                <th>Num Of Items</th>
-                <th>Order Amount</th>
-                <th>Delivery Fees</th>
-                <th>Coupon Total</th>
-                <th>Total</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-if="data.custom">
-                <th>Custom Date</th>
-                <td>{{ data.custom.count }}</td>
-                <td>{{ data.custom.numOfItems }}</td>
-                <td>N{{ data.custom.subTotalAmount | formatMoney  }}</td>
-                <td>N{{ data.custom.deliveryFee | formatMoney  }}</td>
-                <td>N{{ data.custom.couponDiscount | formatMoney }}</td>
-                <td>N{{ data.custom.totalAmt  | formatMoney }}</td>
-            </tr>
-            <tr>
-                <th>Current Week</th>
-                <td>{{ data.week.count }}</td>
-                <td>{{ data.week.numOfItems }}</td>
-                <td>N{{ data.week.subTotalAmount | formatMoney  }}</td>
-                <td>N{{ data.week.deliveryFee | formatMoney  }}</td>
-                <td>N{{ data.week.couponDiscount | formatMoney }}</td>
-                <td>N{{ data.week.totalAmt  | formatMoney }}</td>
-            </tr>
-            <tr>
-                <th>Current Month</th>
-                <td>{{ data.month.count }}</td>
-                <td>{{ data.month.numOfItems }}</td>
-                <td>N{{ data.month.subTotalAmount | formatMoney }}</td>
-                <td>N{{ data.month.deliveryFee | formatMoney  }}</td>
-                <td>N{{ data.month.couponDiscount | formatMoney  }}</td>
-                <td>N{{ data.month.totalAmt | formatMoney  }}</td>
-            </tr>
-            <tr>
-                <th>Total</th>
-                <td>{{ data.all.count }}</td>
-                <td>{{ data.all.numOfItems }}</td>
-                <td>N{{ data.all.subTotalAmount | formatMoney }}</td>
-                <td>N{{ data.all.deliveryFee | formatMoney  }}</td>
-                <td>N{{ data.all.couponDiscount| formatMoney  }}</td>
-                <td>N{{ data.all.totalAmt | formatMoney }}</td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr>
-                <th></th>
-                <th>Order Count</th>
-                <th>Num Of Items</th>
-                <th>Order Amount</th>
-                <th>Delivery Fees</th>
-                <th>Coupon Total</th>
-                <th>Total</th>
-            </tr>
-            </tfoot>
 
-        </table>
+        <div class="box-body">
+            <table id="example1"  class=" table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Order Count</th>
+                    <th>Num Of Items</th>
+                    <th>Order Amount</th>
+                    <th>Delivery Fees</th>
+                    <th>Coupon Total</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-if="data.custom">
+                    <th>Custom Date</th>
+                    <td>{{ data.custom.count }}</td>
+                    <td>{{ data.custom.numOfItems }}</td>
+                    <td>N{{ data.custom.subTotalAmount | formatMoney  }}</td>
+                    <td>N{{ data.custom.deliveryFee | formatMoney  }}</td>
+                    <td>N{{ data.custom.couponDiscount | formatMoney }}</td>
+                    <td>N{{ data.custom.totalAmt  | formatMoney }}</td>
+                </tr>
+                <tr>
+                    <th>Current Week</th>
+                    <td>{{ data.week.count }}</td>
+                    <td>{{ data.week.numOfItems }}</td>
+                    <td>N{{ data.week.subTotalAmount | formatMoney  }}</td>
+                    <td>N{{ data.week.deliveryFee | formatMoney  }}</td>
+                    <td>N{{ data.week.couponDiscount | formatMoney }}</td>
+                    <td>N{{ data.week.totalAmt  | formatMoney }}</td>
+                </tr>
+                <tr>
+                    <th>Current Month</th>
+                    <td>{{ data.month.count }}</td>
+                    <td>{{ data.month.numOfItems }}</td>
+                    <td>N{{ data.month.subTotalAmount | formatMoney }}</td>
+                    <td>N{{ data.month.deliveryFee | formatMoney  }}</td>
+                    <td>N{{ data.month.couponDiscount | formatMoney  }}</td>
+                    <td>N{{ data.month.totalAmt | formatMoney  }}</td>
+                </tr>
+                <tr>
+                    <th>Total</th>
+                    <td>{{ data.all.count }}</td>
+                    <td>{{ data.all.numOfItems }}</td>
+                    <td>N{{ data.all.subTotalAmount | formatMoney }}</td>
+                    <td>N{{ data.all.deliveryFee | formatMoney  }}</td>
+                    <td>N{{ data.all.couponDiscount| formatMoney  }}</td>
+                    <td>N{{ data.all.totalAmt | formatMoney }}</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th></th>
+                    <th>Order Count</th>
+                    <th>Num Of Items</th>
+                    <th>Order Amount</th>
+                    <th>Delivery Fees</th>
+                    <th>Coupon Total</th>
+                    <th>Total</th>
+                </tr>
+                </tfoot>
+
+            </table>
+
+        </div>
 
     </div>
 

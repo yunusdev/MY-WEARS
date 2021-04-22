@@ -43,23 +43,23 @@
                                     <span class="custom-switch-description">Status</span>
                                 </label>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label">Attach Role(s)</label>
-                                <div class="selectgroup selectgroup-pills" >
-                                    @forelse($roles as $role)
-                                        <label class="selectgroup-item" >
-                                            <input type="radio" name="roles[]"  value="{{$role->id}}" class="selectgroup-input">
-                                            <span class="selectgroup-button">{{$role->name}}</span>
-                                        </label>
+{{--                            <div class="form-group">--}}
+{{--                                <label class="form-label">Attach Role(s)</label>--}}
+{{--                                <div class="selectgroup selectgroup-pills" >--}}
+{{--                                    @forelse($roles as $role)--}}
+{{--                                        <label class="selectgroup-item" >--}}
+{{--                                            <input type="radio" name="roles[]"  value="{{$role->id}}" class="selectgroup-input">--}}
+{{--                                            <span class="selectgroup-button">{{$role->name}}</span>--}}
+{{--                                        </label>--}}
 
-                                        @empty
+{{--                                        @empty--}}
 
-                                        <p><em>No roles... Add <a href="{{route('role.index')}}">here<i class="fas  fa-plus-circle"></i></a></em> </p>
+{{--                                        <p><em>No roles... Add <a href="{{route('role.index')}}">here<i class="fas  fa-plus-circle"></i></a></em> </p>--}}
 
-                                    @endforelse
+{{--                                    @endforelse--}}
 
-                                </div>
-                            </div>
+{{--                                </div>--}}
+{{--                            </div>--}}
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Password</label>
                                 <input type="password" class="form-control" name="password" id="password" required placeholder="Password">
