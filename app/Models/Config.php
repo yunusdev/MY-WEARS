@@ -12,7 +12,7 @@ class Config extends Model
     protected $appends = ['farther_lagos_lg'];
 
 
-    protected $fillable = ['home_carousel_image_1', 'home_carousel_image_2',
+    protected $fillable = ['home_carousel_image_1', 'home_carousel_image_2','home_link_1', 'home_link_2', 'home_link_3',
         'home_carousel_image_3', 'home_caption_top_1', 'home_caption_bottom_1',
         'home_caption_top_2', 'home_caption_bottom_2', 'home_caption_bottom_3', 'home_caption_top_3',
         'featured_product', 'featured_category', 'delivery_free', 'min_amount_free_delivery', 'flat_lagos_delivery_fee',

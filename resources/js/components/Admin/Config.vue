@@ -58,36 +58,51 @@
 
                     <div class="form-group col-md-6">
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label class="col-form-label">Caption Top 1 <sup>*</sup></label>
                         <input type="text"  v-model="config.home_caption_top_1" name="home_caption_top_1" style="" class="form-control" required/>
                         <div class="invalid-feedback" v-if="errors.hasError('home_caption_top_1')">{{ errors.first('home_caption_top_1') }}</div>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label class="col-form-label">Caption Bottom 1 <sup>*</sup></label>
                         <input type="text"  v-model="config.home_caption_bottom_1" name="home_caption_bottom_1" style="" class="form-control" required/>
                         <div class="invalid-feedback" v-if="errors.hasError('home_caption_bottom_1')">{{ errors.first('home_caption_bottom_1') }}</div>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
+                        <label class="col-form-label">Home Link 1 <sup>*</sup></label>
+                        <input type="text"  v-model="config.home_link_1" name="home_caption_bottom_1" style="" class="form-control" required/>
+                        <div class="invalid-feedback" v-if="errors.hasError('home_link_1')">{{ errors.first('home_link_1') }}</div>
+                    </div>
+                    <div class="form-group col-md-4">
                         <label class="col-form-label">Caption Top 2 <sup>*</sup></label>
                         <input type="text"  v-model="config.home_caption_top_2" name="home_caption_top_2" style="" class="form-control" required/>
                         <div class="invalid-feedback" v-if="errors.hasError('home_caption_top_2')">{{ errors.first('home_caption_top_2') }}</div>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label class="col-form-label">Caption Bottom 2 <sup>*</sup></label>
                         <input type="text"  v-model="config.home_caption_bottom_2" name="home_caption_bottom_2" style="" class="form-control" required/>
                         <div class="invalid-feedback" v-if="errors.hasError('home_caption_bottom_2')">{{ errors.first('home_caption_bottom_2') }}</div>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
+                        <label class="col-form-label">Home Link 2 <sup>*</sup></label>
+                        <input type="text"  v-model="config.home_link_2" name="home_link_2" style="" class="form-control" required/>
+                        <div class="invalid-feedback" v-if="errors.hasError('home_link_2')">{{ errors.first('home_link_2') }}</div>
+                    </div>
+                    <div class="form-group col-md-4">
                         <label class="col-form-label">Caption Top 3 <sup>*</sup></label>
                         <input type="text"  v-model="config.home_caption_top_3" name="name" style="" class="form-control" required/>
                         <div class="invalid-feedback" v-if="errors.hasError('home_caption_top_3')">{{ errors.first('home_caption_top_3') }}</div>
                     </div>
                     <hr>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label class="col-form-label">Caption Bottom 3 <sup>*</sup></label>
                         <input type="text"  v-model="config.home_caption_bottom_3" name="name" style="" class="form-control" required/>
                         <div class="invalid-feedback" v-if="errors.hasError('home_caption_bottom_3')">{{ errors.first('home_caption_bottom_3') }}</div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="col-form-label">Home Link 3<sup>*</sup></label>
+                        <input type="text"  v-model="config.home_link_3" name="home_link_3" style="" class="form-control" required/>
+                        <div class="invalid-feedback" v-if="errors.hasError('home_link_3')">{{ errors.first('home_link_3') }}</div>
                     </div>
                     <div class="form-group col-md-6">
                         <label class="form-label">Product <sup>*</sup></label>
@@ -212,10 +227,15 @@ class Config{
 
         this.home_caption_top_1 = config.home_caption_top_1 || '';
         this.home_caption_bottom_1 = config.home_caption_bottom_1 || '';
+        this.home_link_1 = config.home_link_1 || '';
+
         this.home_caption_top_2 = config.home_caption_top_2 || '';
         this.home_caption_bottom_2 = config.home_caption_bottom_2 || '';
+        this.home_link_2 = config.home_link_2 || '';
+
         this.home_caption_top_3 = config.home_caption_top_3 || '';
         this.home_caption_bottom_3 = config.home_caption_bottom_3 || '';
+        this.home_link_3 = config.home_link_3 || '';
 
         this.featured_product = config.featured_product || '';
         this.product = config.product || '';
