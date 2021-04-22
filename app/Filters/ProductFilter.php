@@ -67,6 +67,13 @@ class ProductFilter extends QueryFilter
         $this->builder->where('price', '<=', $maxPrice);
     }
 
+    public function searchByText(string $data)
+    {
+        $this->builder
+            ->where('code', $data)
+            ->orWhere('name', 'like', "%" . $data . "%");
+    }
+
     /**
      * @param string $color
      *

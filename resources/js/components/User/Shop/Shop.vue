@@ -29,11 +29,24 @@
                             <!--                            <div class="shop-view"><a class="grid-view active" href="shop-grid-ls.html"><span></span><span></span><span></span></a><a class="list-view" href="shop-list-ls.html"><span></span><span></span><span></span></a></div>-->
                         </div>
                     </div>
-                    <div v-if="loaded" class="row mb-5">
-                        <product v-if="products.length > 0" class="mb-3" :add_col="true"
-                                 v-for="product, key in products" :key="product.name" :product="product">
-                        </product>
-                        <p class="f-17" v-if="products.length === 0">No items match your query. Reload <a href="/shop">products</a></p>
+                    <div v-if="loaded" class="mb-5">
+                        <div class="justify-content-center">
+                            <form @submit.prevent="filterProductsByText" class="col-sm-12 col-md-6 "  style="margin: 0 auto 30px auto !important;">
+                                <div class="input-group">
+                                    <input type="text" placeholder="Search" v-model="search_by_text"
+                                           required class="form-control">
+                                        <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="submit">Search!</button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="row">
+                            <product v-if="products.length > 0" class="mb-3" :add_col="true"
+                                     v-for="product, key in products" :key="product.name" :product="product">
+                            </product>
+                            <p class="f-17" v-if="products.length === 0">No items match your query. Reload <a href="/shop">products</a></p>
+                        </div>
                     </div>
                     <nav class="pagination">
                         <div class="column text-left">
@@ -119,7 +132,8 @@ export default {
             loaded: false,
             order_by: 'created_at',
             sort_type: 'desc',
-            products: []
+            products: [],
+            search_by_text: ''
         }
 
     },
@@ -160,6 +174,18 @@ export default {
                 max,
             })
             this.getProducts(null, true)
+
+        },
+
+        filterProductsByText(){
+            console.log('>>>>>>>>>')
+            this.getShopProducts({
+                order_by: this.order_by, sort_type: this.sort_type, search_by_text: this.search_by_text
+            }).then((data) => {
+                this.productsData = data;
+                this.products = data.data;
+                this.loaded = true
+            })
 
         },
 

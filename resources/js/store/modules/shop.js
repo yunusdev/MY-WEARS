@@ -41,7 +41,8 @@ export default {
                 return Promise.reject(err)
             })
         },
-        getProducts({ state, commit }, {page = 1, price = false, category, sub_category, order_by, sort_type, price_range  }){
+        getProducts({ state, commit }, {page = 1, price = false, category,
+            sub_category, order_by, sort_type, price_range, search_by_text  }){
             if (typeof page === 'undefined' || !page) {
                 page = 1;
             }
@@ -59,8 +60,11 @@ export default {
                     query += `&orderByAsc=${order_by}`
                 }
             }
-            if (price_range.min && price_range.max){
+            if (price_range && price_range.min && price_range.max){
                 query += `&minPrice=${price_range.min}&maxPrice=${price_range.max}`
+            }
+            if(search_by_text){
+                query += `&searchByText=${search_by_text}`
             }
             return Axios.get(`/${baseUrl}/products?page=${page}${query}`).then(res => {
                 return res.data
