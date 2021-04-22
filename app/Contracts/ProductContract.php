@@ -12,6 +12,8 @@ interface ProductContract
 
     public function getProductsCount();
 
+    public function getProductPriceRange();
+
     public function getTopCategoryProducts(string $categoryId, int $num = 3);
 
     public function filterProducts(ProductFilter $filters, int $pagination = 9);

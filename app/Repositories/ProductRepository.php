@@ -37,6 +37,28 @@ class ProductRepository extends BaseRepository implements ProductContract
         return $this->count();
     }
 
+    public function getProductPriceRange()
+    {
+        $min = floor($this->model->min('price') * 100) / 100;
+        $max = ceil($this->model->max('price') * 100) / 100;
+
+        $middle = $max / 2;
+        $segment = ($max - $min) / 5;
+
+        $rangeMin = $middle - $segment;
+        $rangeMax = $middle + $segment;
+
+        return [
+
+            'min' => $min,
+            'max' => $max,
+            'rangeMin' => $rangeMin,
+            'rangeMax' => $rangeMax,
+
+        ];
+
+    }
+
 
     public function getTopCategoryProducts(string $categoryId, int $num = 3)
     {

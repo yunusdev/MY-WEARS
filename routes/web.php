@@ -24,6 +24,10 @@ Route::get('/track/order/{tracking_number?}',
     [App\Http\Controllers\ShopController::class, 'trackOrder']
 )->name('track.order');
 
+Route::get('/shop/price/range',
+    [App\Http\Controllers\ShopController::class, 'getProductPriceRange']
+);
+
 Route::get('search/track/order/{tracking_number}',
     [App\Http\Controllers\ShopController::class, 'searchTrackOrder']
 );

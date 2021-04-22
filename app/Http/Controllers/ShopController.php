@@ -38,6 +38,12 @@ class ShopController extends Controller
 
     }
 
+    public function getProductPriceRange(){
+
+        return $this->productRepository->getProductPriceRange();
+
+    }
+
     public function trackOrder($tracking_number = ""){
 
         $data['tracking_number'] = $tracking_number;

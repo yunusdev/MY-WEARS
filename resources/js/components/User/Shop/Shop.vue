@@ -29,8 +29,11 @@
                             <!--                            <div class="shop-view"><a class="grid-view active" href="shop-grid-ls.html"><span></span><span></span><span></span></a><a class="list-view" href="shop-list-ls.html"><span></span><span></span><span></span></a></div>-->
                         </div>
                     </div>
-                    <div class="row mb-5">
-                        <product class="mb-3" :add_col="true" v-if="loaded" v-for="product, key in products" :key="product.name" :product="product"></product>
+                    <div v-if="loaded" class="row mb-5">
+                        <product v-if="products.length > 0" class="mb-3" :add_col="true"
+                                 v-for="product, key in products" :key="product.name" :product="product">
+                        </product>
+                        <p class="f-17" v-if="products.length === 0">No items match your query. Reload <a href="/shop">products</a></p>
                     </div>
                     <nav class="pagination">
                         <div class="column text-left">
