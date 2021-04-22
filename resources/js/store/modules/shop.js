@@ -8,6 +8,7 @@ export default {
         trending_products: [],
         top_selling_products: [],
         new_arrivals_products: [],
+        product_price_range: null,
     },
 
     getters: {
@@ -22,6 +23,9 @@ export default {
         },
         newArrivalsProducts(state){
             return state.new_arrivals_products
+        },
+        productPriceRange(state){
+            return state.product_price_range
         }
     },
 
@@ -98,6 +102,14 @@ export default {
                 return Promise.reject(err)
             })
         },
+        getProductPriceRange({ state, commit }){
+            return Axios.get(`/${baseUrl}/price/range`).then(res => {
+                commit('setProductPriceRange', res.data)
+                return res.data
+            }).catch(err => {
+                return Promise.reject(err)
+            })
+        },
 
         serialize({state, commit}, obj){
             const str = [];
@@ -121,6 +133,10 @@ export default {
         },
         setNewArrivalsProducts(state, new_arrivals_products){
             return state['new_arrivals_products'] = new_arrivals_products;
+        },
+
+        setProductPriceRange(state, data){
+            return state['product_price_range'] = data;
         },
     }
 }

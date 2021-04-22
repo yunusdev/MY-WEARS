@@ -13,20 +13,23 @@
                 </li>
             </ul>
         </section>
-        <section class="widget widget-categories">
+        <section v-if="productPriceRange && range.length === 2" class="widget widget-categories">
             <h3 class="widget-title">Price Range</h3>
 
-            <vue-range-slider v-model="value" :min="min" :max="max" :formatter="formatter" :tooltip-merge="tooltipMerge" :enable-cross="enableCross"></vue-range-slider>
-
+            <VueSimpleRangeSlider
+                :min="productPriceRange.min"
+                :max="productPriceRange.max"
+                v-model="range"
+            />
             <div class="row mt-3">
                 <div class="col-5">
                     <button @click="filterPrice" class="btn btn-outline-primary btn-sm" type="button">Filter</button>
                 </div>
                 <div class="col-7 mt-3">
-                        <span class="">N<span>{{value[0] | formatMoney}}</span>
+                        <span class="">N<span>{{range[0] | formatMoney}}</span>
                         </span>
                         &nbsp;-&nbsp;
-                        <span class="">N<span>{{value[1] | formatMoney}}</span>
+                        <span class="">N<span>{{range[1] | formatMoney}}</span>
                         </span>
                 </div>
             </div>
@@ -36,12 +39,13 @@
 </template>
 
 <script>
-import 'vue-range-component/dist/vue-range-slider.css'
-import VueRangeSlider from 'vue-range-component'
+import VueSimpleRangeSlider from 'vue-simple-range-slider';
+import 'vue-simple-range-slider/dist/vueSimpleRangeSlider.css'
+import {mapActions, mapGetters} from 'vuex'
 export default {
     name: "ShopSidebar",
 
-    components: {VueRangeSlider},
+    components: {VueSimpleRangeSlider},
 
     props: ['categories', 'category', 'sub_category'],
 
@@ -49,20 +53,35 @@ export default {
 
         return {
 
-            value: [4000, 6000],
-            enableCross: false,
-            tooltipMerge: false,
-            min: 2000,
-            max: 10000
+            range: [],
         }
 
     },
 
-    created(){
+    mounted(){
+        this.getProductPriceRange()
+
+        this.range.push(this.productPriceRange.rangeMin)
+        this.range.push(this.productPriceRange.rangeMax)
+
     },
 
+    computed: {
+
+        ...mapGetters({
+
+            productPriceRange: 'shop/productPriceRange'
+
+        }),
+    },
 
     methods: {
+
+        ...mapActions({
+
+            getProductPriceRange: 'shop/getProductPriceRange'
+
+        }),
 
         formatter(value){
 
@@ -72,7 +91,7 @@ export default {
 
         filterPrice(){
 
-            this.$emit('filterPrice', this.value[0], this.value[1])
+            this.$emit('filterPrice', this.range[0], this.range[1])
 
         }
 
