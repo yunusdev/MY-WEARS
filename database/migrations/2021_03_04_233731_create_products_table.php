@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('admin_id');
             $table->string('category_id');
             $table->string('sub_category_id');
-            $table->string('code');
+            $table->string('code')->unique();
             $table->string('name')->unique();
             $table->string('slug');
             $table->enum('type', ['Footwear'])->default('Footwear')->nullable();

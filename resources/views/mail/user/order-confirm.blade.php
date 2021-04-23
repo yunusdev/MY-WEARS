@@ -285,7 +285,7 @@ Delivery Fee:&nbsp; &nbsp; &nbsp; N{{$order->delivery_fee}}<br>
                                         <tbody>
                                         <tr>
                                             <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Helvetica;font-size: 18px;padding: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                                <a class="mcnButton " title="Track Order" href="{{$url}}/track/orders" target="_blank" style="font-weight: bold;letter-spacing: -0.5px;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;display: block;">Track Order</a>
+                                                <a class="mcnButton " title="Track Order" href="{{$url}}/track/order/{{$order->tracking_number}}" target="_blank" style="font-weight: bold;letter-spacing: -0.5px;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;display: block;">Track Order</a>
                                             </td>
                                         </tr>
                                         </tbody>

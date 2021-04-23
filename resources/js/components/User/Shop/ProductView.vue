@@ -124,7 +124,7 @@ export default {
 
     mounted(){
 
-        $('#addToCart').modal()
+        // $('#addToCart').modal()
 
     },
 
