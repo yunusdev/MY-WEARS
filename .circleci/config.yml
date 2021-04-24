@@ -53,7 +53,7 @@ jobs:
       - run:
           name: Deploy over SSH
           command: |
-            ssh -o StrictHostKeyChecking=no docker@mywearsfashion.com 'cd /home/docker/site && git fetch origin main && git reset --hard origin/main && git pull origin main && docker-compose -f docker-compose.prod.yml up -d --build nginx'
+            ssh -o StrictHostKeyChecking=no docker@mywearsfashion.com 'cd /home/docker/site && git fetch do_origin main && git reset --hard do_origin/main && git pull do_origin main && docker-compose -f docker-compose.prod.yml up -d --build nginx'
 
 workflows:
   version: 2
