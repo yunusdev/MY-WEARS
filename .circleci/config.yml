@@ -19,7 +19,6 @@ jobs:
 
       - add_ssh_keys:
           fingerprints:
-            - "86:51:95:64:05:f9:ec:53:fd:fe:ce:26:b2:09:fa:63"
             - "78:43:b2:d9:45:2c:9b:de:9e:b2:cd:06:42:a9:63:6c"
 
       - run: sudo apt update
