@@ -292,7 +292,7 @@ export default {
 
         completeOrder(response){
             $("body").addClass("no-click");
-            this.$swal({buttons: false, text: 'Pls wait while the order is been initiated..'});
+            this.$swal({buttons: false, closeOnClickOutside: false, allowOutsideClick: false, text: 'Pls wait while the order is been initiated..'});
             this.$http.post('/orders/create', {
                 order: {
                     ...this.order,
