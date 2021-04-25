@@ -40,9 +40,9 @@ services:
       - ./mysql:/var/lib/mysql
     environment:
       MYSQL_DATABASE: my_wears
-      MYSQL_USER: laravel
-      MYSQL_PASSWORD: secret
-      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_USER: my_wears_user
+      MYSQL_PASSWORD: qXavFNUqTeUfhgAcwhycndkwaTT_Jn
+      MYSQL_ROOT_PASSWORD: qXavFNUqTeUfhgAcwhycndkwaTT_Jn
     networks:
       - my-wears
 
