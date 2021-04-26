@@ -11,7 +11,7 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Product Name</th>
+                            <td>Product Name</td>
                             <th @click="clearUserWishList" class="text-center"><a class="btn btn-sm btn-outline-danger" href="#">Clear Wishlist</a></th>
                         </tr>
                         </thead>

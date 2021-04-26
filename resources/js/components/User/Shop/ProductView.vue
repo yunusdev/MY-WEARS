@@ -98,6 +98,7 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 import Product from "./Product";
 import AddToCart from "./AddToCart";
 import Wishlist from "./Wishlist";
@@ -124,11 +125,18 @@ export default {
 
     mounted(){
 
+        this.incrementProductViewCount(this.product.id)
         // $('#addToCart').modal()
 
     },
 
     methods: {
+
+        ...mapActions({
+
+            incrementProductViewCount: 'shop/incrementProductViewCount'
+
+        }),
 
         showAddToCart(){
 

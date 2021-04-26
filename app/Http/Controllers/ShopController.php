@@ -7,6 +7,7 @@ use App\Contracts\OrderContract;
 use App\Contracts\ProductContract;
 use App\Contracts\SubCategoryContract;
 use App\Filters\ProductFilter;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
@@ -61,9 +62,27 @@ class ShopController extends Controller
     public function viewProduct($slug){
 
         $data['product'] = $this->productRepository->getProductBy(['slug' => $slug], ['productImages', 'category', 'subCategory']);
-//        $this->productRepository->incrementProductViewCount($data['product']);
+        if (!$data['product']) return redirect(route('home'));
         $data['related_products'] = $this->productRepository->getRelatedProducts($data['product']);
         return view('shop.product-view')->with($data);
+
+    }
+
+    public function incrementProductViewCount(Product $product){
+
+        $product = $this->productRepository->incrementProductViewCount($product);
+        return response()->json([
+
+            'message' => 'Product views incremented',
+            'views' => $product->views_count
+
+        ]);
+
+    }
+
+    public function getRelatedProducts(Product $product){
+
+        return $this->productRepository->getRelatedProducts($product);
 
     }
 

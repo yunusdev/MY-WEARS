@@ -8,7 +8,8 @@ use Laravel\Scout\Searchable;
 
 class Product extends Model
 {
-    use HasFactory, Searchable, Filterable;
+//    use HasFactory, Searchable, Filterable;
+    use HasFactory, Filterable;
 
     protected $appends = ['formatted_date', 'order_items_count', 'sizes', 'colors', 'is_wishlisted'];
 

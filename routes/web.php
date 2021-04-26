@@ -38,6 +38,14 @@ Route::group(['prefix' => 'shop'], function (){
         [App\Http\Controllers\ShopController::class, 'index']
     )->name('shop');
 
+    Route::get('/increment/product_views/{product}',
+        [App\Http\Controllers\ShopController::class, 'incrementProductViewCount']
+    );
+
+    Route::get('/related/products/{product}',
+        [App\Http\Controllers\ShopController::class, 'getRelatedProducts']
+    );
+
     Route::get('/products',
         [App\Http\Controllers\ShopController::class, 'getProducts']
     );

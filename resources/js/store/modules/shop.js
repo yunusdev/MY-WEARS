@@ -84,6 +84,20 @@ export default {
                 return Promise.reject(err)
             })
         },
+        incrementProductViewCount({ state, commit }, productId){
+            return Axios.get(`/${baseUrl}/increment/product_views/${productId}`).then(res => {
+                return res.data
+            }).catch(err => {
+                return Promise.reject(err)
+            })
+        },
+        getRelatedProducts({ state, commit }, productId){
+            return Axios.get(`/${baseUrl}/related/products/${productId}`).then(res => {
+                return res.data
+            }).catch(err => {
+                return Promise.reject(err)
+            })
+        },
         getTopSellingProducts({ state, commit }, {reset = false, num = 3}){
             // if(!reset && state.top_selling_products.length > 0 && num && num <= state.top_selling_products.length){
             //     return;

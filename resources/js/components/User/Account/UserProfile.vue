@@ -1,7 +1,9 @@
 <template>
     <div class="container padding-bottom-3x mb-2">
-        <div class="row">
-            <nav-account :raw_url="raw_url" :user="user"></nav-account>
+        <spinner v-if="!loaded"></spinner>
+
+        <div v-else class="row">
+            <nav-account v-if="user" :raw_url="raw_url" :user="user"></nav-account>
             <div class="col-lg-8">
                 <h4 class="mt-3">Profile</h4>
                 <hr class="mb-4">
@@ -49,7 +51,10 @@
                         <div class="d-flex flex-wrap justify-content-between align-items-center">
                             <div class="custom-control custom-checkbox d-block">
                             </div>
-                            <button class="btn btn-primary margin-right-none" type="submit">Update Profile</button>
+                            <button class="btn btn-primary margin-right-none" type="submit">
+                                Update Profile
+                                <i class="fa fa-spinner fa-pulse" v-if="disabled"></i>
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -61,6 +66,7 @@
 <script>
 import NavAccount from "./NavAccount";
 import ErrorBag from "../../error_bag";
+import Spinner from "../Spinner";
 
 class User{
 
@@ -79,15 +85,16 @@ export default {
 
     props: ['raw_user', 'raw_url'],
 
-    components: {NavAccount},
+    components: {NavAccount, Spinner},
 
     data(){
 
         return {
 
             user: null,
-            errors: new ErrorBag
-
+            errors: new ErrorBag,
+            disabled: false,
+            loaded: false,
         }
 
     },
@@ -95,21 +102,23 @@ export default {
     mounted() {
         const user = JSON.parse(this.raw_user)
         this.user = new User(user)
+        this.loaded = true
     },
 
     methods: {
 
         updateProfile(){
-
+            this.disabled = true
             this.$http.put('/account/profile', this.user).then(async (res) => {
                 this.notifSuceess('Profile updated successfully')
-
+                this.disabled = false
             }).catch(err => {
                 if (err.response && err.response.status === 422) {
                     const errors = err.response.data.errors;
                     this.errors.setErrors(errors);
                 }
                 this.notifError( err.message || 'An error occurred')
+                this.disabled = false
             })
 
         }

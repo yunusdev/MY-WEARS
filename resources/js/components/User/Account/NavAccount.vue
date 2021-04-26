@@ -1,7 +1,8 @@
 <template>
     <div class="col-lg-4">
+<!--        http://127.0.0.1:8000/imgm/hero-slider/main-bg.jpg-->
         <aside class="user-info-wrapper">
-            <div class="user-cover" style="background-image: url(img/account/user-cover-img.jpg);">
+            <div class="user-cover" style="background-image: url(/img/account/user-cover-img.jpg);">
             </div>
             <div class="user-info">
 <!--                <div class="user-avatar"><a class="edit-avatar" href="#"></a><img src="img/account/user-ava.jpg" alt="User"></div>-->

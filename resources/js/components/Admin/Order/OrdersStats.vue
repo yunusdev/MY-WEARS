@@ -1,14 +1,21 @@
 <template>
-    <div class="" v-if="data">
 
+    <div class="">
         <div class="row">
-            <div class="col-md-3 form-group">
+            <div class="col-md-3 col-xs-12 form-group">
                 <label for="">Created At (From):</label>
                 <input v-model="search.createdFrom" class="form-control" type="date">
             </div>
-            <div class=" col-md-3 form-group">
+            <div class=" col-md-3 col-xs-12 form-group">
                 <label for="">Created At (To):</label>
                 <input v-model="search.createdTo" class="form-control" type="date">
+            </div>
+            <div class="col-md-3 col-xs-12 form-group">
+                <label for="">Status:</label>
+                <select v-model="search.status" class="form-control">
+                    <option value="">Select Status</option>
+                    <option v-for="status in statuses" :value="status">{{ status }}</option>
+                </select>
             </div>
             <div class="col-md-3 form-group col-sm-12">
                 <label for="">Actions:</label>
@@ -34,8 +41,8 @@
             </div>
 
         </div>
-
-        <div class="box-body">
+        <spinner v-if="!data"></spinner>
+        <div v-else class="box-body">
             <table id="example1"  class=" table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -107,10 +114,12 @@
 </template>
 
 <script>
-import {mapActions} from "vuex";
+import {mapActions, mapGetters} from "vuex";
+import Spinner from "../../User/Spinner";
 const searchQuery = {
     createdFrom: '',
     createdTo: '',
+    status: '',
 }
 export default {
     name: "OrdersStats",
@@ -128,10 +137,20 @@ export default {
 
     },
 
+    components: {Spinner},
+
+    computed: {
+
+        ...mapGetters({
+            statuses: 'orders_admin/allOrderStatus',
+        })
+
+    },
 
     async mounted() {
 
         this.data = await this.groupOrdersStatistics();
+        await this.getAllOrderStatus({});
 
     },
 
@@ -139,6 +158,8 @@ export default {
         ...mapActions({
             groupOrdersStatistics: 'group/groupOrdersStatistics',
             serialize: 'shop/serialize',
+            getAllOrderStatus: 'orders_admin/getAllStatus',
+
         }),
 
         async clear(){
@@ -148,8 +169,11 @@ export default {
 
         async getCustomDateStat(){
 
+            this.disabled = true
             let query = await this.serialize(this.search);
             this.data = await this.groupOrdersStatistics(query);
+            this.disabled = false
+
 
         }
     }

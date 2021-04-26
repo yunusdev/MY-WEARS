@@ -76,6 +76,7 @@ class ProductRepository extends BaseRepository implements ProductContract
 
         $product->views_count++;
         $product->save();
+        return $product;
 
     }
 

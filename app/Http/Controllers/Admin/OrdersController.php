@@ -61,10 +61,12 @@ class OrdersController extends Controller
                 ->getOrderStatistics('custom', $request['createdFrom'], $request['createdTo']);
 
         }
+        $status = null;
+        if ($request['status']) $status = $request['status'];
 
-        $data['all'] = $this->orderStatRepository->getOrderStatistics();
-        $data['week'] = $this->orderStatRepository->getOrderStatistics('week');
-        $data['month'] = $this->orderStatRepository->getOrderStatistics('month');
+        $data['all'] = $this->orderStatRepository->getOrderStatistics(null, null, null, $status);
+        $data['week'] = $this->orderStatRepository->getOrderStatistics('week', null, null, $status);
+        $data['month'] = $this->orderStatRepository->getOrderStatistics('month', null, null, $status);
 
         return $data;
 

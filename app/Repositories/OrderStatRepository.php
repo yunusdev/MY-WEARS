@@ -40,21 +40,23 @@ class OrderStatRepository extends BaseRepository implements OrderStatContract
 
     }
 
-    public function getOrderStatistics($by = null, $createdFrom = null, $createdTo = null)
+    public function getOrderStatistics($by = null, $createdFrom = null, $createdTo = null, $status = null)
     {
 
         $query = $this->model->query();
 
+        if ($status) $query = $query->where('status', $status);
+
         if ($by === 'week'){
 
 //            $query = $query->whereBetween('created_at', [
-//                Carbon::now()->startOfWeek(),
-//                Carbon::now()->endOfWeek(),
+//            Carbon::parse('last monday')->startOfDay(),
+//                Carbon::parse('next sunday')->endOfDay(),
 //            ]);
 
             $query = $query->whereBetween('created_at', [
-                Carbon::parse('last monday')->startOfDay(),
-                Carbon::parse('next sunday')->endOfDay(),
+                Carbon::now()->startOfWeek(),
+                Carbon::now()->endOfWeek(),
             ]);
 
         }elseif ($by === 'month'){
@@ -109,8 +111,8 @@ class OrderStatRepository extends BaseRepository implements OrderStatContract
         if ($by === 'week'){
 
             $query = $query->whereBetween('created_at', [
-                Carbon::parse('last monday')->startOfDay(),
-                Carbon::parse('next sunday')->endOfDay(),
+                Carbon::now()->startOfWeek(),
+                Carbon::now()->endOfWeek(),
             ]);
 
         }elseif ($by === 'month'){
@@ -140,8 +142,8 @@ class OrderStatRepository extends BaseRepository implements OrderStatContract
         if ($by === 'week'){
 
             $query = $query->whereBetween('created_at', [
-                Carbon::parse('last monday')->startOfDay(),
-                Carbon::parse('next sunday')->endOfDay(),
+                Carbon::now()->startOfWeek(),
+                Carbon::now()->endOfWeek(),
             ]);
 
         }elseif ($by === 'month'){

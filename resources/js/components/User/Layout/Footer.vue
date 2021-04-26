@@ -31,7 +31,7 @@
                 </div>
             </div>
                 <!-- Copyright-->
-                <p class="footer-copyright">© All rights reserved. Made with &nbsp;<i class="icon-heart text-danger"></i><a href="http://rokaux.com/" target="_blank"> &nbsp;by yunusdev</a></p>
+                <p class="footer-copyright">© All rights reserved. Made with &nbsp;<i class="icon-heart text-danger"></i><a class="dev" href="https://twitter.com/yunusdev" target="_blank"> &nbsp;by yunusdev</a></p>
             </div>
     </footer>
 
@@ -66,5 +66,7 @@ export default {
 </script>
 
 <style scoped>
-
+.dev:hover{
+    color: white !important;
+}
 </style>
