@@ -2,7 +2,6 @@
 <template>
 
     <div>
-
         <div class="offcanvas-container" id="shop-categories">
             <div class="offcanvas-header">
                 <h3 class="offcanvas-title">Shop Categories</h3>
@@ -69,7 +68,7 @@
                 </ul>
             </nav>
         </div>
-        <div class="topbar">
+        <div v-if="config" class="topbar">
             <div class="topbar-column pb-2 pt-2">
                 <div class="lang-currency-switcher-wrap">
                     <a class="" :href="'tel:'+ config.contact_phone"><span class="font-weight-bold">PHONE:</span> {{ config.contact_phone }}</a>
@@ -189,9 +188,9 @@ export default {
     },
     async mounted() {
 
+        this.getConfig({})
         this.getUserCartItems()
         this.getCategories({})
-        this.getConfig({})
 
     },
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="container padding-bottom-3x mb-1">
+    <div class="container padding-bottom-3x">
         <div v-if="cartItems.length > 0">
             <div class="table-responsive shopping-cart">
                 <table class="table">
@@ -77,7 +77,10 @@
             </div>
         </div>
 
-        <p class="f-17" v-else>No items in your cart. Go to the <a href="/shop">shop</a> to add items to the cart.</p>
+        <div class="text-center" v-else>
+            <img class="img img-responsive" src="/images/empty_cart.png" alt="">
+            <p class="f-17">No items in your cart. Go to the <a href="/shop">shop</a> to add items to the cart.</p>
+        </div>
         <h3 v-if="trendingProducts && trendingProducts.length > 0" class="text-center padding-top-2x mt-2 padding-bottom-1x">You May Also Like</h3>
         <carousel-products :products="trendingProducts"></carousel-products>
     </div>
@@ -236,5 +239,10 @@ export default {
 }
 
 
+.img{
 
+    margin-top: -55px !important;
+    width: 500px;
+    height: auto;
+}
 </style>
