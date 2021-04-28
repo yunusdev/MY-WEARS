@@ -105,20 +105,6 @@ Home
                             <h3 class="h2 text-normal mb-1">New</h3>
                             <h2 class="display-2 text-bold mb-2">{{$config->product->name}}</h2>
                             <h4 class="h3 text-normal mb-4">at <span class="text-bold">N{{$config->product->price}}</span>!</h4>
-{{--                            <div class="countdown mb-3" data-date-time="12/30/2019 12:00:00">--}}
-{{--                                <div class="item">--}}
-{{--                                    <div class="days">00</div><span class="days_ref">Days</span>--}}
-{{--                                </div>--}}
-{{--                                <div class="item">--}}
-{{--                                    <div class="hours">00</div><span class="hours_ref">Hours</span>--}}
-{{--                                </div>--}}
-{{--                                <div class="item">--}}
-{{--                                    <div class="minutes">00</div><span class="minutes_ref">Mins</span>--}}
-{{--                                </div>--}}
-{{--                                <div class="item">--}}
-{{--                                    <div class="seconds">00</div><span class="seconds_ref">Secs</span>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
                             <br>
                             <a class="btn btn-primary margin-bottom-none" href="{{route('view.product', $config->product->slug)}}">Shop Now!</a>
                         </div>
@@ -136,11 +122,14 @@ Home
     <section class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-xl-10 col-lg-12">
-                <div class="fw-section rounded padding-top-4x padding-bottom-4x" style="background-image: url(img/banners/home02.jpg);"><span class="overlay rounded" style="opacity: .35;"></span>
+{{--                <div class="fw-section rounded padding-top-1x padding-bottom-4x" style="background-image: url(images/web_shopping.png);background-position: top !important;">--}}
+                <div class="fw-section rounded padding-top-4x padding-bottom-4x" style="background-image: url(images/add_to_cart.png);background-position: top !important;">
+                    <span class="overlay rounded" style="opacity: .15;"></span>
                     <div class="text-center">
                         <h3 class="display-4 text-normal text-white text-shadow mb-1">Old Collection</h3>
                         <h2 class="display-2 text-bold text-white text-shadow">HUGE SALE!!!</h2>
-                        <h4 class="d-inline-block h2 text-normal text-white text-shadow border-default border-left-0 border-right-0 mb-4">at our outlet stores</h4><br><a class="btn btn-primary margin-bottom-none" href="contacts.html">Locate Stores</a>
+                        <h4 class="d-inline-block h2 text-normal text-white text-shadow border-default border-left-0 border-right-0 mb-4">at our outlet stores</h4><br>
+                        <a class="btn btn-primary margin-bottom-none" href="/shop">Shop</a>
                     </div>
                 </div>
             </div>
