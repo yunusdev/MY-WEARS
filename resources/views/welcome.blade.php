@@ -27,7 +27,7 @@ Home
                                 <div class="h2 text-body text-normal mb-4 pb-1">{{$config->home_caption_bottom_1}}</div>
                             </div><a class="btn btn-primary scale-up delay-1" href="{{$config->home_link_1}}">Shop Now</a>
                         </div>
-                        <div class="col-md-6 padding-bottom-2x mb-3"><img class="d-block mx-auto" src="img/hero-slider/02.png" alt="Puma Backpack"></div>
+                        <div class="col-md-6 padding-bottom-2x mb-3"><img width="550" class="d-block mx-auto" src="{{$config->home_carousel_image_1}}" alt="Product 1"></div>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@ Home
                                 <div class="h2 text-body text-normal mb-4 pb-1">{{$config->home_caption_bottom_2}}</div>
                             </div><a class="btn btn-primary scale-up delay-1" href="{{$config->home_link_2}}">Shop Now</a>
                         </div>
-                        <div class="col-md-6 padding-bottom-2x mb-3"><img class="d-block mx-auto" src="img/hero-slider/01.png" alt="Chuck Taylor All Star II"></div>
+                        <div class="col-md-6 padding-bottom-2x mb-3"><img class="d-block mx-auto" width="550" src="{{$config->home_carousel_image_2}}" alt=""></div>
                     </div>
                 </div>
             </div>
@@ -55,7 +55,7 @@ Home
                                 <div class="h2 text-body text-normal mb-4 pb-1">{{$config->home_caption_bottom_3}}</div>
                             </div><a class="btn btn-primary scale-up delay-1" href="{{$config->home_link_3}}">Shop Now</a>
                         </div>
-                        <div class="col-md-6 padding-bottom-2x mb-3"><img class="d-block mx-auto" src="img/hero-slider/03.png" alt="Moto 360"></div>
+                        <div class="col-md-6 padding-bottom-2x mb-3"><img class="d-block mx-auto" width="550" src="{{$config->home_carousel_image_3}}" alt=""></div>
                     </div>
                 </div>
             </div>

@@ -41,7 +41,7 @@ Vue.mixin({
         }
     }
 });
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('home', require('./components/Admin/Home.vue').default);
 Vue.component('store-role', require('./components/Admin/Authorization/StoreRole.vue').default);
 Vue.component('store-permission', require('./components/Admin/Authorization/StorePermission.vue').default);
@@ -72,9 +72,13 @@ Vue.component('view-user', require('./components/Admin/Users/ViewUser.vue').defa
 Vue.component('config', require('./components/Admin/Config.vue').default);
 Vue.component('orders-stats', require('./components/Admin/Order/OrdersStats.vue').default);
 
+// -------------------------------------------------------------------------------------------
+
 
 Vue.component('nav-bar', require('./components/User/Layout/Navbar.vue').default);
 Vue.component('user-footer', require('./components/User/Layout/Footer.vue').default);
+Vue.component('leading-products-home', require('./components/User/Shop/LeadingProductsHome.vue').default);
+
 Vue.component('shop', require('./components/User/Shop/Shop.vue').default);
 Vue.component('product-view', require('./components/User/Shop/ProductView.vue').default);
 Vue.component('carousel-products', require('./components/User/CarouselProducts.vue').default);
@@ -85,8 +89,6 @@ Vue.component('view-user-order', require('./components/User/Account/ViewUserOrde
 Vue.component('user-profile', require('./components/User/Account/UserProfile.vue').default);
 Vue.component('user-address', require('./components/User/Account/UserAddress.vue').default);
 Vue.component('user-wishlists', require('./components/User/Account/UserWishlist.vue').default);
-Vue.component('leading-products-home', require('./components/User/Shop/LeadingProductsHome.vue').default);
-Vue.component('tracking-order', require('./components/User/Shop/TrackingOrder.vue').default);
 Vue.component('tracking-order', require('./components/User/Shop/TrackingOrder.vue').default);
 
 /**
@@ -127,4 +129,64 @@ Vue.use(Vuex)
 const app = new Vue({
     el: '#app',
     store,
+    components: {
+        // 'nav-bar': () => import(
+        //     /* webpackChunkName: "js/nav-bar" */
+        //     './components/User/Layout/Navbar.vue'
+        //     ),
+        // 'user-footer': () => import(
+        //     /* webpackChunkName: "js/user-footer" */
+        //     './components/User/Layout/Footer.vue'
+        // ),
+        // 'shop': () => import(
+        //     /* webpackChunkName: "js/shop" */
+        //     './components/User/Shop/Shop.vue'
+        // ),
+        // 'product-view': () => import(
+        //     /* webpackChunkName: "js/product-view" */
+        //     './components/User/Shop/ProductView.vue'
+        // ),
+        // 'carousel-products': () => import(
+        //     /* webpackChunkName: "js/carousel-products" */
+        //     './components/User/CarouselProducts.vue'
+        // ),
+        // 'cart': () => import(
+        //     /* webpackChunkName: "js/cart" */
+        //     './components/User/Shop/Cart.vue'
+        // ),
+        // 'checkout': () => import(
+        //     /* webpackChunkName: "js/checkout" */
+        //     './components/User/Shop/Checkout.vue'
+        //     ),
+        // 'user-orders': () => import(
+        //     /* webpackChunkName: "js/user-orders" */
+        //     './components/User/Account/UserOrders.vue'
+        //     ),
+        // 'view-user-order': () => import(
+        //     /* webpackChunkName: "js/view-user-order" */
+        //     './components/User/Account/ViewUserOrder.vue'
+        //     ),
+        // 'user-profile': () => import(
+        //     /* webpackChunkName: "js/user-profile" */
+        //     './components/User/Account/UserProfile.vue'
+        //     ),
+        // 'user-address': () => import(
+        //     /* webpackChunkName: "js/user-address" */
+        //     './components/User/Account/UserAddress.vue'
+        //     ),
+        // 'user-wishlists': () => import(
+        //     /* webpackChunkName: "js/user-wishlists" */
+        //     './components/User/Account/UserWishlist.vue'
+        //     ),
+        // 'leading-products-home': () => import(
+        //     /* webpackChunkName: "js/leading-products-home" */
+        //     './components/User/Shop/LeadingProductsHome.vue'
+        //     ),
+        // 'tracking-order': () => import(
+        //     /* webpackChunkName: "js/user-orders" */
+        //     './components/User/Shop/TrackingOrder.vue'
+        //     ),
+
+    }
 });
+
