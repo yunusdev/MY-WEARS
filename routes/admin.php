@@ -32,7 +32,7 @@ Route::group(['middleware'=>'auth:admin'], function() {
     Route::resource(
         '/users',
         \App\Http\Controllers\Admin\UsersController::class
-    );
+    )->except('destroy');
 
     Route::get(
         '/users/{user}/orders',
