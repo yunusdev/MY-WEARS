@@ -54,9 +54,9 @@ jobs:
           command: |
             ssh -o StrictHostKeyChecking=no docker@mywearsfashion.com 'cd /home/docker/app
             git fetch origin main && git reset --hard origin/main && git pull origin main
-            sudo docker-compose -f docker-compose.prod.yml run artisan optimize
-            sudo docker-compose -f docker-compose.prod.yml run artisan config:cache
-            sudo docker-compose -f docker-compose.prod.yml run artisan route:cache
+            sudo docker-compose run artisan optimize
+            sudo docker-compose run artisan config:cache
+            sudo docker-compose run artisan route:cache
             sudo docker-compose -f docker-compose.prod.yml up -d --build nginx'
 
 workflows:
