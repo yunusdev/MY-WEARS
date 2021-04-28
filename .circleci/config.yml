@@ -51,7 +51,7 @@ jobs:
     steps:
       - run:
           name: Deploy over SSH
-          command: |
+          command:
             - ssh -o StrictHostKeyChecking=no docker@mywearsfashion.com 'cd /home/docker/app
             - git fetch origin main && git reset --hard origin/main && git pull origin main
             - sudo docker-compose -f docker-compose.prod.yml run artisan optimize
