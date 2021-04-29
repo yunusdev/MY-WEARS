@@ -37,8 +37,8 @@
     </div>
 <a class="scroll-to-top-btn" href="#"><i class="icon-arrow-up"></i></a>
 <div class="site-backdrop"></div>
-    <script src="{{asset('js/app.js')}}" async></script>
-    <script src="{{asset('js/vendor.min.js')}}" async></script>
-    <script src="{{asset('js/scripts.min.js')}}" async></script>
+    <script src="{{asset('js/app.js')}}"></script>
+    <script src="{{asset('js/vendor.min.js')}}"></script>
+    <script src="{{asset('js/scripts.min.js')}}"></script>
 </body>
 </html>
