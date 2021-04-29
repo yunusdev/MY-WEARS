@@ -123,7 +123,7 @@ Home
         <div class="row justify-content-center">
             <div class="col-xl-10 col-lg-12">
 {{--                <div class="fw-section rounded padding-top-1x padding-bottom-4x" style="background-image: url(images/web_shopping.png);background-position: top !important;">--}}
-                <div class="fw-section rounded padding-top-4x padding-bottom-4x" style="background-image: url(images/add_to_cart.png);background-position: top !important;">
+                <div class="fw-section rounded padding-top-4x padding-bottom-4x" style="background-image: url(images/open.jpeg);">
                     <span class="overlay rounded" style="opacity: .15;"></span>
                     <div class="text-center">
                         <h3 class="display-4 text-normal text-white text-shadow mb-1">Old Collection</h3>
