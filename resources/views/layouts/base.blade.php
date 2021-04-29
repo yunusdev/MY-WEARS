@@ -22,8 +22,7 @@
     <link rel="stylesheet" media="screen" href="{{asset('css/vendor.min.css')}}">
     <link rel="stylesheet" media="screen" href="{{asset('css/base.css')}}">
     <link rel="stylesheet" href="{{asset('css/font_awesome.css')}}" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-{{--    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">--}}
-
+    <script src="{{asset('js/modernizr.min.js')}}"></script>
     <link id="mainStyles" rel="stylesheet" media="screen" href="{{asset('css/styles.min.css')}}">
     @yield('styles')
 </head>
@@ -39,7 +38,6 @@
 <a class="scroll-to-top-btn" href="#"><i class="icon-arrow-up"></i></a>
 <div class="site-backdrop"></div>
     <script src="{{asset('js/app.js')}}" async></script>
-    <script src="{{asset('js/modernizr.min.js')}}" async></script>
     <script src="{{asset('js/vendor.min.js')}}" async></script>
     <script src="{{asset('js/scripts.min.js')}}" async></script>
 </body>
