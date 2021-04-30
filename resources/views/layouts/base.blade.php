@@ -19,6 +19,15 @@
 {{--    <link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad.png">--}}
 {{--    <link rel="apple-touch-icon" sizes="180x180" href="touch-icon-iphone-retina.png">--}}
 {{--    <link rel="apple-touch-icon" sizes="167x167" href="touch-icon-ipad-retina.png">--}}
+<!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VMS6MN4PNJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-VMS6MN4PNJ');
+    </script>
     <link rel="stylesheet" media="screen" href="{{asset('css/vendor.min.css')}}">
     <link rel="stylesheet" media="screen" href="{{asset('css/base.css')}}">
     <link rel="stylesheet" href="{{asset('css/font_awesome.css')}}" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
