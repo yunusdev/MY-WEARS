@@ -15,7 +15,7 @@
             </ul>
         </section>
         <section v-if="productPriceRange && range.length === 2 && !modal" class="widget widget-categories">
-            <h3 class="widget-title">Price Range</h3>
+<!--            <h3 class="widget-title">Price Range</h3>-->
 
 <!--            <price-range-slider-->
 <!--                :trackHeight="0.5"-->
