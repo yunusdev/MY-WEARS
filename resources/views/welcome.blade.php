@@ -68,7 +68,7 @@ Home
             <div class="row">
                 @foreach($top_categories as $key => $category)
 
-                    @if(count($category->top_products) > 0)
+                    @if(count($category->top_products) > 2)
                         <div class="col-md-4 col-sm-6" >
                             <div class="card mb-30">
                                 <a class="card-img-tiles" href="{{route('category.products', $category->slug)}}">
