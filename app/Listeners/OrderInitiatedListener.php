@@ -33,7 +33,7 @@ class OrderInitiatedListener
         try {
             $adminEmail = env('MAIL_ADMIN_EMAIL');
             $to = [$adminEmail];
-            Mail::to('yunusabdulqudus1@gmail.com')->send(new UserOrderConfirmationMail($event->order, $event->orderItems, $event->name, $event->is_auth, $event->url));
+            Mail::to($event->order->email)->send(new UserOrderConfirmationMail($event->order, $event->orderItems, $event->name, $event->is_auth, $event->url));
             $name = 'Admin';
             Mail::to($to)->send(new AdminOrderInitiated($event->order, $event->orderItems, $name, $event->url));
         }catch (\Throwable $exception){
