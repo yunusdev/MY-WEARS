@@ -67,8 +67,10 @@ export default {
     },
 
     mounted(){
-        this.range.push(this.productPriceRange.rangeMin)
-        this.range.push(this.productPriceRange.rangeMax)
+        // this.range.push(this.productPriceRange.rangeMin)
+        // this.range.push(this.productPriceRange.rangeMax)
+        this.range.push(15000)
+        this.range.push(20000)
 
     },
 
@@ -92,6 +94,7 @@ export default {
 
         filterPrice(){
 
+            // this.$emit('filterPrice', this.range[0], this.range[1])
             this.$emit('filterPrice', this.range[0], this.range[1])
 
         }
