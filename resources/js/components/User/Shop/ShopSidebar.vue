@@ -24,23 +24,23 @@
 <!--                :minValue="productPriceRange.rangeMin"-->
 <!--                :maxValue="productPriceRange.rangeMax"-->
 <!--            />-->
-            <VueSimpleRangeSlider
-                :min="productPriceRange.min"
-                :max="productPriceRange.max"
-                v-model="range"
-            />
-            <div class="row mt-3">
-                <div class="col-5">
-                    <button @click="filterPrice" class="btn btn-outline-primary btn-sm" type="button">Filter</button>
-                </div>
-                <div class="col-7 mt-3">
-                        <span class="">N<span>{{range[0] | formatMoney}}</span>
-                        </span>
-                        &nbsp;-&nbsp;
-                        <span class="">N<span>{{range[1] | formatMoney}}</span>
-                        </span>
-                </div>
-            </div>
+<!--            <VueSimpleRangeSlider-->
+<!--                :min="productPriceRange.min"-->
+<!--                :max="productPriceRange.max"-->
+<!--                v-model="range"-->
+<!--            />-->
+<!--            <div class="row mt-3">-->
+<!--                <div class="col-5">-->
+<!--                    <button @click="filterPrice" class="btn btn-outline-primary btn-sm" type="button">Filter</button>-->
+<!--                </div>-->
+<!--                <div class="col-7 mt-3">-->
+<!--                        <span class="">N<span>{{range[0] | formatMoney}}</span>-->
+<!--                        </span>-->
+<!--                        &nbsp;-&nbsp;-->
+<!--                        <span class="">N<span>{{range[1] | formatMoney}}</span>-->
+<!--                        </span>-->
+<!--                </div>-->
+<!--            </div>-->
 
         </section>
     </div>
