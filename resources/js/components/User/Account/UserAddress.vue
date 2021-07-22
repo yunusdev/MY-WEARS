@@ -180,7 +180,7 @@ export default {
                     const errors = err.response.data.errors;
                     this.errors.setErrors(errors);
                 }
-                this.notifError( err.message || 'An error occurred')
+                // this.notifError( err.message || 'An error occurred')
                 this.disabled = false
 
             })

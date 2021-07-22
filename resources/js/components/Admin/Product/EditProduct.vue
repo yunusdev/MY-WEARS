@@ -243,7 +243,7 @@ export default {
             disabled: false,
             product_sub_category: '',
             product: new Product(JSON.parse(this.raw_product)),
-            size_options: ['35', '36', '37', '38', '39', '40', '41', '42'],
+            size_options: ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50'],
             color_options: ['Red', 'Black', 'Blue', 'Pink', 'White', 'Yellow', 'Green', 'Purple', 'Indigo', 'Velvet'],
             dropzoneOptions: {
                 url: 'https://httpbin.org/post',
