@@ -20,9 +20,11 @@ class CouponRepository extends BaseRepository implements CouponContract
         return $this->all();
     }
 
-    public function userRedeemCoupon(Order $order){
+    public function userRedeemCoupon(Order $order)
+    {
 
-        if (!isset($order->coupon_id) || !isset($order->user_id)) return false;
+        if (!isset($order->coupon_id) || !isset($order->user_id)) { return false;
+        }
 
         $coupon = $this->find($order->coupon_id);
 
@@ -34,45 +36,47 @@ class CouponRepository extends BaseRepository implements CouponContract
     {
         $coupon = $this->findOneBy(['code' => $code]);
 
-        if (!$coupon) return ['valid' => false, 'message' => 'Coupon code is not valid'];
+        if (!$coupon) { return ['valid' => false, 'message' => 'Coupon code is not valid'];
+        }
 
-        if (!$userId) $userId = auth()->id();
+        if (!$userId) { $userId = auth()->id();
+        }
 
         switch ($coupon){
 
-            case !$coupon:
+        case !$coupon:
 
-                $data =  ['valid' => false, 'message' => 'Coupon code is not valid'];
-                break;
+            $data =  ['valid' => false, 'message' => 'Coupon code is not valid'];
+            break;
 
-            case $coupon->status === 0:
+        case $coupon->status === 0:
 
-                $data =  ['valid' => false, 'message' => 'Coupon is not more Usable'];
-                break;
+            $data =  ['valid' => false, 'message' => 'Coupon is not more Usable'];
+            break;
 
-            case $coupon->will_max_out && $coupon->remaining <= 0:
+        case $coupon->will_max_out && $coupon->remaining <= 0:
 
-                $data =  ['valid' => false, 'message' => 'Coupon have maxed out'];
-                break;
+            $data =  ['valid' => false, 'message' => 'Coupon have maxed out'];
+            break;
 
-            case $coupon->users->contains($userId):
+        case $coupon->users->contains($userId):
 
-                $data =  ['valid' => false, 'message' => 'You have used this coupon previously...'];
-                break;
+            $data =  ['valid' => false, 'message' => 'You have used this coupon previously...'];
+            break;
 
-            case $coupon->lowest_amount > $totalAmount:
+        case $coupon->lowest_amount > $totalAmount:
 
-                $data =  ['valid' => false, 'message' => 'The lowest amount valid for this coupon is N' . $coupon->lowest_amount];
-                break;
+            $data =  ['valid' => false, 'message' => 'The lowest amount valid for this coupon is N' . $coupon->lowest_amount];
+            break;
 
-            case $coupon->will_expire === 1 && $coupon->expires_in->isPast():
+        case $coupon->will_expire === 1 && $coupon->expires_in->isPast():
 
-                $data =  ['valid' => false, 'message' => 'Coupon has expired...'];
-                break;
+            $data =  ['valid' => false, 'message' => 'Coupon has expired...'];
+            break;
 
-            default:
+        default:
 
-                $data = ['valid' => true, 'message' => 'COUPON is valid!'];
+            $data = ['valid' => true, 'message' => 'COUPON is valid!'];
         }
 
         $data['coupon'] = $coupon;

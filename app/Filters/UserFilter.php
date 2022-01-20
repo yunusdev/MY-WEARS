@@ -39,7 +39,7 @@ class UserFilter extends QueryFilter
     }
 
     /**
-     * @param string $orderBy
+     * @param  string $orderBy
      * @return void
      */
     public function orderByAsc(string $orderBy)
@@ -48,7 +48,7 @@ class UserFilter extends QueryFilter
     }
 
     /**
-     * @param string $orderBy
+     * @param  string $orderBy
      * @return void
      */
     public function orderByDesc(string $orderBy)

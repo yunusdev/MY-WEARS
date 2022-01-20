@@ -15,28 +15,28 @@ class Coupon extends Model
 
     protected $appends = ['expires_format', 'redeemed_count'];
 
-    public function users(){
+    public function users()
+    {
 
         return $this->belongsToMany(User::class, 'coupon_user')->withTimestamps()->orderBy('created_at', 'DESC');
-
     }
 
-    public function orders(){
+    public function orders()
+    {
 
         return $this->belongsToMany(Order::class, 'coupon_user')->withTimestamps()->orderBy('created_at', 'DESC');
-
     }
 
-    public function getRedeemedCountAttribute(){
+    public function getRedeemedCountAttribute()
+    {
 
         return $this->orders()->count();
-
     }
 
-    public function getExpiresFormatAttribute(){
+    public function getExpiresFormatAttribute()
+    {
 
         return $this->expires_in ? $this->expires_in->diffForHumans() : null;
-
     }
 
     public static function timestamp($timestamp)

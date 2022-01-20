@@ -3,7 +3,8 @@
     Checkout
 @endsection
 @section('styles')
-    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
+{{--    <script src="https://js.paystack.co/v1/inline.js"></script>--}}
 @endsection
 
 @section('content')
@@ -26,6 +27,6 @@
     </div>
     <!-- Page Content-->
 
-    <checkout paystack_pk="{{$paystack_pk}}" raw_user="{{$user}}"></checkout>
+    <checkout paystack_pk="{{$paystack_pk}}" raw_user="{{$user}}" flutterwave_pk="{{$flutterwave_pk}}"></checkout>
 
 @endsection

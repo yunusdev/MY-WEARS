@@ -26,21 +26,24 @@ class UsersController extends Controller
 
     }
 
-    public function index(){
+    public function index()
+    {
 
         return view('admin.users.index');
 
     }
 
-    public function getAllUsers(){
+    public function getAllUsers()
+    {
 
         return $this->userRepository->getUsers();
 
     }
 
-    public function getUsers(Request $request){
+    public function getUsers(Request $request)
+    {
 
-//        if (!(isset($request['orderByAsc']) && isset($request['orderByDesc']))) $request['orderByDesc'] = 'created_at';
+        //        if (!(isset($request['orderByAsc']) && isset($request['orderByDesc']))) $request['orderByDesc'] = 'created_at';
 
         $filters = new UserFilter($request);
 
@@ -48,7 +51,8 @@ class UsersController extends Controller
 
     }
 
-    public function getUserOrders(Request $request,User $user){
+    public function getUserOrders(Request $request,User $user)
+    {
 
         $data['title'] = 'User Orders - (' . $user->name . ')';
         $data['user'] = $user;
@@ -56,14 +60,16 @@ class UsersController extends Controller
 
     }
 
-    public function show($user){
+    public function show($user)
+    {
 
         $data['user'] = $this->accountRepository->getUserAndAddress($user);
         return view('admin.users.show')->with($data);
 
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
 
         User::findOrFail($id)->delete();
 

@@ -17,24 +17,29 @@ class CouponController extends Controller
 
     }
 
-    public function validateCoupon(Request $request){
+    public function validateCoupon(Request $request)
+    {
 
-        $this->validate($request, [
+        $this->validate(
+            $request, [
 
             'code' => 'required',
             'total_amount' => 'required',
 
-        ]);
+            ]
+        );
 
         $params = $request->only('code', 'total_amount');
 
         $coupon_data = $this->couponRepository->validateCoupon($params['code'], $params['total_amount']);
 
-        return response()->json([
+        return response()->json(
+            [
 
             'coupon_data' => $coupon_data
 
-        ]);
+            ]
+        );
 
     }
 }

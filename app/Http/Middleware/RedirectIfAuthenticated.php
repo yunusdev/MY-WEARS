@@ -17,17 +17,17 @@ class RedirectIfAuthenticated
         foreach ($guards as $guard) {
 
 
-            if (Auth::guard($guard)->check()){
+            if (Auth::guard($guard)->check()) {
 
                 switch ($guard) {
 
-                    case 'admin';
+                case 'admin';
 
-                        return redirect('/admin/home');
+                    return redirect('/admin/home');
 
-                    default;
+                default;
 
-                        return redirect('/');
+                    return redirect('/');
 
                 }
 
@@ -38,34 +38,34 @@ class RedirectIfAuthenticated
         return $next($request);
     }
 
-//    public function handle($request, Closure $next, $guard = null)
-//    {
-//        \Log::debug($guard);
-//
-//        switch ($guard){
-//
-//            case 'admin';
-//
-//                if (Auth::guard($guard)->check()){
-//
-//                    return redirect('/admin/home');
-//
-//                }
-//                break;
-//
-//            default;
-//
-//                if (Auth::guard($guard)->check()) {
-//                    return redirect('/');
-//                }
-//
-//                break;
-//        }
-//
-//
-//
-//        return $next($request);
-//
-//    }
+    //    public function handle($request, Closure $next, $guard = null)
+    //    {
+    //        \Log::debug($guard);
+    //
+    //        switch ($guard){
+    //
+    //            case 'admin';
+    //
+    //                if (Auth::guard($guard)->check()){
+    //
+    //                    return redirect('/admin/home');
+    //
+    //                }
+    //                break;
+    //
+    //            default;
+    //
+    //                if (Auth::guard($guard)->check()) {
+    //                    return redirect('/');
+    //                }
+    //
+    //                break;
+    //        }
+    //
+    //
+    //
+    //        return $next($request);
+    //
+    //    }
 
 }

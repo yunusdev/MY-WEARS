@@ -13,6 +13,7 @@ class ConfigRepository extends BaseRepository implements ConfigContract
 
     /**
      * ConfigRepository constructor.
+     *
      * @param Config $model
      */
     public function __construct(Config $model)

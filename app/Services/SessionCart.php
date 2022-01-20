@@ -24,24 +24,27 @@ class SessionCart
         }
     }
 
-    public function getTotalAmount(){
+    public function getTotalAmount()
+    {
 
         $items = $this->items;
 
-        return array_reduce($items, function($i, $item)
-        {
-            return $i += $item['amount'];
-        });
+        return array_reduce(
+            $items, function ($i, $item) {
+                return $i += $item['amount'];
+            }
+        );
 
     }
 
-    public function addToCart($item){
+    public function addToCart($item)
+    {
 
         $isExist = false;
 
         foreach ($this->items as $key => $storedItem){
 
-            if ($storedItem['product_id'] === $item['product_id'] && $storedItem['size'] === $item['size']){
+            if ($storedItem['product_id'] === $item['product_id'] && $storedItem['size'] === $item['size']) {
 
                 $item['id'] = $storedItem['id'];
                 $this->items[$key] = $item;
@@ -52,7 +55,7 @@ class SessionCart
 
         }
 
-        if (!$isExist){
+        if (!$isExist) {
 
             $random = new RandomStringGenerator();
             $item['id'] = Carbon::now()->timestamp . $random->generate(6);
@@ -64,21 +67,23 @@ class SessionCart
 
     }
 
-    public function removeCartItem($itemId){
+    public function removeCartItem($itemId)
+    {
 
         $index = array_search($itemId, array_column($this->items, 'id'));
-        if ($index >=  0) unset($this->items[$index]);
+        if ($index >=  0) { unset($this->items[$index]);
+        }
 
-//        foreach ($this->items as $key =>  $item){
-//
-//            if ($item['id'] === $itemId){
-//
-//                unset($this->items[$key]);
-//                break;
-//
-//            }
-//
-//        }
+        //        foreach ($this->items as $key =>  $item){
+        //
+        //            if ($item['id'] === $itemId){
+        //
+        //                unset($this->items[$key]);
+        //                break;
+        //
+        //            }
+        //
+        //        }
 
     }
 

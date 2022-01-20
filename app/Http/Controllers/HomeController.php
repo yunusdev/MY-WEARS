@@ -16,8 +16,8 @@ class HomeController extends Controller
     private $categoryRepository, $productRepository, $configRepository;
 
     public function __construct(CategoryContract $categoryRepository, ProductContract $productRepository,
-                                ConfigContract $configRepository)
-    {
+        ConfigContract $configRepository
+    ) {
         $this->categoryRepository = $categoryRepository;
         $this->configRepository = $configRepository;
         $this->productRepository = $productRepository;

@@ -16,7 +16,8 @@ class ConfigSeederTable extends Seeder
     {
         //
 
-        Config::updateOrCreate([
+        Config::updateOrCreate(
+            [
 
             'home_carousel_image_1' => '',
             'home_carousel_image_2' => '',
@@ -47,6 +48,7 @@ class ConfigSeederTable extends Seeder
             'contact_email' => 'contact@mywears.com',
             'contact_phone' => '0806754647484',
 
-        ]);
+            ]
+        );
     }
 }

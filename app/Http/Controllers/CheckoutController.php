@@ -16,12 +16,12 @@ class CheckoutController extends Controller
         $this->accountRepository = $accountRepository;
     }
 
-    public function index(){
+    public function index()
+    {
 
         $data['user'] = $this->accountRepository->getUserAndAddress();
-//        return $data;
         $data['paystack_pk'] = env('PAYSTACK_PUBLIC_KEY');
+        $data['flutterwave_pk'] = env('FLUTTERWAVE_PUBLIC_KEY');
         return view('shop.checkout')->with($data);
-
     }
 }

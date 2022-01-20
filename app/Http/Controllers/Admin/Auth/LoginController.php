@@ -53,9 +53,9 @@ class LoginController extends Controller
 
         $admin = Admin::where('email', $request->email)->first();
 
-        if ($admin){
+        if ($admin) {
 
-            if ($admin->status == 0){
+            if ($admin->status == 0) {
 
                 return ['email'=>'inactive', 'password'=>'Please Contact the Administrator. You are not granted permission',];
 

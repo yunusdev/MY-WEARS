@@ -32,7 +32,7 @@ class AddItemsToCartRequest extends FormRequest
             'items.*.size' => 'required',
             'items.*.color' => 'required',
             'items.*.product_price' => 'required',
-//            'items.*.amount' => 'required',
+        //            'items.*.amount' => 'required',
         ];
     }
 }

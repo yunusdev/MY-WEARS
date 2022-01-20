@@ -16,7 +16,7 @@ class CouponsController extends Controller
     public function __construct(CouponContract $couponRepository)
     {
 
-       $this->couponRepository = $couponRepository;
+        $this->couponRepository = $couponRepository;
 
     }
 
@@ -31,7 +31,8 @@ class CouponsController extends Controller
         return view('admin.coupons.index')->with($data);
     }
 
-    public function getCouponOrders(Request $request, Coupon $coupon){
+    public function getCouponOrders(Request $request, Coupon $coupon)
+    {
 
         $data['title'] = 'Coupon Orders - (' . $coupon->code . ')';
         $data['coupon'] = $coupon;
@@ -44,15 +45,19 @@ class CouponsController extends Controller
 
         try {
 
-            $this->validate($request, [
+            $this->validate(
+                $request, [
 
                 'code' => 'required|max:80|unique:coupons',
                 'discount' => 'required',
 
-            ]);
+                ]
+            );
 
-            $params = $request->only('name', 'code', 'product_id', 'type', 'discount', 'will_max_out',
-                'max_usage', 'expires_in', 'lowest_amount', 'will_expire', 'status', 'description');
+            $params = $request->only(
+                'name', 'code', 'product_id', 'type', 'discount', 'will_max_out',
+                'max_usage', 'expires_in', 'lowest_amount', 'will_expire', 'status', 'description'
+            );
             return $this->couponRepository->storeCoupon($params);
 
         }catch (\Throwable $exception){
@@ -68,14 +73,18 @@ class CouponsController extends Controller
         //
         try {
 
-            $this->validate($request, [
+            $this->validate(
+                $request, [
 
                 'name' => 'required|max:80',
 
-            ]);
+                ]
+            );
 
-            $params = $request->only('name', 'code', 'product_id', 'type', 'discount', 'max_usage',
-                'remaining', 'expires_in', 'lowest_amount', 'will_expire', 'will_max_out', 'status', 'description');
+            $params = $request->only(
+                'name', 'code', 'product_id', 'type', 'discount', 'max_usage',
+                'remaining', 'expires_in', 'lowest_amount', 'will_expire', 'will_max_out', 'status', 'description'
+            );
             $this->couponRepository->updateCoupon($params, $coupon->id);
             return $coupon->fresh();
 

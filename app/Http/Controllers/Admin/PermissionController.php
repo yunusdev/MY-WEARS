@@ -11,7 +11,6 @@ class PermissionController extends Controller
     public function __construct()
     {
         $this->middleware(['auth:admin']);
-
     }
 
     public function index()
@@ -25,24 +24,21 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         try {
-
-            $this->validate($request, [
+            $this->validate(
+                $request,
+                [
 
                 'name' => 'required|max:50|unique:permissions',
 
-            ]);
+                ]
+            );
 
             $input = $request->all();
 
             return Permission::create($input);
-
-        }catch (\Throwable $exception){
-
+        } catch (\Throwable $exception) {
             throw $exception;
-
         }
-
-
     }
 
 
@@ -57,12 +53,14 @@ class PermissionController extends Controller
     public function update(Request $request, $id)
     {
         try {
-
-            $this->validate($request, [
+            $this->validate(
+                $request,
+                [
 
                 'name' => 'required|max:50',
 
-            ]);
+                ]
+            );
 
             $input = $request->all();
 
@@ -71,13 +69,9 @@ class PermissionController extends Controller
             $permission->update($input);
 
             return $permission->fresh();
-
-        }catch (\Throwable $exception){
-
+        } catch (\Throwable $exception) {
             throw $exception;
         }
-
-
     }
 
     public function destroy($id)
@@ -85,6 +79,5 @@ class PermissionController extends Controller
         Permission::findOrFail($id)->delete();
 
         return response()->json('ok');
-
     }
 }

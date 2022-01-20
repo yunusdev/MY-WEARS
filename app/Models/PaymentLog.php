@@ -10,7 +10,8 @@ class PaymentLog extends Model
 {
     use HasFactory;
 
-    public function order(){
+    public function order()
+    {
 
         return $this->belongsTo(Order::class);
 

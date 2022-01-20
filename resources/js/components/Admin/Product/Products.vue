@@ -296,7 +296,6 @@ export default {
             }
 
             let query = await this.serialize(this.search);
-
             this.$http.get(`/admin/products/get?page=${page}&${query}`)
                 .then(response => {
                     this.productsData = response.data;

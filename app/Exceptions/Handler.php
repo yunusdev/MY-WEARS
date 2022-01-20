@@ -37,15 +37,17 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
-        });
+        $this->reportable(
+            function (Throwable $e) {
+                //
+            }
+        );
     }
 
     public function render($request, Throwable $exception)
     {
         if ($exception instanceof \Spatie\Permission\Exceptions\UnauthorizedException) {
-//
+            //
             return response()->view('admin.errors.403');
         }
 
@@ -62,13 +64,13 @@ class Handler extends ExceptionHandler
 
         switch ($guard){
 
-            case 'admin';
+        case 'admin';
 
-                return redirect()->guest(route('admin.login'));
+            return redirect()->guest(route('admin.login'));
 
-            default;
+        default;
 
-                return redirect()->guest(route('login'));
+            return redirect()->guest(route('login'));
 
         }
 

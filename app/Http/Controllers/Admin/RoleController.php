@@ -31,12 +31,14 @@ class RoleController extends Controller
     {
         //
         try {
-            $this->validate(request(), [
+            $this->validate(
+                request(), [
 
                 'name' => 'required|unique:roles',
                 'permissions' => 'required'
 
-            ]);
+                ]
+            );
 
             $role = new Role;
 
@@ -63,11 +65,13 @@ class RoleController extends Controller
 
         try {
 
-            $this->validate(request(), [
+            $this->validate(
+                request(), [
 
                 'name' => 'required',
 
-            ]);
+                ]
+            );
 
             $role =  Role::findOrFail($id);
 

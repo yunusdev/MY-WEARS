@@ -23,7 +23,8 @@ class CartRepository extends BaseRepository implements CartContract
     }
 
 
-    public function getCartSession(){
+    public function getCartSession()
+    {
 
         return Session::has('cart') ? Session::get('cart') : null;
 
@@ -36,11 +37,13 @@ class CartRepository extends BaseRepository implements CartContract
 
     public function getUserCartItems($userId, array $relationship = [])
     {
-        if (Auth::check()){
+        if (Auth::check()) {
 
-            return $this->findByWhere([
+            return $this->findByWhere(
+                [
                 'user_id' => $userId
-            ], $relationship);
+                ], $relationship
+            );
 
         }
 
@@ -52,13 +55,15 @@ class CartRepository extends BaseRepository implements CartContract
     public function addItemToCart(array $params)
     {
         try {
-            if (Auth::check()){
+            if (Auth::check()) {
                 $params['user_id'] = auth()->id();
-                return Cart::updateOrCreate([
+                return Cart::updateOrCreate(
+                    [
                     'user_id' => $params['user_id'],
                     'size' => $params['size'],
                     'product_id' => $params['product_id'],
-                ], $params);
+                    ], $params
+                );
 
             }
 
@@ -75,8 +80,9 @@ class CartRepository extends BaseRepository implements CartContract
 
     public function getUserCartTotalAmount(string $userId = null)
     {
-        if (Auth::check()){
-            if (!$userId) $userId = auth()->id();
+        if (Auth::check()) {
+            if (!$userId) { $userId = auth()->id();
+            }
             return $this->model->where('user_id', $userId)->sum('amount');
         }
 
@@ -88,8 +94,9 @@ class CartRepository extends BaseRepository implements CartContract
 
     public function clearUserCart(string $userId = null)
     {
-        if (Auth::check()){
-            if (!$userId) $userId = auth()->id();
+        if (Auth::check()) {
+            if (!$userId) { $userId = auth()->id();
+            }
             $this->model->where('user_id', $userId)->delete();
             return;
         }
@@ -120,9 +127,11 @@ class CartRepository extends BaseRepository implements CartContract
 
     public function getCartItemById(string $id, array $relationship = [])
     {
-        return $this->findOneBy([
+        return $this->findOneBy(
+            [
             'id' => $id
-        ], $relationship);
+            ], $relationship
+        );
     }
 
 

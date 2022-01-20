@@ -21,7 +21,7 @@ class BaseRepository implements BaseContract
     }
 
     /**
-     * @param array $attributes
+     * @param  array $attributes
      * @return mixed
      */
     public function create(array $attributes)
@@ -40,8 +40,8 @@ class BaseRepository implements BaseContract
     }
 
     /**
-     * @param array $attributes
-     * @param int $id
+     * @param  array $attributes
+     * @param  int   $id
      * @return bool
      */
     public function update(array $attributes, string $id) : bool
@@ -50,19 +50,24 @@ class BaseRepository implements BaseContract
     }
 
     /**
-     * @param array $columns
-     * @param string $orderBy
-     * @param string $sortBy
-     * @param array $relationship
+     * @param  array  $columns
+     * @param  string $orderBy
+     * @param  string $sortBy
+     * @param  array  $relationship
      * @return mixed
      */
-    public function all($columns = array('*'), string $orderBy = 'created_at', string $sortBy = 'desc', array $relationship = [])
-    {
+    public function all(
+        $columns = array('*'),
+        string $orderBy = 'created_at',
+        string $sortBy = 'desc',
+        array $relationship = []
+    ) {
         return $this->model->orderBy($orderBy, $sortBy)->with($relationship)->get($columns);
     }
 
 
-    public function filter($filters, $pagination, array $relationship = [] ){
+    public function filter($filters, $pagination, array $relationship = [])
+    {
 
         return $this->model
             ->with($relationship)
@@ -71,21 +76,25 @@ class BaseRepository implements BaseContract
     }
 
     /**
-     * @param string $orderBy
-     * @param string $sortBy
-     * @param array $relationship
-     * @param int $numPaginated
+     * @param  string $orderBy
+     * @param  string $sortBy
+     * @param  array  $relationship
+     * @param  int    $numPaginated
      * @return mixed
      */
-    public function allPaginate(int $numPaginated = 9, string $orderBy = 'created_at', string $sortBy = 'desc', array $relationship = [])
-    {
+    public function allPaginate(
+        int $numPaginated = 9,
+        string $orderBy = 'created_at',
+        string $sortBy = 'desc',
+        array $relationship = []
+    ) {
         return $this->model->orderBy($orderBy, $sortBy)->with($relationship)->paginate($numPaginated);
     }
 
     /**
-     * @param array $data
-     * @param int $paginate
-     * @param array $relationship
+     * @param  array $data
+     * @param  int   $paginate
+     * @param  array $relationship
      * @return mixed
      */
     public function paginate(array $data, int $paginate, array $relationship = [])
@@ -94,18 +103,24 @@ class BaseRepository implements BaseContract
     }
 
     /**
-     * @param array $columns
-     * @param string $orderBy
-     * @param string $sortBy
+     * @param  array  $columns
+     * @param  string $orderBy
+     * @param  string $sortBy
      * @return mixed
      */
-    public function allForOneUser($columns = array('*'), string $orderBy = 'id', string $sortBy = 'asc', string $whereColumn, string $operator, $value)
-    {
+    public function allForOneUser(
+        $columns = array('*'),
+        string $orderBy = 'id',
+        string $sortBy = 'asc',
+        string $whereColumn,
+        string $operator,
+        $value
+    ) {
         return $this->model->where($whereColumn, $operator, $value)->orderBy($orderBy, $sortBy)->get($columns);
     }
 
     /**
-     * @param int $id
+     * @param  int $id
      * @return mixed
      */
     public function find(string $id)
@@ -114,7 +129,7 @@ class BaseRepository implements BaseContract
     }
 
     /**
-     * @param int $id
+     * @param  int $id
      * @return mixed
      * @throws ModelNotFoundException
      */
@@ -124,7 +139,7 @@ class BaseRepository implements BaseContract
     }
 
     /**
-     * @param array $data
+     * @param  array $data
      * @return mixed
      */
     public function findBy(array $data)
@@ -138,8 +153,8 @@ class BaseRepository implements BaseContract
     }
 
     /**
-     * @param array $data
-     * @param array $relationship
+     * @param  array $data
+     * @param  array $relationship
      * @return mixed
      */
     public function findOneBy(array $data, array $relationship = [])
@@ -148,7 +163,7 @@ class BaseRepository implements BaseContract
     }
 
     /**
-     * @param array $data
+     * @param  array $data
      * @return mixed
      * @throws ModelNotFoundException
      */
@@ -158,12 +173,11 @@ class BaseRepository implements BaseContract
     }
 
     /**
-     * @param int $id
+     * @param  int $id
      * @return bool
      */
     public function delete(string $id) : bool
     {
         return $this->model->find($id)->delete();
     }
-
 }

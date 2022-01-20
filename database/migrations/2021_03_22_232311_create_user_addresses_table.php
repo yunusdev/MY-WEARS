@@ -13,16 +13,18 @@ class CreateUserAddressesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_addresses', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('user_id');
-            $table->string('address');
-            $table->string('lga');
-            $table->string('state');
-            $table->string('country');
-            $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        });
+        Schema::create(
+            'user_addresses', function (Blueprint $table) {
+                $table->uuid('id')->primary();
+                $table->string('user_id');
+                $table->string('address');
+                $table->string('lga');
+                $table->string('state');
+                $table->string('country');
+                $table->timestamps();
+                $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            }
+        );
     }
 
     /**

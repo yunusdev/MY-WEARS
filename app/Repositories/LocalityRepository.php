@@ -38,11 +38,13 @@ class LocalityRepository implements LocalityContract
                 break;
             }
         }
-        return array_map(function ($lga){
+        return array_map(
+            function ($lga) {
 
-            return $lga['name'];
+                return $lga['name'];
 
-        }, $newState['locals']);
+            }, $newState['locals']
+        );
     }
 
 

@@ -11,7 +11,7 @@ interface ProductsImageContract
     public function storeProductImage(array $params);
 
     public function updateProductImage(array $params, string $id);
-//
+    //
     public function deleteProductImage(string $id);
 
 }

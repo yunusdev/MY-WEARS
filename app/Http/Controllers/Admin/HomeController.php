@@ -36,19 +36,22 @@ class HomeController extends Controller
 
     }
 
-    public function groupOrdersByWeekDay(){
+    public function groupOrdersByWeekDay()
+    {
 
         return $this->orderStatRepository->aggregateOrdersByWeekDay(false);
 
     }
 
-    public function groupOrdersByMonth(){
+    public function groupOrdersByMonth()
+    {
 
         return $this->orderStatRepository->aggregateOrdersByMonth(false);
 
     }
 
-    public function test(){
+    public function test()
+    {
 
         $data['cnt'] = Order::sum('coupon_discount');
         return $this->orderStatRepository->getOrderStatistics();

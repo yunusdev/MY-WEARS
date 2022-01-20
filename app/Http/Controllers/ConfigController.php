@@ -13,6 +13,7 @@ class ConfigController extends Controller
 
     /**
      * ConfigController constructor.
+     *
      * @param ConfigContract $configRepository
      */
     public function __construct(ConfigContract $configRepository)
@@ -20,12 +21,12 @@ class ConfigController extends Controller
         $this->configRepository = $configRepository;
     }
 
-    public function index(){
+    public function index()
+    {
 
         $data =  $this->configRepository->getConfig();
         $data['foreign_countries'] =  $this->configRepository->getForeignDeliveryCountries();
 
         return $data;
-
     }
 }

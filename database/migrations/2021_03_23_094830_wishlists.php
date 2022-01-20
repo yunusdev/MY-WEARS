@@ -13,14 +13,16 @@ class Wishlists extends Migration
      */
     public function up()
     {
-        Schema::create('wishlists', function (Blueprint $table) {
-            $table->string('user_id');
-            $table->string('product_id');
-            $table->unique(['user_id','product_id']);
-            $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-        });
+        Schema::create(
+            'wishlists', function (Blueprint $table) {
+                $table->string('user_id');
+                $table->string('product_id');
+                $table->unique(['user_id','product_id']);
+                $table->timestamps();
+                $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+                $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            }
+        );
     }
 
     /**

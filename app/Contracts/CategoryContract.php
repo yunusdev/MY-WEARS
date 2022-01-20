@@ -17,7 +17,7 @@ interface CategoryContract
     public function getCategoryBy(array $data);
 
     public function updateCategory(array $params, string $id);
-//
+    //
     public function deleteCategory(string $id);
 
 }

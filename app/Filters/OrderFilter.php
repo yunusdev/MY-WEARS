@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 class OrderFilter extends QueryFilter
 {
     /**
-     * @param string $maxAmount
+     * @param  string $maxAmount
      * @return void
      */
     public function maxAmount(string $maxAmount)
@@ -17,7 +17,7 @@ class OrderFilter extends QueryFilter
     }
 
     /**
-     * @param string $minAmount
+     * @param  string $minAmount
      * @return void
      */
     public function minAmount(string $minAmount)
@@ -26,7 +26,7 @@ class OrderFilter extends QueryFilter
     }
 
     /**
-     * @param string $trackingNumber
+     * @param  string $trackingNumber
      * @return void
      */
     public function trackingNumber(string $trackingNumber)
@@ -35,7 +35,7 @@ class OrderFilter extends QueryFilter
     }
 
     /**
-     * @param string $status
+     * @param  string $status
      * @return void
      */
     public function status(string $status)
@@ -116,7 +116,7 @@ class OrderFilter extends QueryFilter
     }
 
     /**
-     * @param string $orderBy
+     * @param  string $orderBy
      * @return void
      */
     public function orderByDesc(string $orderBy)
@@ -125,7 +125,7 @@ class OrderFilter extends QueryFilter
     }
 
     /**
-     * @param string $orderBy
+     * @param  string $orderBy
      * @return void
      */
     public function orderByAsc(string $orderBy)

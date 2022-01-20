@@ -118,7 +118,17 @@
                 </aside>
             </div>
         </div>
-        <paystack
+<!--        <paystack-->
+<!--            @payment-successful="completeOrder"-->
+<!--            @go-back="goBack"-->
+<!--            @payment-failed="paymentFailed"-->
+<!--            ref="paystackPayment"-->
+<!--            :user="order"-->
+<!--            id="paystack"-->
+<!--            :amount="totalFee"-->
+<!--            :paystack_pk="paystack_pk"-->
+<!--        />-->
+        <flutterwave
             @payment-successful="completeOrder"
             @go-back="goBack"
             @payment-failed="paymentFailed"
@@ -126,7 +136,7 @@
             :user="order"
             id="paystack"
             :amount="totalFee"
-            :paystack_pk="paystack_pk"
+            :flutterwave_pk="flutterwave_pk"
         />
 <!--        <pay :amount="totalFee" :paystack_pk="paystack_pk" :user="order"></pay>-->
     </div>
@@ -135,6 +145,7 @@
 <script>
 import {mapActions, mapGetters, mapMutations} from "vuex";
 import Paystack from "../Paystack";
+import Flutterwave from "../Flutterwave";
 import ProductWidget from "./ProductWidget";
 import config from "../../../store/modules/config";
 import Spinner from "../Spinner";
@@ -157,9 +168,9 @@ class Order {
 export default {
     name: "Checkout",
 
-    props: ['raw_user', 'paystack_pk'],
+    props: ['raw_user', 'paystack_pk', 'flutterwave_pk'],
 
-    components: {Paystack, Spinner, ProductWidget},
+    components: {Paystack, Spinner, ProductWidget, Flutterwave},
 
     data(){
 

@@ -14,21 +14,23 @@ class CouponUser extends Migration
     public function up()
     {
         //
-        Schema::create('coupon_user', function (Blueprint $table) {
+        Schema::create(
+            'coupon_user', function (Blueprint $table) {
 
-            $table->string('user_id');
-            $table->string('coupon_id');
-            $table->string('order_id');
+                $table->string('user_id');
+                $table->string('coupon_id');
+                $table->string('order_id');
 
-            $table->unique(['user_id', 'coupon_id']);
+                $table->unique(['user_id', 'coupon_id']);
 
-            $table->foreign('coupon_id')->references('id')->on('coupons')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+                $table->foreign('coupon_id')->references('id')->on('coupons')->onDelete('cascade');
+                $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+                $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
 
-            $table->timestamps();
+                $table->timestamps();
 
-        });
+            }
+        );
     }
 
     /**

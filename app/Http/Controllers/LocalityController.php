@@ -18,19 +18,22 @@ class LocalityController extends Controller
     }
 
 
-    public function getCountries(){
+    public function getCountries()
+    {
 
         return $this->stateRepository->getCountries();
 
     }
 
-    public function getNigeriaStates(){
+    public function getNigeriaStates()
+    {
 
         return $this->stateRepository->getNigerianStates();
 
     }
 
-    public function getNigeriaStatesLGA($stateId){
+    public function getNigeriaStatesLGA($stateId)
+    {
 
         return $this->stateRepository->getNigeriaStatesLGA($stateId);
 

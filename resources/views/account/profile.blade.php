@@ -6,7 +6,6 @@
 
 @section('content')
 
-    <!-- Page Title-->
     <div class="page-title">
         <div class="container">
             <div class="column">

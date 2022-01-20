@@ -28,7 +28,7 @@ abstract class QueryFilter
     /**
      * Apply the filters to the builder.
      *
-     * @param  Builder $builder
+     * @param Builder $builder
      *
      * @return Builder
      */

@@ -22,106 +22,109 @@ class OrdersController extends Controller
 
     private $orderRepository, $accountRepository, $orderItemRepository, $orderStatRepository;
 
-    public function __construct(OrderContract $orderRepository, OrderStatContract $orderStatRepository,
-                                AccountContract $accountRepository, OrderItemContract $orderItemRepository)
-    {
+    public function __construct(
+        OrderContract $orderRepository,
+        OrderStatContract $orderStatRepository,
+        AccountContract $accountRepository,
+        OrderItemContract $orderItemRepository
+    ) {
         $this->orderRepository = $orderRepository;
         $this->accountRepository = $accountRepository;
         $this->orderItemRepository = $orderItemRepository;
         $this->orderStatRepository = $orderStatRepository;
-
     }
 
-    public function getOrderStatus(){
+    public function getOrderStatus()
+    {
 
         return ['Initiated', 'Processing', 'Prepared', 'Shipped', 'Delivered', 'Cancelled'];
-
     }
 
-    public function index(){
+    public function index()
+    {
 
         $data['title'] = 'Orders';
         return view('admin.orders.index')->with($data);
-
     }
 
-    public function statistics(){
+    public function statistics()
+    {
 
         $data = [];
 
         return view('admin.orders.statistics')->with($data);
-
     }
 
-    public function getStatistics(Request $request){
+    public function getStatistics(Request $request)
+    {
 
-        if (isset($request['createdFrom']) && isset($request['createdTo'])){
-
+        if (isset($request['createdFrom']) && isset($request['createdTo'])) {
             $data['custom'] = $this->orderStatRepository
                 ->getOrderStatistics('custom', $request['createdFrom'], $request['createdTo']);
-
         }
         $status = null;
-        if ($request['status']) $status = $request['status'];
+        if ($request['status']) {
+            $status = $request['status'];
+        }
 
         $data['all'] = $this->orderStatRepository->getOrderStatistics(null, null, null, $status);
         $data['week'] = $this->orderStatRepository->getOrderStatistics('week', null, null, $status);
         $data['month'] = $this->orderStatRepository->getOrderStatistics('month', null, null, $status);
 
         return $data;
-
     }
 
-    public function getOrders(Request $request){
+    public function getOrders(Request $request)
+    {
 
         $filters = new OrderFilter($request);
         return $this->orderRepository->filterOrders($filters, 10);
-
     }
 
-    public function show($tracking_number){
+    public function show($tracking_number)
+    {
 
         $data['tracking_number'] = $tracking_number;
         $data['statuses'] = $this->getOrderStatus();
         $data['order'] = $this->orderRepository->getOrderByTrackingNumber($tracking_number, ['orderItems.product'], false);
         return view('admin.orders.show')->with($data);
-
     }
 
-    public function updateStatus(Request $request, Order $order){
+    public function updateStatus(Request $request, Order $order)
+    {
 
         try {
-
-            $this->validate($request, [
+            $this->validate(
+                $request,
+                [
 
                 'status' => 'required'
 
-            ]);
+                ]
+            );
 
             $order = $this->orderRepository->updateStatus($order, $request['status']);
-            if ($request['status'] === 'Delivered') event(new OrderCompletedEvent($order));
+            if ($request['status'] === 'Delivered') {
+                event(new OrderCompletedEvent($order));
+            }
             return $order;
-
-        }catch (\Throwable $throwable){
-
+        } catch (\Throwable $throwable) {
             throw $throwable;
         }
-
     }
 
 
-    public function create(){
+    public function create()
+    {
 
         $data[''] = '';
         return view('admin.orders.create')->with($data);
-
     }
 
     public function store(OrderRequest $request)
     {
 
-        try{
-
+        try {
             DB::beginTransaction();
 
             $inOrder = $request['order'];
@@ -139,18 +142,17 @@ class OrdersController extends Controller
 
             DB::commit();
 
-            return response()->json([
+            return response()->json(
+                [
                 'order' => $order,
                 'order_items' => $orderItems
 
-            ]);
-
-        }catch (\Throwable $throwable){
-
+                ]
+            );
+        } catch (\Throwable $throwable) {
             DB::rollback();
 
             throw $throwable;
         }
-
     }
 }

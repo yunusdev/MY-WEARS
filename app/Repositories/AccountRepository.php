@@ -15,32 +15,32 @@ class AccountRepository implements AccountContract
     public function updateProfile(array $params)
     {
 
-        if ($params['password']){
+        if ($params['password']) {
             $params['password'] = bcrypt($params['password']);
-        }else{
+        } else {
             unset($params['password']);
         }
 
         return User::where('id', auth()->id())->update($params);
-
     }
 
     public function getUserAndAddress(string $userId = null)
     {
-        if (!$userId) $userId = auth()->id();
+        if (!$userId) {
+            $userId = auth()->id();
+        }
         $user = User::where('id', $userId)->first();
-        if ($user) $user['address'] = UserAddress::where('user_id', $userId)->first();
+        if ($user) {
+            $user['address'] = UserAddress::where('user_id', $userId)->first();
+        }
         return  $user;
-
     }
 
     public function getUserWishlists(string $userId = null)
     {
 
-        if (!$userId){
-
+        if (!$userId) {
             return auth()->user()->wishlists;
-
         }
 
         return [];
@@ -49,56 +49,54 @@ class AccountRepository implements AccountContract
     public function wishlistProduct(Product $product, $wishlist)
     {
 
-        if ($wishlist){
-
+        if ($wishlist) {
             $product->wishlists()->attach(auth()->id());
             return ['message' => 'Product added to wishlist'];
-
         }
 
 
         $product->wishlists()->detach(auth()->id());
         return ['message' => 'Product removed from wishlist'];
-
-
     }
 
     public function removeItemFromWishlist(Product $product, $user = null)
     {
-        if (!$user) $user = auth()->user();
+        if (!$user) {
+            $user = auth()->user();
+        }
 
         $user->wishlists()->detach($product->id);
 
         return ['message' => 'Product removed from wishlist'];
-
     }
 
     public function clearUserWishList($user = null)
     {
-        if (!$user) $user = auth()->user();
+        if (!$user) {
+            $user = auth()->user();
+        }
 
         $user->wishlists()->detach();
 
         return ['message' => 'Wishlist cleared'];
-
     }
 
 
     public function updateOrCreateUserAddress(array $params, string $userId = null)
     {
 
-        if (!$userId) $userId = auth()->id();
+        if (!$userId) {
+            $userId = auth()->id();
+        }
         return UserAddress::updateOrCreate(['user_id' => $userId], $params);
-
     }
 
     public function createOrUpdateUserPhone(array $params, string $userId = null)
     {
-        if (!$userId) $userId = auth()->id();
+        if (!$userId) {
+            $userId = auth()->id();
+        }
 
         return User::where('id', $userId)->update(['phone' => $params['phone']]);
-
     }
-
-
 }

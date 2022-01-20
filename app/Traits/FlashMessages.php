@@ -25,30 +25,30 @@ trait FlashMessages
      protected $warningMessages = [];
 
      /**
-     * @param $message
-     * @param $type
-     */
+      * @param $message
+      * @param $type
+      */
     protected function setFlashMessage($message, $type)
     {
         $model = 'infoMessages';
 
         switch ($type) {
-            case 'info': {
-                $model = 'infoMessages';
-            }
-                break;
-            case 'error': {
-                $model = 'errorMessages';
-            }
-                break;
-            case 'success': {
-                $model = 'successMessages';
-            }
-                break;
-            case 'warning': {
-                $model = 'warningMessages';
-            }
-                break;
+        case 'info': {
+            $model = 'infoMessages';
+}
+            break;
+        case 'error': {
+            $model = 'errorMessages';
+}
+            break;
+        case 'success': {
+            $model = 'successMessages';
+}
+            break;
+        case 'warning': {
+            $model = 'warningMessages';
+}
+            break;
         }
 
         if (is_array($message)) {

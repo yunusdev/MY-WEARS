@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Builder;
 trait Filterable
 {
     /**
-     * @param Builder $builder
-     * @param QueryFilter $filters
+     * @param  Builder     $builder
+     * @param  QueryFilter $filters
      * @return Builder
      */
     public function scopeFilter(Builder $builder, QueryFilter $filters)

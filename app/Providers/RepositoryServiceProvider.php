@@ -3,7 +3,6 @@
 
 namespace App\Providers;
 
-
 use App\Contracts\AccountContract;
 use App\Contracts\CartContract;
 use App\Contracts\CategoryContract;
@@ -53,17 +52,15 @@ class RepositoryServiceProvider extends ServiceProvider
 
     ];
 
-    public function register(){
-
+    public function register()
+    {
     }
 
-    public function boot(){
+    public function boot()
+    {
 
-        foreach ($this->repositories as $interface => $implementation)
-        {
+        foreach ($this->repositories as $interface => $implementation) {
             $this->app->bind($interface, $implementation);
         }
-
     }
-
 }

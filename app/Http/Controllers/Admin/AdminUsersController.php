@@ -20,23 +20,24 @@ class AdminUsersController extends Controller
     public function index()
     {
         //
-       $admins = Admin::all();
+        $admins = Admin::all();
 
         return view('admin.admins.index', compact('admins'));
     }
 
-    public function create(){
+    public function create()
+    {
 
 
-//        if(auth('admin')->user()->hasPermissionTo('CreateUsers')){
+        //        if(auth('admin')->user()->hasPermissionTo('CreateUsers')){
 
             $roles = Role::all();
 
             return view('admin.admins.create', compact('roles'));
 
-//        }
-//
-//        return back();
+        //        }
+        //
+        //        return back();
 
 
     }
@@ -44,13 +45,15 @@ class AdminUsersController extends Controller
     public function store(Request $request)
     {
 
-        $this->validate(request(),[
+        $this->validate(
+            request(), [
 
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:admins',
             'password' => 'required|string|min:6|confirmed',
 
-        ]);
+            ]
+        );
 
         $input = $request->all();
 
@@ -68,7 +71,8 @@ class AdminUsersController extends Controller
 
         $admin->save();
 
-        if (isset($request->roles)) $admin->syncRoles($request->roles);
+        if (isset($request->roles)) { $admin->syncRoles($request->roles);
+        }
 
         return redirect(route('admins.index'))->with('message', 'The Admin has been created successfully!');
 
@@ -78,7 +82,7 @@ class AdminUsersController extends Controller
     {
         //
 
-//        if(auth('admin')->user()->hasPermissionTo('EditUsers')) {
+        //        if(auth('admin')->user()->hasPermissionTo('EditUsers')) {
 
             $admin = Admin::find($id);
 
@@ -86,22 +90,24 @@ class AdminUsersController extends Controller
 
             return view('admin.admins.edit', compact('admin', 'roles'));
 
-//        }
+        //        }
 
-//        return back();
+        //        return back();
     }
 
     public function update(Request $request, $id)
     {
         //
 
-        $this->validate(request(), [
+        $this->validate(
+            request(), [
 
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
-//            'password' => 'required|string|min:6|confirmed',
+            //            'password' => 'required|string|min:6|confirmed',
 
-        ]);
+            ]
+        );
 
 
         $request->status == 1 ?: $request['status'] = 0;
@@ -114,13 +120,13 @@ class AdminUsersController extends Controller
 
         $admin->email = $request->email;
 
-//        $admin->password = bcrypt($request->password);
+        //        $admin->password = bcrypt($request->password);
 
         $admin->status = $request->status;
 
         $admin->save();
 
-        if (isset($request->roles)){
+        if (isset($request->roles)) {
 
             $admin->syncRoles($request->roles);
 

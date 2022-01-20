@@ -23,13 +23,12 @@ class ProductRepository extends BaseRepository implements ProductContract
         parent::__construct($model);
         $this->model = $model;
         $this->productImageRepository = $productImageRepository;
-
     }
 
     public function getProducts()
     {
-//        return $this->allPaginate(9, 'created_at', 'desc',  ['category', 'subCategory']);
-        return $this->all(['*'],'created_at', 'desc',  ['category', 'subCategory']);
+        //        return $this->allPaginate(9, 'created_at', 'desc',  ['category', 'subCategory']);
+        return $this->all(['*'], 'created_at', 'desc', ['category', 'subCategory']);
     }
 
     public function getProductsCount()
@@ -56,14 +55,12 @@ class ProductRepository extends BaseRepository implements ProductContract
             'rangeMax' => $rangeMax,
 
         ];
-
     }
 
 
     public function getTopCategoryProducts(string $categoryId, int $num = 3)
     {
         return $this->model->where('category_id', $categoryId)->latest()->take($num)->get();
-
     }
 
     public function filterProducts(ProductFilter $filters, int $pagination = 9)
@@ -77,26 +74,22 @@ class ProductRepository extends BaseRepository implements ProductContract
         $product->views_count++;
         $product->save();
         return $product;
-
     }
 
     public function getRelatedProducts(Product $product, int $num = 6)
     {
         return $this->model->where('id', '!=', $product->id)->where('sub_category_id', $product->sub_category_id)
             ->latest()->take($num)->get();
-
     }
 
     public function getTrendingProducts(int $num = 6, array $whereData = [])
     {
         return $this->model->where($whereData)->orderBy('views_count', 'desc')->take($num)->get();
-
     }
 
     public function getTopSellingProducts(int $num = 3, array $whereData = [])
     {
         return $this->model->where($whereData)->get()->sortByDesc('order_items_count')->take($num)->values();
-
     }
 
     public function getTopSellingProductsAndTotalAmount(int $num = 3)
@@ -104,12 +97,11 @@ class ProductRepository extends BaseRepository implements ProductContract
         $query = OrderItem::query();
 
         return $query->select(DB::raw('count(*) AS count, product_id, sum(quantity) as totalQty, sum(product_price * quantity) AS totalAmount'))
-                    ->groupBy('product_id')
-                    ->orderBy('totalQty', 'desc')
-                    ->with('product')
-                    ->take($num)
-                    ->get();
-
+            ->groupBy('product_id')
+            ->orderBy('totalQty', 'desc')
+            ->with('product')
+            ->take($num)
+            ->get();
     }
 
     public function getNewArrivalsProducts(int $num = 3, array $whereData = [])
@@ -131,19 +123,16 @@ class ProductRepository extends BaseRepository implements ProductContract
     public function getSubCategoryProducts(string $subCategoryId, array $relationship = [])
     {
         return $this->findByWhere(['sub_category_id' => $subCategoryId], $relationship);
-
     }
 
     public function getProductById(string $id)
     {
         return $this->find($id);
-
     }
 
     public function getProductBy(array $data, array $relationship = [])
     {
         return $this->findOneBy($data, $relationship);
-
     }
     private function handleImageUpload($params)
     {
@@ -166,11 +155,13 @@ class ProductRepository extends BaseRepository implements ProductContract
     {
         foreach ($images as $image) {
             $img = UploadImage::upload($image, 'products');
-            $this->productImageRepository->storeProductImage([
+            $this->productImageRepository->storeProductImage(
+                [
                 'product_id' => $productId,
                 'category_id' => $categoryId,
                 'path' => $img
-            ]);
+                ]
+            );
         }
     }
 
@@ -208,7 +199,6 @@ class ProductRepository extends BaseRepository implements ProductContract
             $this->handleArrayImageUploads($images, $product->id, $product->category_id);
 
             return $product;
-
         } catch (\Throwable $exception) {
             throw $exception;
         }
@@ -225,7 +215,6 @@ class ProductRepository extends BaseRepository implements ProductContract
     {
 
         ProductsImage::whereIn('id', $images)->delete();
-
     }
 
 
@@ -233,5 +222,4 @@ class ProductRepository extends BaseRepository implements ProductContract
     {
         return $this->delete($id);
     }
-
 }

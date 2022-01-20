@@ -21,7 +21,8 @@ class Order extends Model
         'user_id', 'coupon_id', 'coupon_discount', 'ref', 'phone', 'state', 'lga', 'address', 'settled', 'comment'
     ];
 
-    public function getFormattedDateAttribute(){
+    public function getFormattedDateAttribute()
+    {
 
         return $this->created_at ? $this->created_at->format('F dS, Y') : '';
 
@@ -33,13 +34,15 @@ class Order extends Model
         return $this->belongsTo(Coupon::class);
     }
 
-    public function getIncomingAmountAttribute(){
+    public function getIncomingAmountAttribute()
+    {
 
         return $this->total_amount -  $this->delivery_fee;
 
     }
 
-    public function orderItems(){
+    public function orderItems()
+    {
 
         return $this->hasMany(OrderItem::class);
 

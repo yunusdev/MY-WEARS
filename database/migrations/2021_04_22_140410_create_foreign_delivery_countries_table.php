@@ -13,12 +13,14 @@ class CreateForeignDeliveryCountriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('foreign_delivery_countries', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('country');
-            $table->unsignedBigInteger('amount');
-            $table->timestamps();
-        });
+        Schema::create(
+            'foreign_delivery_countries', function (Blueprint $table) {
+                $table->uuid('id')->primary();
+                $table->string('country');
+                $table->unsignedBigInteger('amount');
+                $table->timestamps();
+            }
+        );
     }
 
     /**

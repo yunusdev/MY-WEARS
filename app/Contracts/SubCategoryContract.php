@@ -13,6 +13,6 @@ interface SubCategoryContract
     public function storeSubCategory(array $params);
 
     public function updateSubCategory(array $params, string $id);
-//
+    //
     public function deleteSubCategory(string $id);
 }

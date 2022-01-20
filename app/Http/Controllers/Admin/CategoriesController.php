@@ -14,12 +14,11 @@ class CategoriesController extends Controller
 
     protected $categoryRepository, $productRepository;
 
-    public function __construct(CategoryContract $categoryRepository,  ProductContract $productRepository)
+    public function __construct(CategoryContract $categoryRepository, ProductContract $productRepository)
     {
 
-       $this->categoryRepository = $categoryRepository;
+        $this->categoryRepository = $categoryRepository;
         $this->productRepository = $productRepository;
-
     }
 
     public function index()
@@ -28,10 +27,10 @@ class CategoriesController extends Controller
         return view('admin.categories.index')->with($data);
     }
 
-    public function getAllCategories(){
+    public function getAllCategories()
+    {
 
         return $this->categoryRepository->getCategories();
-
     }
 
     public function getProducts($categorySlug)
@@ -47,45 +46,42 @@ class CategoriesController extends Controller
     {
 
         try {
-
-            $this->validate($request, [
+            $this->validate(
+                $request,
+                [
 
                 'name' => 'required|max:80|unique:categories',
 
-            ]);
+                ]
+            );
 
             $params = $request->only('name', 'description');
             $params['slug'] = Str::slug($params['name']);
             return $this->categoryRepository->storeCategory($params);
-
-        }catch (\Throwable $exception){
-
+        } catch (\Throwable $exception) {
             throw $exception;
-
         }
-
     }
 
     public function update(Request $request, Category $category)
     {
         //
         try {
-
-            $this->validate($request, [
+            $this->validate(
+                $request,
+                [
 
                 'name' => 'required|max:80',
 
-            ]);
+                ]
+            );
 
             $params = $request->only('name', 'description');
             $params['slug'] = Str::slug($params['name']);
             $this->categoryRepository->updateCategory($params, $category->id);
             return $category->fresh();
-
         } catch (\Throwable $exception) {
-
             throw $exception;
-
         }
     }
 
@@ -93,13 +89,9 @@ class CategoriesController extends Controller
     {
         //
         try {
-
             return $this->categoryRepository->deleteCategory($id);
-
         } catch (\Throwable $exception) {
-
             throw $exception;
-
         }
     }
 }

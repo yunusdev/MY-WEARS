@@ -14,8 +14,8 @@ class CategoriesController extends Controller
     private $categoryRepository, $subCategoryRepository, $productRepository;
 
     public function __construct(CategoryContract $categoryRepository,
-                                SubCategoryContract $subCategoryRepository, ProductContract $productRepository)
-    {
+        SubCategoryContract $subCategoryRepository, ProductContract $productRepository
+    ) {
 
         $this->categoryRepository = $categoryRepository;
         $this->productRepository = $productRepository;
@@ -23,7 +23,8 @@ class CategoriesController extends Controller
 
     }
 
-    public function categoryProducts($categorySlug){
+    public function categoryProducts($categorySlug)
+    {
 
         $data['category'] = $this->categoryRepository->getCategoryBy(['slug' => $categorySlug]);
 
@@ -31,7 +32,8 @@ class CategoriesController extends Controller
 
     }
 
-    public function subCategoryProducts($subCategorySlug){
+    public function subCategoryProducts($subCategorySlug)
+    {
 
         $data['sub_category'] = $this->subCategoryRepository->getSubCategoryBy(['slug' => $subCategorySlug], ['category']);
         return view('shop.index')->with($data);

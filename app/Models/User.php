@@ -50,45 +50,45 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-//    public function getAddressAttribute(){
-//
-//        return $this->address();
-//
-//    }
+    //    public function getAddressAttribute(){
+    //
+    //        return $this->address();
+    //
+    //    }
 
-    public function coupons(){
+    public function coupons()
+    {
 
         return $this->belongsToMany(Coupon::class, 'coupon_user')->withTimestamps()->orderBy('created_at', 'DESC');
-
     }
 
-    public function address(){
+    public function address()
+    {
 
         return $this->hasOne(UserAddress::class);
-
     }
 
-    public function wishlists(){
+    public function wishlists()
+    {
 
         return $this->belongsToMany(Product::class, 'wishlists')->withTimestamps();
-
     }
 
-    public function getFormattedDateAttribute(){
+    public function getFormattedDateAttribute()
+    {
 
         return $this->created_at->format('F dS, Y');
-
     }
 
-    public function orders(){
+    public function orders()
+    {
 
         return $this->hasMany(Order::class);
-
     }
 
-    public function getOrdersCountAttribute(){
+    public function getOrdersCountAttribute()
+    {
 
         return $this->orders()->count();
-
     }
 }

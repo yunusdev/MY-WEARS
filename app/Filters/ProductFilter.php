@@ -18,7 +18,7 @@ class ProductFilter extends QueryFilter
     }
 
     /**
-     * @param string $productSubCategory
+     * @param  string $productSubCategory
      * @return void
      */
     public function subCategory(string $productSubCategory)
@@ -85,7 +85,7 @@ class ProductFilter extends QueryFilter
     }
 
     /**
-     * @param string $name
+     * @param  string $name
      * @return void
      */
     public function name(string $name)
@@ -119,7 +119,7 @@ class ProductFilter extends QueryFilter
     }
 
     /**
-     * @param string $orderBy
+     * @param  string $orderBy
      * @return void
      */
     public function orderByAsc(string $orderBy)
@@ -128,7 +128,7 @@ class ProductFilter extends QueryFilter
     }
 
     /**
-     * @param string $orderBy
+     * @param  string $orderBy
      * @return void
      */
     public function orderByDesc(string $orderBy)

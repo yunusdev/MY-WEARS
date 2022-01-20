@@ -15,6 +15,7 @@ class ConfigController extends Controller
 
     /**
      * ConfigController constructor.
+     *
      * @param ConfigContract $configRepository
      */
     public function __construct(ConfigContract $configRepository)
@@ -22,7 +23,8 @@ class ConfigController extends Controller
         $this->configRepository = $configRepository;
     }
 
-    public function index(){
+    public function index()
+    {
 
         $data['config'] =  $this->configRepository->getConfig();
         $data['foreign_countries'] =  $this->configRepository->getForeignDeliveryCountries();
@@ -30,9 +32,11 @@ class ConfigController extends Controller
 
     }
 
-    public function update(Request $request, Config $config){
+    public function update(Request $request, Config $config)
+    {
 
-        $this->validate($request, [
+        $this->validate(
+            $request, [
 
             'home_caption_top_1' => 'required',
             'home_caption_bottom_1' => 'required',
@@ -56,7 +60,8 @@ class ConfigController extends Controller
             'contact_email' => 'required',
             'contact_phone' => 'required',
 
-        ]);
+            ]
+        );
 
         $params = $request->all();
 
@@ -69,13 +74,16 @@ class ConfigController extends Controller
     }
 
 
-    public function updateForeignDeliveryCountries(Request $request){
+    public function updateForeignDeliveryCountries(Request $request)
+    {
 
-        $this->validate($request, [
+        $this->validate(
+            $request, [
 
             'items' => 'array'
 
-        ]);
+            ]
+        );
         $this->configRepository->updateForeignDeliveryCountries($request->items);
         return $this->configRepository->getForeignDeliveryCountries();
 

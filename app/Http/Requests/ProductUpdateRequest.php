@@ -32,8 +32,8 @@ class ProductUpdateRequest extends FormRequest
             'price' => 'required',
             'available_sizes' => 'required|array|min:1',
             'available_colors' => 'required|array|min:1',
-//            'images' => 'required|array|min:1',
-//            'front_image' => 'required',
+        //            'images' => 'required|array|min:1',
+        //            'front_image' => 'required',
             'description' => 'required',
         ];
     }

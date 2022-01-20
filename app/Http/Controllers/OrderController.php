@@ -24,8 +24,8 @@ class OrderController extends Controller
     private $orderRepository, $orderItemRepository, $cartRepository, $productRepository, $accountRepository, $couponRepository;
 
     public function __construct(OrderContract $orderRepository, ProductContract $productRepository, AccountContract $accountRepository,
-                                OrderItemContract $orderItemRepository, CartContract  $cartRepository, CouponContract $couponRepository)
-    {
+        OrderItemContract $orderItemRepository, CartContract  $cartRepository, CouponContract $couponRepository
+    ) {
         $this->orderRepository = $orderRepository;
         $this->orderItemRepository = $orderItemRepository;
         $this->cartRepository = $cartRepository;
@@ -36,30 +36,35 @@ class OrderController extends Controller
 
     }
 
-    public function getUserOrders(){
+    public function getUserOrders()
+    {
 
         return $this->orderRepository->getUserOrders();
 
     }
 
-    public function index(){
+    public function index()
+    {
 
         $data['trending_products'] = $this->productRepository->getTrendingProducts();
         return view('account.orders.index')->with($data);
 
     }
 
-    public function show($tracking_number){
+    public function show($tracking_number)
+    {
 
         $data['order'] = $this->orderRepository->getOrderByTrackingNumber($tracking_number, ['orderItems.product', 'coupon']);
 
-        if (!$data['order']) return redirect('/');
+        if (!$data['order']) { return redirect('/');
+        }
 
         return view('account.orders.show')->with($data);
 
     }
 
-    public function create(OrderRequest $request){
+    public function create(OrderRequest $request)
+    {
         $url = env('APP_URL');
         $name = ''; $is_auth = false;
         try{
@@ -79,16 +84,18 @@ class OrderController extends Controller
             }
             $orderItems = $this->orderItemRepository->createOrderItems($order, $inOrderItems);
             $this->cartRepository->clearUserCart();
-            event(new OrderInitiatedEvent($order, $inOrderItems, $name, $is_auth , $url));
+            event(new OrderInitiatedEvent($order, $inOrderItems, $name, $is_auth, $url));
             Cache::put('message_success', 'Order completed successfully!', now()->addSeconds(10));
 
             DB::commit();
 
-            return response()->json([
+            return response()->json(
+                [
                 'order' => $order,
                 'order_items' => $orderItems
 
-            ]);
+                ]
+            );
 
         }catch (\Throwable $throwable){
 

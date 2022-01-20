@@ -14,7 +14,7 @@ class RandomStringGenerator
             $this->setAlphabet($alphabet);
         } else {
             $this->setAlphabet(
-//                implode(range('a', 'z')).
+            //                implode(range('a', 'z')).
                 implode(range('A', 'Z'))
                 . implode(range(0, 9))
             );
@@ -31,7 +31,7 @@ class RandomStringGenerator
     }
 
     /**
-     * @param int $length
+     * @param  int $length
      * @return string
      */
     public function generate($length)
@@ -47,8 +47,8 @@ class RandomStringGenerator
     }
 
     /**
-     * @param int $min
-     * @param int $max
+     * @param  int $min
+     * @param  int $max
      * @return int
      */
     protected function getRandomInteger($min, $max)

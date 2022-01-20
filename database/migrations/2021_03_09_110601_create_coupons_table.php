@@ -13,26 +13,28 @@ class CreateCouponsTable extends Migration
      */
     public function up()
     {
-        Schema::create('coupons', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('name')->nullable();
-            $table->string('code')->unique();
-            $table->text('description')->nullable();
-            $table->string('admin_id');
-            $table->bigInteger('lowest_amount')->nullable();
-            $table->string('product_id')->nullable();
-            $table->enum('type', ['Percentage', 'Price'])->default('Percentage');
-            $table->bigInteger('discount')->default(20); // by percentage or price
-            $table->bigInteger('max_usage')->default(10)->nullable();
-            $table->bigInteger('remaining')->nullable();
-            $table->boolean('will_expire')->default(1);
-            $table->boolean('will_max_out')->default(1);
-            $table->boolean('status')->default(1);
-            $table->timestamp('expires_in')->nullable();
-            $table->timestamps();
-            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-        });
+        Schema::create(
+            'coupons', function (Blueprint $table) {
+                $table->uuid('id')->primary();
+                $table->string('name')->nullable();
+                $table->string('code')->unique();
+                $table->text('description')->nullable();
+                $table->string('admin_id');
+                $table->bigInteger('lowest_amount')->nullable();
+                $table->string('product_id')->nullable();
+                $table->enum('type', ['Percentage', 'Price'])->default('Percentage');
+                $table->bigInteger('discount')->default(20); // by percentage or price
+                $table->bigInteger('max_usage')->default(10)->nullable();
+                $table->bigInteger('remaining')->nullable();
+                $table->boolean('will_expire')->default(1);
+                $table->boolean('will_max_out')->default(1);
+                $table->boolean('status')->default(1);
+                $table->timestamp('expires_in')->nullable();
+                $table->timestamps();
+                $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
+                $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            }
+        );
     }
 
     /**

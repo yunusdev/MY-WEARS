@@ -27,7 +27,7 @@ class SocialController extends Controller
 
         $existingUser = User::where('email', $user->email)->first();
 
-        if($existingUser){
+        if($existingUser) {
             auth()->login($existingUser, true);
         } else {
 

@@ -19,19 +19,22 @@ class Config extends Model
         'flat_farther_lagos_delivery_fee', 'farther_lagos_lgas', 'flat_outside_lagos_delivery_fee',
         'contact_email', 'contact_phone'];
 
-    public function category(){
+    public function category()
+    {
 
         return $this->belongsTo(Category::class, 'featured_category');
 
     }
 
-    public function product(){
+    public function product()
+    {
 
         return $this->belongsTo(Product::class, 'featured_product');
 
     }
 
-    public function getFartherLagosLgAttribute(){
+    public function getFartherLagosLgAttribute()
+    {
 
         return explode(',', $this->farther_lagos_lgas);
 

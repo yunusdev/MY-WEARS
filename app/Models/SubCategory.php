@@ -10,20 +10,23 @@ class SubCategory extends Model
 
     protected $appends = ['products_count'];
 
-    public function category(){
+    public function category()
+    {
 
         return $this->belongsTo(Category::class);
 
     }
 
 
-    public function products(){
+    public function products()
+    {
 
         return $this->hasMany(Product::class);
 
     }
 
-    public function getProductsCountAttribute(){
+    public function getProductsCountAttribute()
+    {
 
         return $this->products()->count();
 

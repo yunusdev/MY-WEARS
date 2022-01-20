@@ -36,7 +36,8 @@ class OrderRepository extends BaseRepository implements OrderContract
 
     public function getUserOrders(string $userId = null, $numPaginate = 10, array $relationship = [])
     {
-        if (!$userId) $userId = auth()->id();
+        if (!$userId) { $userId = auth()->id();
+        }
 
         return $this->paginate(['user_id' => $userId], $numPaginate);
     }
@@ -44,7 +45,7 @@ class OrderRepository extends BaseRepository implements OrderContract
     public function createUserOrder(array $params, bool $userCreated = true)
     {
 
-        if ($userCreated && Auth::check()){
+        if ($userCreated && Auth::check()) {
             $params['user_id'] = auth()->id();
         }
         $random = new RandomStringGenerator();
@@ -68,7 +69,8 @@ class OrderRepository extends BaseRepository implements OrderContract
     {
 
         $query = ['tracking_number' => $tracking_number];
-        if ($user) $query['user_id'] = auth()->id();
+        if ($user) { $query['user_id'] = auth()->id();
+        }
         return $this->findOneBy($query, $relationship);
     }
 
